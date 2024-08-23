@@ -1,0 +1,17 @@
+/**
+ * file: karbytes_22_august_2024.txt
+ * type: plain-text
+ * date: 22_AUGUST_2024
+ * author: karbytes
+ * license: PUBLIC_DOMAIN
+ */
+
+I have been reluctant to share with the public the unusually high number of hardships I have been facing within the past three months (especially this week and especially today) because I did not want to take the focus of my blog off what I consider to be my professional interests (i.e. what pertains to information technology and consciousness research). Because the events I have experienced have been so dramatic, I decided to share them in a public journal entry.
+
+Last week my Patelco debit card and driver's license were apparently stolen while I was not watching my wallet which was placed next to me while I was sitting on the ground charging my electronics at an outdoor electrical outlet in the courtyard outside of Philz Coffee in Sunnyvale, California. (Fortunately, I still had my PayPal Business debit card and other wallet items). Within two days of that event, I went to the Santa Clara Department of Motor Vehicles to apply for a new driver's license (which cost approximately $40) and reported my Patelco debit card lost or stolen and ordered a free new replacement card.
+
+Within the past four days my HP laptop became severely damaged (but minimally functional enough to allow me to use it despite the screen being almost completely broken except for approximately 30% of space on the left side of the screen) while I was attempting to use the laptop to charge my phone during a bike ride out in Alviso slough (and I only had one portable laptop charging battery because the other one went missing while I was walking around South Bay approximately two months ago). Fortunately, I was able to purchase, obtain, and set up my new Lenovo laptop by partitioning it with Ubuntu in addition to its native Windows 11 Home operating system (and I also installed some open source software on the Ubuntu side such as Sublime Text editor and VLC video player).
+
+This morning I biked all the way from the Fremont baylands to the border of Sunnyvale and San Jose before I realized that my wallet was missing from my left leg pocket. In a panic and with grim determination, I bicycled back to were I thought I left my wallet in Fremont as fast as I could. Fortunately I found my wallet. Then I made my way back down to Sunnyvale to that aforementioned courtyard to charge my electronics, install some software, and make updates to my blog. (I could not help but notice a lot of people making rude comments seemingly at me but I tried to ignore them and played some loud music on my devices in an effort to block them out).
+
+Then, while bicycling up Mathilda Avenue towards Sunnyvale slough and while crossing a freeway on ramp, some guy hit me with his car and sent me and the bike flying through the air for what seemed like three seconds. Thankfully, I was not injured (and neither was my laptop) but my bicycle got bent out of shape to the extent that the back tire would not turn and some of the back wheel spokes became dislocated. I noticed the driver's wind shield was cracked significantly. He asked me if I was okay and I said yes and he drove off. I am now sitting at the location the collision happened typing this note.
