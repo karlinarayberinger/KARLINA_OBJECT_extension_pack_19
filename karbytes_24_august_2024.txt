@@ -32,6 +32,6 @@ referenced_file_3: https://raw.githubusercontent.com/karlinarayberinger/KARLINA_
 
 referenced_file_4: https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_extension_pack_19/main/laptop_desktop_background_24august2024_p4.jpg
 
-referenced_file_5: https://karbytesforlifeblog.wordpress.com/gnu_manifest_downloaded_by_karbytes_on_24august2024/
+referenced_file_5: https://karbytesforlifeblog.wordpress.com/gnu_manifesto_downloaded_by_karbytes_on_24august2024/
 
 referenced_file_6: https://karbytesforlifeblog.wordpress.com/a_karbytes_content_management_policy/
