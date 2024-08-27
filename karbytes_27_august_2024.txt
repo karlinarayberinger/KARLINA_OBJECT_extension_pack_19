@@ -1,3 +1,11 @@
+/**
+ * file: karbytes_27_august_2024.txt
+ * type: plain-text
+ * date: 26_AUGUST_2024
+ * author: karbytes
+ * license: PUBLIC_DOMAIN
+ */
+
 To Whom It May Concern:
 
 This is a follow-up to the previous journal entry which I wrote on 26_AUGUST_2024 (and that previous journal entry is what I consider to be "insufficiently professional" instead of "sufficiently professional" according to my personal standards in pertinence to karbytes content (and karbytes, in this context, refers to the body of (public domain) Internet-based intellectual property (in the form of digital files (which are each ultimately reducible to exactly one unique sequence of binary digits which is "machine readable" and used to verbatim reconstitute the "higher dimensional" data which that "one dimensional" sequence of binary digits encodes) described by the web page at the following Uniform Resource Locator: https://karbytesforlifeblog.wordpress.com/about_karbytes/)).
