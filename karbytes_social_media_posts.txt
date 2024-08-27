@@ -1,7 +1,7 @@
 /**
  * file: karbytes_social_media_posts.txt
  * type: plain-text
- * date: 26_AUGUST_2024
+ * date: 27_AUGUST_2024
  * author: karbytes
  * license: PUBLIC_DOMAIN
  */
@@ -326,3 +326,11 @@ https://karbytesforlifeblog.wordpress.com/karbytes_10_july_2024/
 On 26_AUGUST_2024 at approximately 9:30PM Pacific Standard Time, karbytes deleted the social media post which featured the following karbytes-created web page from karbytes' Twitter dot Com page, from karbytes' Minds dot Com page, from karbytes' LinkedIn dot Com page, and from karbytes' Patreon dot Com page:
 
 https://karbytesforlifeblog.wordpress.com/karbytes_05_july_2024/
+
+* * *
+
+On 27_AUGUST_2024 at approximately 2:30PM, karbytes shared the following plain-text as a tweet on karbytes' Twitter page and then as a Minds post on karbytes' Minds page (using the copied plain-text tweet, the URL to that tweet, and a screenshot of that tweet) before deleting both of those posts within 30 minutes of posting them:
+
+tweet_text: "Climate change" is widely used as an umbrella term effect which downplays environmental toxicity (from pollution & radioactive waste) which causes serious damage to the human body (especially cancer); not just globally rising temperatures due to increased greenhouse gas emissions.
+
+tweet_url: https://x.com/karbytes/status/1828535722049167823
