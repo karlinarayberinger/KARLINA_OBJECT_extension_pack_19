@@ -1,0 +1,862 @@
+<hr>
+<p><strong>EULERS_NUMBER_APPROXIMATION</strong></p>
+<hr>
+<p><span style="background:#ffff00">The <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/C%2B%2B" target="_blank" rel="noopener">C++</a> program featured in this tutorial web page generates an approximation of the the mathematical constant named <strong>e</strong> (i.e. <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/E_(mathematical_constant)" target="_blank" rel="noopener">Euler’s Number</a>). The program user is prompted to enter a nonnegative integer to store in a variable named N. Then the approximate value of e is computed by adding N unique terms (and each of those N terms is 1 divided by <a style="background:#000000;color:#00ff00" href="https://karlinaobject.wordpress.com/factorial/" target="_blank" rel="noopener">factorial</a> i (and i is a nonnegative integer which is smaller than or equal to (N &#8211; 1))). Note that the actual value of e is a limit which cannot be determined using a finite number of additions as described in the previous sentence. Instead, the actual value of <u>e is defined as the sum of every unique instance of (1/(i!)) such that i is a nonnegative integer.</u></span></p>
+<p><em>To view hidden text inside each of the preformatted text boxes below, scroll horizontally.</em></p>
+<pre>Let E be 0.
+Let N be a nonnegative integer.
+For each nonnegative integer i (starting with 0 and ending with (N - i)):
+  Add (1/(i!)) to E.
+End For.
+// E represents the approximate value of Euler's Number. 
+// As N approaches INFINITY, E approaches Euler's Number.
+</pre>
+<hr>
+<p><strong>SOFTWARE_APPLICATION_COMPONENTS</strong></p>
+<hr>
+<p>C++_source_file: <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/eulers_number_approximation.cpp" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/eulers_number_approximation.cpp</a></p>
+<p>plain-text_file: <a style="background:#000000;color:#ff9000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/eulers_number_approximation_output.txt" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/eulers_number_approximation_output.txt</a></p>
+<hr>
+<p><strong>PROGRAM_COMPILATION_AND_EXECUTION</strong></p>
+<hr>
+<p>STEP_0: Copy and paste the C++ <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/eulers_number_approximation.cpp" target="_blank" rel="noopener">source code</a> into a new text editor document and save that document as the following file name:</p>
+<pre>eulers_number_approximation.cpp</pre>
+<p>STEP_1: Open a <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/Unix" target="_blank" rel="noopener">Unix</a> command line terminal application and set the current directory to wherever the C++ is located on the local machine (e.g. Desktop).</p>
+<pre>cd Desktop</pre>
+<p>STEP_2: Compile the C++ file into machine-executable instructions (i.e. object file) and then into an executable piece of software named <strong>app</strong> using the following command:</p>
+<pre>g++ eulers_number_approximation.cpp -o app</pre>
+<p>STEP_3: If the program compilation command does not work, then use the following commands (in top-down order) to install the C/C++ compiler (which is part of the <a style="background: #ff9000;color: #000000" href="https://en.wikipedia.org/wiki/GNU_Compiler_Collection" target="_blank" rel="noopener">GNU Compiler Collection (GCC)</a>):</p>
+<pre>sudo apt install build-essential</pre>
+<pre>sudo apt-get install g++</pre>
+<p>STEP_4: After running the <strong>g++</strong> command, run the executable file using the following command:</p>
+<pre>./app</pre>
+<p>STEP_5: Once the application is running, the following prompt will appear:</p>
+<pre>Enter a nonnegative integer which is no larger than 65:</pre>
+<p>STEP_6: Enter a value for N using the keyboard.</p>
+<p>STEP_7: Observe program results on the command line terminal and in the <a style="background:#000000;color:#ff9000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/eulers_number_approximation_output.txt" target="_blank" rel="noopener">output file</a>.</p>
+<hr>
+<p><strong>PROGRAM_SOURCE_CODE</strong></p>
+<hr>
+<p><em>When copy-pasting the source code from the preformatted text box below into a text editor document, remove the spaces between the angle brackets and the library names in the preprocessing directives code block. (The spaces were inserted between the library names and angle brackets in the preformatted text box below in order to prevent the WordPress server from misinterpreting those C++ library references as <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/HTML" target="_blank" rel="noopener">HTML</a> tags in the source code of this web page).</em></p>
+<p>C++_source_file: <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/eulers_number_approximation.cpp" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/eulers_number_approximation.cpp</a></p>
+<hr>
+<pre>
+/**
+ * file: eulers_number_approximation.cpp
+ * type: C++ (source file)
+ * date: 21_JUNE_2023
+ * author: karbytes
+ * license: PUBLIC_DOMAIN
+ */
+
+/* preprocessing directives */
+#include &lt; iostream &gt; // command line user interface input and output
+#include &lt; fstream &gt; // file input and output
+#define MAXIMUM_N 65 // constant which represents maximum N value 
+
+/* function prototypes */
+unsigned long long compute_factorial_of_N(int N);
+long double approximate_eulers_number(int N, std::ostream &amp; output);
+
+/**
+ * Compute N factorial (N!) using an iterative algorithm.
+ * 
+ * If N is a natural number, then N! is the product of exactly one instance 
+ * of each unique natural number which is smaller than or equal to N. 
+ * N! := N * (N - 1) * (N - 2) * (N - 3) * ... * 3 * 2 * 1. 
+ * 
+ * If N is zero, then N! is one.
+ * 0! := 1.
+ * 
+ * The value returned by this function is a nonnegative integer (which is N factorial).
+ * 
+ * Assume that N is a nonnegative integer no larger than MAXIMUM_N.
+ */
+unsigned long long compute_factorial_of_N(int N)
+{
+	// Declare an int type variable (i.e. a variable for storing integer values) named i. 
+	// Set the initial value which is stored in i to zero.
+	int i = 0;
+
+	// Declare an unsigned long long type variable (i.e. a variable for storing nonnegative integer values) named F. 
+	// Set the initial value which is stored in F to zero.
+	unsigned long long int F = 0; 
+
+	// If N is larger than negative one and if N is not larger than MAXIMUM_N, set i to N. 
+	// Otherwise, set i to 0.
+	i = ((N &gt; -1) &amp;&amp; (N  0) ? N : 1; 
+
+	// While i is larger than zero: execute the code block enclosed by the following curly braces.
+	while (i &gt; 0) 
+	{
+		// If i is larger than 1, multiply F by (i - 1).
+		if (i &gt; 1) F *= i - 1; 
+
+		// Decrement i by 1.
+		i -= 1; 
+	}
+
+	// Return the value stored in F.
+	// The value stored in F is factorial N.
+	// Factorial N is denoted by N followed by the exclamation mark.
+	return F; // Return the value represented by N!
+}
+
+/**
+ * Generate an approximation of the the mathematical constant named e (i.e. Euler’s Number).
+ * 
+ * Euler&#039;s Number can be defined as follows:
+ * Let N be a natural number. Then,
+ * as the value of N approaches INFINITY,
+ * the value of (1 + (1/N)) ^ N approaches Euler&#039;s Number.
+ * 
+ * Euler&#039;s Number can also be defined as follows:
+ * Let N be a nonnegative integer. Then,
+ * as the value of N approaches INFINITY,
+ * the sum of each instance of N unique terms such that each term of those N terms is
+ * 1 divided by the factorial of some nonnegative integer which is smaller than or equal to N 
+ * approaches Euler&#039;s Number.
+ * 
+ * The value returned by this function is a positive floating-point number (which is the Nth approximation of Euler&#039;s Number).
+ * 
+ * Assume that N is a nonnegative integer no larger than MAXIMUM_N.
+ */
+long double approximate_eulers_number(int N, std::ostream &amp; output)
+{
+	// Declare a long double type variable (i.e. a variable for storing floating-point number values) named A. 
+	// Set the initial value which is stored in A to zero.
+	long double A = 0.0;
+
+	// Declare an int type variable (i.e. a variable for storing integer values) named i. 
+	// Set the intiial value which is stored in i to zero.
+	int i = 0;
+
+	// Declare a pointer to an unsigned long long type variable named T.
+	// T initially stores the value 0 and will later be used to store the memory address of a dynamically-allocated array of N unsigned long long type values.
+	//
+	// A pointer variable stores 0 or else the memory address of a variable of the corresponding data type.
+	// The value stored in a pointer is a sixteen-character memory address which denotes the first memory cell in a chunk of contiguous memory cells
+	// (and that chunk of contiguous memory cells is exactly as large as is the data capacity of a variable of that pointer&#039;s corresponding data type).
+	// Note that each memory cell has a data capacity of one byte.
+	unsigned long long * T;
+
+	// If N is smaller than one or if N is larger than MAXIMUM_N, set N to one. 
+	if ((N  MAXIMUM_N)) N = 1;
+
+	// Dynamically allocate N contiguous unsigned long long sized chunks of memory to an array for storing N floating-point values.
+	// Store the memory address of the first element of that array in T.
+	T = new unsigned long long [N];
+
+	// Print the previous command and comments associated with that command to the output stream.
+	output &lt;&lt; &quot;\n\n// Dynamically allocate N contiguous unsigned long long sized chunks of memory to an array for storing N floating-point values.&quot;;
+	output &lt;&lt; &quot;\n// Store the memory address of the first element of that array in T.&quot;;
+	output &lt;&lt; &quot;\nT = new unsigned long long [N];&quot;;
+
+	// Print &quot;A := {A}. // variable to store the Nth approximation of Euler&#039;s Number&quot; to the output stream.
+	output &lt;&lt; &quot;\n\nA := &quot; &lt;&lt; A &lt;&lt; &quot;. // variable to store the Nth approximation of Euler&#039;s Number&quot;;
+
+	// Print &quot;N := {N}. // number of elements in the array of unsigned long long type values pointed to by T&quot; to the output stream.
+	output &lt;&lt; &quot;\n\nN := &quot; &lt;&lt; N &lt;&lt; &quot;. // number of elements in the array of unsigned long long type values pointed to by T&quot;;
+
+	// Print &quot;sizeof(unsigned long long) = {sizeof(unsigned long long)}. // number of bytes&quot; to the output stream.
+	output &lt;&lt; &quot;\n\nsizeof(unsigned long long) = &quot; &lt;&lt; sizeof(unsigned long long) &lt;&lt; &quot;. // number of bytes&quot;;
+
+	// Print &quot;&amp;T = {&amp;T}. // memory address of unsigned long long type variable named T&quot; to the output stream.
+	output &lt;&lt; &quot;\n\n&amp;T = &quot; &lt;&lt; &amp;T &lt;&lt; &quot;. // memory address of unsigned long long type variable named T&quot;;
+
+	// Print &quot;T := {T}. // memory address which is stored in T&quot; to the output stream.
+	output &lt;&lt; &quot;\n\nT = &quot; &lt;&lt; T &lt;&lt; &quot;. // memory address which is stored in T&quot;;
+
+	// Print &quot;(*T) := {*T}. // unsigned long long type value whose address is stored in T&quot; to the output stream.
+	output &lt;&lt; &quot;\n\n(*T) = &quot; &lt;&lt; (*T) &lt;&lt; &quot;. // unsigned long long type value whose address is stored in T&quot;;
+
+	// Print &quot;Displaying the memory address of each element of array T...&quot; to the output stream.
+	output &lt;&lt; &quot;\n\nDisplaying the memory address of each element of array T...\n&quot;;
+
+	// For each integer value represented by i (starting with 0 and ending with (N - 1) in ascending order): 
+	// print the memory address of the ith element of the array represented by T to the output stream.
+	for (i = 0; i &lt; N; i += 1) 
+	{
+		// Print &quot;&amp;T[{i}] = {&amp;T[i]}. // memory address of T[{i}]&quot; to the output stream.
+		output &lt;&lt; &quot;\n&amp;T[&quot; &lt;&lt; i &lt;&lt; &quot;] = &quot; &lt;&lt; &amp;T[i] &lt;&lt; &quot;. // memory address of T[&quot; &lt;&lt; i &lt;&lt; &quot;]&quot;;
+	}
+
+	// Print &quot;Storing the factorial of each nonnegative integer which is smaller than N in array T...&quot; to the output stream.
+	output &lt;&lt; &quot;\n\nStoring the factorial of each nonnegative integer which is smaller than N in array T...\n&quot;;
+
+	// For each integer value represented by i (starting with 0 and ending with (N - 1) in ascending order):
+	// set the value of the ith element of array T to i! and
+	// print the data value which is stored in the ith element of the array to the output stream.
+	for (i = 0; i &lt; N; i += 1) 
+	{
+		// Print &quot;T[{i}] := factorial({i}) = {i}! = &quot; to the output stream.
+		output &lt;&lt; &quot;\nT[&quot; &lt;&lt; i &lt;&lt; &quot;] := factorial(&quot; &lt;&lt; i &lt;&lt; &quot;) = (&quot; &lt;&lt; i &lt;&lt; &quot;)! = &quot;;
+
+		// Store i! in T[i].
+		T[i] = compute_factorial_of_N(i);
+
+		// Print &quot;{T[i]}.&quot; to the output stream.
+		output &lt;&lt; T[i] &lt;&lt; &quot;.&quot;;
+	}
+
+	// Print &quot;Computing the appoximate value of Euler&#039;s Number by adding up the reciprocal of each value in array T...&quot; to the output stream.
+	output &lt;&lt; &quot;\n\nComputing the appoximate value of Euler&#039;s Number by adding up the reciprocal of each value in array T...\n&quot;;
+
+	// For each integer value represented by i (starting with 0 and ending with (N - 1) in ascending order):
+	// print the value of (1 / T[i]) to the output stream.
+	for (i = 0; i &lt; N; i += 1) output &lt;&lt; &quot;\n(1 / T[&quot; &lt;&lt; i &lt;&lt; &quot;]) = (1 / &quot; &lt;&lt; T[i] &lt;&lt; &quot;) = &quot; &lt;&lt; (long double) 1 / T[i] &lt;&lt; &quot;.&quot;;
+
+	// For each integer value represented by i (starting with 0 and ending with (N - 1) in ascending order):
+	// add the value of (1 / (N - i)!) to A and print the data value which is stored in A to the output stream.
+	for (i = 0; i &lt; N; i += 1) 
+	{
+		output &lt;&lt; &quot;\n\nA := A + (1 / (&quot; &lt;&lt; i &lt;&lt; &quot;)!)&quot;;
+		output &lt;&lt; &quot;\n   = &quot; &lt;&lt; A &lt;&lt; &quot; + (1 / &quot; &lt;&lt; T[i] &lt;&lt; &quot;)&quot;;
+		output &lt;&lt; &quot;\n   = &quot; &lt;&lt; A &lt;&lt; &quot; + &quot; &lt;&lt; (long double) 1 / T[i];
+		A += (long double) 1 / T[i];
+		output &lt;&lt; &quot;\n   = &quot; &lt;&lt; A &lt;&lt; &quot;.&quot;;
+	}
+
+	// De-allocate memory which was dynamically assigned to the array named T.
+	delete [] T;
+
+	// Return the value which is stored in A.
+	return A;
+}
+
+/* program entry point */
+int main()
+{
+	// Declare a file output stream object named file.
+	std::ofstream file;
+
+	// Declare an int type variable (i.e. a variable for storing integer values) named N. 
+	// Set the initial value which is stored in N to one.
+	int N = 1;
+
+	// Declare a long double type variable (i.e. a variable for storing floating-point number values) named B. 
+	// Set the initial value which is stored in B to one.
+	long double B = 1.0;
+
+    // Set the number of digits of floating-point numbers which are printed to the command line terminal to 100 digits.
+    std::cout.precision(100);
+
+    // Set the number of digits of floating-point numbers which are printed to the file output stream to 100 digits.
+    file.precision(100);
+
+	/**
+	 * If the file named eulers_number_approximation_output.txt does not already exist 
+	 * inside of the same file directory as the file named eulers_number_approximation.cpp, 
+	 * create a new file named eulers_number_approximation_output.txt in that directory.
+	 * 
+	 * Open the plain-text file named eulers_number_approximation_output.txt 
+	 * and set that file to be overwritten with program data.
+	 */
+	file.open(&quot;eulers_number_approximation_output.txt&quot;);
+
+	// Print an opening message to the command line terminal.
+	std::cout &lt;&lt; &quot;\n\n--------------------------------&quot;;
+	std::cout &lt;&lt; &quot;\nSTART OF PROGRAM&quot;;
+	std::cout &lt;&lt; &quot;\n--------------------------------&quot;;
+
+	// Print an opening message to the file output stream.
+	file &lt;&lt; &quot;--------------------------------&quot;;
+	file &lt;&lt; &quot;\nSTART OF PROGRAM&quot;;
+	file &lt;&lt; &quot;\n--------------------------------&quot;;
+
+	// Print &quot;Enter a nonnegative integer which is no larger than {MAXIMUM_N}: &quot; to the command line terminal.
+	std::cout &lt;&lt; &quot;\n\nEnter a nonnegative integer which is no larger than &quot; &lt;&lt; MAXIMUM_N &lt;&gt; N;
+
+	// Compute the Nth approximation of Euler&#039;s Number and store the result in B.
+	// Print the steps involved in generating the Nth approximation of Euler&#039;s Number to the command line terminal.
+	B = approximate_eulers_number(N, std::cout);
+
+	// Print the steps involved in generating the Nth approximation of Euler&#039;s Number to the file output stream.
+	approximate_eulers_number(N, file);
+
+	// Print &quot;B ::= eulers_number_approximation(N) = {B}.&quot; to the command line terminal.
+	std::cout &lt;&lt; &quot;\n\nB := eulers_number_approximation(N) := &quot; &lt;&lt; B &lt;&lt; &quot;.&quot;;
+
+	// Print &quot;B := eulers_number_approximation(N) := {B}.&quot; to the file output stream.
+	file &lt;&lt; &quot;\n\nB = eulers_number_approximation(N) := &quot; &lt;&lt; B &lt;&lt; &quot;.&quot;;
+
+	// Print a closing message to the command line terminal.
+	std::cout &lt;&lt; &quot;\n\n--------------------------------&quot;;
+	std::cout &lt;&lt; &quot;\nEND OF PROGRAM&quot;;
+	std::cout &lt;&lt; &quot;\n--------------------------------\n\n&quot;;
+
+	// Print a closing message to the file output stream.
+	file &lt;&lt; &quot;\n\n--------------------------------&quot;;
+	file &lt;&lt; &quot;\nEND OF PROGRAM&quot;;
+	file &lt;&lt; &quot;\n--------------------------------&quot;;
+
+	// Close the file output stream.
+	file.close();
+
+	// Exit the program.
+	return 0;
+}</pre>
+<hr>
+<p><strong>SAMPLE_PROGRAM_OUTPUT</strong></p>
+<hr>
+<p>The text in the preformatted text box below was generated by one use case of the C++ program featured in this <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/Computer_programming" target="_blank" rel="noopener">computer programming</a> tutorial web page.</p>
+<p>plain-text_file: <a style="background:#000000;color:#ff9000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/eulers_number_approximation_output.txt" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/eulers_number_approximation_output.txt</a></p>
+<hr>
+<pre>
+--------------------------------
+START OF PROGRAM
+--------------------------------
+
+// Dynamically allocate N contiguous unsigned long long sized chunks of memory to an array for storing N floating-point values.
+// Store the memory address of the first element of that array in T.
+T = new unsigned long long [N];
+
+A := 0. // variable to store the Nth approximation of Euler's Number
+
+N := 65. // number of elements in the array of unsigned long long type values pointed to by T
+
+sizeof(unsigned long long) = 8. // number of bytes
+
+&amp;T = 0x7ffe8d20ee88. // memory address of unsigned long long type variable named T
+
+T = 0x556b195078c0. // memory address which is stored in T
+
+(*T) = 22929315079. // unsigned long long type value whose address is stored in T
+
+Displaying the memory address of each element of array T...
+
+&amp;T[0] = 0x556b195078c0. // memory address of T[0]
+&amp;T[1] = 0x556b195078c8. // memory address of T[1]
+&amp;T[2] = 0x556b195078d0. // memory address of T[2]
+&amp;T[3] = 0x556b195078d8. // memory address of T[3]
+&amp;T[4] = 0x556b195078e0. // memory address of T[4]
+&amp;T[5] = 0x556b195078e8. // memory address of T[5]
+&amp;T[6] = 0x556b195078f0. // memory address of T[6]
+&amp;T[7] = 0x556b195078f8. // memory address of T[7]
+&amp;T[8] = 0x556b19507900. // memory address of T[8]
+&amp;T[9] = 0x556b19507908. // memory address of T[9]
+&amp;T[10] = 0x556b19507910. // memory address of T[10]
+&amp;T[11] = 0x556b19507918. // memory address of T[11]
+&amp;T[12] = 0x556b19507920. // memory address of T[12]
+&amp;T[13] = 0x556b19507928. // memory address of T[13]
+&amp;T[14] = 0x556b19507930. // memory address of T[14]
+&amp;T[15] = 0x556b19507938. // memory address of T[15]
+&amp;T[16] = 0x556b19507940. // memory address of T[16]
+&amp;T[17] = 0x556b19507948. // memory address of T[17]
+&amp;T[18] = 0x556b19507950. // memory address of T[18]
+&amp;T[19] = 0x556b19507958. // memory address of T[19]
+&amp;T[20] = 0x556b19507960. // memory address of T[20]
+&amp;T[21] = 0x556b19507968. // memory address of T[21]
+&amp;T[22] = 0x556b19507970. // memory address of T[22]
+&amp;T[23] = 0x556b19507978. // memory address of T[23]
+&amp;T[24] = 0x556b19507980. // memory address of T[24]
+&amp;T[25] = 0x556b19507988. // memory address of T[25]
+&amp;T[26] = 0x556b19507990. // memory address of T[26]
+&amp;T[27] = 0x556b19507998. // memory address of T[27]
+&amp;T[28] = 0x556b195079a0. // memory address of T[28]
+&amp;T[29] = 0x556b195079a8. // memory address of T[29]
+&amp;T[30] = 0x556b195079b0. // memory address of T[30]
+&amp;T[31] = 0x556b195079b8. // memory address of T[31]
+&amp;T[32] = 0x556b195079c0. // memory address of T[32]
+&amp;T[33] = 0x556b195079c8. // memory address of T[33]
+&amp;T[34] = 0x556b195079d0. // memory address of T[34]
+&amp;T[35] = 0x556b195079d8. // memory address of T[35]
+&amp;T[36] = 0x556b195079e0. // memory address of T[36]
+&amp;T[37] = 0x556b195079e8. // memory address of T[37]
+&amp;T[38] = 0x556b195079f0. // memory address of T[38]
+&amp;T[39] = 0x556b195079f8. // memory address of T[39]
+&amp;T[40] = 0x556b19507a00. // memory address of T[40]
+&amp;T[41] = 0x556b19507a08. // memory address of T[41]
+&amp;T[42] = 0x556b19507a10. // memory address of T[42]
+&amp;T[43] = 0x556b19507a18. // memory address of T[43]
+&amp;T[44] = 0x556b19507a20. // memory address of T[44]
+&amp;T[45] = 0x556b19507a28. // memory address of T[45]
+&amp;T[46] = 0x556b19507a30. // memory address of T[46]
+&amp;T[47] = 0x556b19507a38. // memory address of T[47]
+&amp;T[48] = 0x556b19507a40. // memory address of T[48]
+&amp;T[49] = 0x556b19507a48. // memory address of T[49]
+&amp;T[50] = 0x556b19507a50. // memory address of T[50]
+&amp;T[51] = 0x556b19507a58. // memory address of T[51]
+&amp;T[52] = 0x556b19507a60. // memory address of T[52]
+&amp;T[53] = 0x556b19507a68. // memory address of T[53]
+&amp;T[54] = 0x556b19507a70. // memory address of T[54]
+&amp;T[55] = 0x556b19507a78. // memory address of T[55]
+&amp;T[56] = 0x556b19507a80. // memory address of T[56]
+&amp;T[57] = 0x556b19507a88. // memory address of T[57]
+&amp;T[58] = 0x556b19507a90. // memory address of T[58]
+&amp;T[59] = 0x556b19507a98. // memory address of T[59]
+&amp;T[60] = 0x556b19507aa0. // memory address of T[60]
+&amp;T[61] = 0x556b19507aa8. // memory address of T[61]
+&amp;T[62] = 0x556b19507ab0. // memory address of T[62]
+&amp;T[63] = 0x556b19507ab8. // memory address of T[63]
+&amp;T[64] = 0x556b19507ac0. // memory address of T[64]
+
+Storing the factorial of each nonnegative integer which is smaller than N in array T...
+
+T[0] := factorial(0) = (0)! = 1.
+T[1] := factorial(1) = (1)! = 1.
+T[2] := factorial(2) = (2)! = 2.
+T[3] := factorial(3) = (3)! = 6.
+T[4] := factorial(4) = (4)! = 24.
+T[5] := factorial(5) = (5)! = 120.
+T[6] := factorial(6) = (6)! = 720.
+T[7] := factorial(7) = (7)! = 5040.
+T[8] := factorial(8) = (8)! = 40320.
+T[9] := factorial(9) = (9)! = 362880.
+T[10] := factorial(10) = (10)! = 3628800.
+T[11] := factorial(11) = (11)! = 39916800.
+T[12] := factorial(12) = (12)! = 479001600.
+T[13] := factorial(13) = (13)! = 6227020800.
+T[14] := factorial(14) = (14)! = 87178291200.
+T[15] := factorial(15) = (15)! = 1307674368000.
+T[16] := factorial(16) = (16)! = 20922789888000.
+T[17] := factorial(17) = (17)! = 355687428096000.
+T[18] := factorial(18) = (18)! = 6402373705728000.
+T[19] := factorial(19) = (19)! = 121645100408832000.
+T[20] := factorial(20) = (20)! = 2432902008176640000.
+T[21] := factorial(21) = (21)! = 14197454024290336768.
+T[22] := factorial(22) = (22)! = 17196083355034583040.
+T[23] := factorial(23) = (23)! = 8128291617894825984.
+T[24] := factorial(24) = (24)! = 10611558092380307456.
+T[25] := factorial(25) = (25)! = 7034535277573963776.
+T[26] := factorial(26) = (26)! = 16877220553537093632.
+T[27] := factorial(27) = (27)! = 12963097176472289280.
+T[28] := factorial(28) = (28)! = 12478583540742619136.
+T[29] := factorial(29) = (29)! = 11390785281054474240.
+T[30] := factorial(30) = (30)! = 9682165104862298112.
+T[31] := factorial(31) = (31)! = 4999213071378415616.
+T[32] := factorial(32) = (32)! = 12400865694432886784.
+T[33] := factorial(33) = (33)! = 3400198294675128320.
+T[34] := factorial(34) = (34)! = 4926277576697053184.
+T[35] := factorial(35) = (35)! = 6399018521010896896.
+T[36] := factorial(36) = (36)! = 9003737871877668864.
+T[37] := factorial(37) = (37)! = 1096907932701818880.
+T[38] := factorial(38) = (38)! = 4789013295250014208.
+T[39] := factorial(39) = (39)! = 2304077777655037952.
+T[40] := factorial(40) = (40)! = 18376134811363311616.
+T[41] := factorial(41) = (41)! = 15551764317513711616.
+T[42] := factorial(42) = (42)! = 7538058755741581312.
+T[43] := factorial(43) = (43)! = 10541877243825618944.
+T[44] := factorial(44) = (44)! = 2673996885588443136.
+T[45] := factorial(45) = (45)! = 9649395409222631424.
+T[46] := factorial(46) = (46)! = 1150331055211806720.
+T[47] := factorial(47) = (47)! = 17172071447535812608.
+T[48] := factorial(48) = (48)! = 12602690238498734080.
+T[49] := factorial(49) = (49)! = 8789267254022766592.
+T[50] := factorial(50) = (50)! = 15188249005818642432.
+T[51] := factorial(51) = (51)! = 18284192274659147776.
+T[52] := factorial(52) = (52)! = 9994050523088551936.
+T[53] := factorial(53) = (53)! = 13175843659825807360.
+T[54] := factorial(54) = (54)! = 10519282829630636032.
+T[55] := factorial(55) = (55)! = 6711489344688881664.
+T[56] := factorial(56) = (56)! = 6908521828386340864.
+T[57] := factorial(57) = (57)! = 6404118670120845312.
+T[58] := factorial(58) = (58)! = 2504001392817995776.
+T[59] := factorial(59) = (59)! = 162129586585337856.
+T[60] := factorial(60) = (60)! = 9727775195120271360.
+T[61] := factorial(61) = (61)! = 3098476543630901248.
+T[62] := factorial(62) = (62)! = 7638104968020361216.
+T[63] := factorial(63) = (63)! = 1585267068834414592.
+T[64] := factorial(64) = (64)! = 9223372036854775808.
+
+Computing the appoximate value of Euler's Number by adding up the reciprocal of each value in array T...
+
+(1 / T[0]) = (1 / 1) = 1.
+(1 / T[1]) = (1 / 1) = 1.
+(1 / T[2]) = (1 / 2) = 0.5.
+(1 / T[3]) = (1 / 6) = 0.166666666666666666671184175718689601808364386670291423797607421875.
+(1 / T[4]) = (1 / 24) = 0.04166666666666666666779604392967240045209109666757285594940185546875.
+(1 / T[5]) = (1 / 120) = 0.0083333333333333333337286153753853401582318838336504995822906494140625.
+(1 / T[6]) = (1 / 720) = 0.0013888888888888888888488901108241024839884403263567946851253509521484375.
+(1 / T[7]) = (1 / 5040) = 0.0001984126984126984126983706828895211160546097062251647002995014190673828125.
+(1 / T[8]) = (1 / 40320) = 2.48015873015873015872963353611901395068262132781455875374376773834228515625e-05.
+(1 / T[9]) = (1 / 362880) = 2.7557319223985890651862166557528187500747396398992350441403687000274658203125e-06.
+(1 / T[10]) = (1 / 3628800) = 2.755731922398589065134517867468254520395276596644862365792505443096160888671875e-07.
+(1 / T[11]) = (1 / 39916800) = 2.505210838544171877468452021966260117517670547027108796100947074592113494873046875e-08.
+(1 / T[12]) = (1 / 479001600) = 2.0876756987868098978903766849718834312647254558559239967507892288267612457275390625e-09.
+(1 / T[13]) = (1 / 6227020800) = 1.60590438368216145992538343035032278473177931761572967417350810137577354907989501953125e-10.
+(1 / T[14]) = (1 / 87178291200) = 1.1470745597729724713978127618279737549630346144478865166860259705572389066219329833984375e-11.
+(1 / T[15]) = (1 / 1307674368000) = 7.6471637318198164760182876165707005249790527865393595374765567385111353360116481781005859375e-13.
+(1 / T[16]) = (1 / 20922789888000) = 4.7794773323873852975114297603566878281119079915870997109228479615694595850072801113128662109375e-14.
+(1 / T[17]) = (1 / 355687428096000) = 2.8114572543455207631627145083821066578811703150624439991912828507025778890238143503665924072265625e-15.
+(1 / T[18]) = (1 / 6402373705728000) = 1.561920696858622646281755141228416303811315922642396415600911374621517779814894311130046844482421875e-16.
+(1 / T[19]) = (1 / 121645100408832000) = 8.220635246624329716718057091551259700512195415301490541412415477551256515198474517092108726501464844e-18.
+(1 / T[20]) = (1 / 2432902008176640000) = 4.110317623312164858406048319808521350574847169139635097818954361046511758459587326797191053628921509e-19.
+(1 / T[21]) = (1 / 14197454024290336768) = 7.043516381804132984552581733844016154884793905449790136826614643386981762240850457601482048630714417e-20.
+(1 / T[22]) = (1 / 17196083355034583040) = 5.815277696401867087825620308901504154687317329562106344189912444453752216055875123856822028756141663e-20.
+(1 / T[23]) = (1 / 8128291617894825984) = 1.230270820744732847600809726906469170638222121705104977548044832558193917293465347029268741607666016e-19.
+(1 / T[24]) = (1 / 10611558092380307456) = 9.423686807294170693318948175954948019683466235544601296535251525304105468805460077419411391019821167e-20.
+(1 / T[25]) = (1 / 7034535277573963776) = 1.421558014198878427804392419215390985622496694920617818255280764058040565700480328814592212438583374e-19.
+(1 / T[26]) = (1 / 16877220553537093632) = 5.925146245662008780449842354395082473873705632309314560039469494409983263416563659120583906769752502e-20.
+(1 / T[27]) = (1 / 12963097176472289280) = 7.714205844379351220442307590283867888447153857127854916092693027609983325021403288701549172401428223e-20.
+(1 / T[28]) = (1 / 12478583540742619136) = 8.013730057862709208685990201180404102359911354745243625185241551512477231611342176620382815599441528e-20.
+(1 / T[29]) = (1 / 11390785281054474240) = 8.779025987464030508121718994662328990235623784252274002513994418002429842573519636061973869800567627e-20.
+(1 / T[30]) = (1 / 9682165104862298112) = 1.032826841072776997026950697730699208625361299463986189138260421926072962772735763792297802865505219e-19.
+(1 / T[31]) = (1 / 4999213071378415616) = 2.000314820996964391002384152827705545795997986125651431532452634775784416909516494342824444174766541e-19.
+(1 / T[32]) = (1 / 12400865694432886784) = 8.063953151665285768186808446574614784476978848083338270190630530992112467991717039694776758551597595e-20.
+(1 / T[33]) = (1 / 3400198294675128320) = 2.94100494540582352051641419389346837770780057644808278616539932081783148554166018584510311484336853e-19.
+(1 / T[34]) = (1 / 4926277576697053184) = 2.029930275813802546836213263140678056231305513535500619692556199856817156224053633195580914616584778e-19.
+(1 / T[35]) = (1 / 6399018521010896896) = 1.562739655646477380892696552554155496761738949953131410708552116381464536232215323252603411674499512e-19.
+(1 / T[36]) = (1 / 9003737871877668864) = 1.110649837023139300042549561205190561515953323270939067541196991093996326860349199705524370074272156e-19.
+(1 / T[37]) = (1 / 1096907932701818880) = 9.116535400896201500929943441933132123874700032396657688457333604606369625855677440995350480079650879e-19.
+(1 / T[38]) = (1 / 4789013295250014208) = 2.088112808105691869924731083569285259541630716029320990911684108098586576396371583541622385382652283e-19.
+(1 / T[39]) = (1 / 2304077777655037952) = 4.340131265090123433015478527485500881114515851366072819926298178606904887288919780985452234745025635e-19.
+(1 / T[40]) = (1 / 18376134811363311616) = 5.441840791141925413183004478172199152903907339519060119881344722830157634163583679764997214078903198e-20.
+(1 / T[41]) = (1 / 15551764317513711616) = 6.430138597675660950353326517785726873973361451550566389280682460562188484942680588574148714542388916e-20.
+(1 / T[42]) = (1 / 7538058755741581312) = 1.326601493041323093804705908412158628351599110254046220970487675360274804070570553449215367436408997e-19.
+(1 / T[43]) = (1 / 10541877243825618944) = 9.485976518894681088585945984202713644634515871086129452208364070146459634536029170703841373324394226e-20.
+(1 / T[44]) = (1 / 2673996885588443136) = 3.739720137257896377418136692574652015537340387383811719072360135220078891649109209538437426090240479e-19.
+(1 / T[45]) = (1 / 9649395409222631424) = 1.036334358362210981733926214460651797062864929183711526852237064981812619812728826218517497181892395e-19.
+(1 / T[46]) = (1 / 1150331055211806720) = 8.693149641308025443189145265311138141228065069562171980261825821392762669859166635433211922645568848e-19.
+(1 / T[47]) = (1 / 17172071447535812608) = 5.823409266932089994910827473586939922642565582829483048515030398258052191096112437662668526172637939e-20.
+(1 / T[48]) = (1 / 12602690238498734080) = 7.934813766549598658208990425096079332701638958718522115960120841835281901843757168535375967621803284e-20.
+(1 / T[49]) = (1 / 8789267254022766592) = 1.137751272203390128107638181047964849359748082386584368096104198870080481675870487379143014550209045e-19.
+(1 / T[50]) = (1 / 15188249005818642432) = 6.584037433261058626315122747133625100946933977144928122763979037304279962050657104555284604430198669e-20.
+(1 / T[51]) = (1 / 18284192274659147776) = 5.469205229185558363221202926338644452360917504749919928199492245380133881305084742052713409066200256e-20.
+(1 / T[52]) = (1 / 9994050523088551936) = 1.000595301864614693116746035656340128581767350489224182304672495732490722364360635765478946268558502e-19.
+(1 / T[53]) = (1 / 13175843659825807360) = 7.589646825038455307200389676950583077870852261845009400057856808466047460193237839121138677000999451e-20.
+(1 / T[54]) = (1 / 10519282829630636032) = 9.50635148988681614421616430881190891954527936199995567880738020234004936881433422968257218599319458e-20.
+(1 / T[55]) = (1 / 6711489344688881664) = 1.489982250797056252874586363401948231626454775496495728635927216368731174078732237830990925431251526e-19.
+(1 / T[56]) = (1 / 6908521828386340864) = 1.447487646186644772414255907553433559482031998270172859763243089405854169271492537518497556447982788e-19.
+(1 / T[57]) = (1 / 6404118670120845312) = 1.561495111990374881012829509246659018763186032708235002030417283916396975484985887305811047554016113e-19.
+(1 / T[58]) = (1 / 2504001392817995776) = 3.99360800224876453390472107572710781479406467071782587440471174421163791379285612492822110652923584e-19.
+(1 / T[59]) = (1 / 162129586585337856) = 6.167905692361980780047696335557194624433334290686418085132894893740651554026044323109090328216552734e-18.
+(1 / T[60]) = (1 / 9727775195120271360) = 1.027984282060330130051050848789682979364409388145885355708833552705085134792994949748390354216098785e-19.
+(1 / T[61]) = (1 / 3098476543630901248) = 3.227392513445222501346303134530375502231830080379847252252055705545180641635738538752775639295578003e-19.
+(1 / T[62]) = (1 / 7638104968020361216) = 1.309225264888156297662723225479803458091686396959119364087818874206950447991459896002197638154029846e-19.
+(1 / T[63]) = (1 / 1585267068834414592) = 6.30808536718838943439616092881744814036363440541414482586453317189412182131036388454958796501159668e-19.
+(1 / T[64]) = (1 / 9223372036854775808) = 1.08420217248550443400745280086994171142578125e-19.
+
+A := A + (1 / (0)!)
+   = 0 + (1 / 1)
+   = 0 + 1
+   = 1.
+
+A := A + (1 / (1)!)
+   = 1 + (1 / 1)
+   = 1 + 1
+   = 2.
+
+A := A + (1 / (2)!)
+   = 2 + (1 / 2)
+   = 2 + 0.5
+   = 2.5.
+
+A := A + (1 / (3)!)
+   = 2.5 + (1 / 6)
+   = 2.5 + 0.166666666666666666671184175718689601808364386670291423797607421875
+   = 2.66666666666666666673894681149903362893383018672466278076171875.
+
+A := A + (1 / (4)!)
+   = 2.66666666666666666673894681149903362893383018672466278076171875 + (1 / 24)
+   = 2.66666666666666666673894681149903362893383018672466278076171875 + 0.04166666666666666666779604392967240045209109666757285594940185546875
+   = 2.7083333333333333334778936229980672578676603734493255615234375.
+
+A := A + (1 / (5)!)
+   = 2.7083333333333333334778936229980672578676603734493255615234375 + (1 / 120)
+   = 2.7083333333333333334778936229980672578676603734493255615234375 + 0.0083333333333333333337286153753853401582318838336504995822906494140625
+   = 2.71666666666666666691241915909671433837502263486385345458984375.
+
+A := A + (1 / (6)!)
+   = 2.71666666666666666691241915909671433837502263486385345458984375 + (1 / 720)
+   = 2.71666666666666666691241915909671433837502263486385345458984375 + 0.0013888888888888888888488901108241024839884403263567946851253509521484375
+   = 2.7180555555555555558543134875293389995931647717952728271484375.
+
+A := A + (1 / (7)!)
+   = 2.7180555555555555558543134875293389995931647717952728271484375 + (1 / 5040)
+   = 2.7180555555555555558543134875293389995931647717952728271484375 + 0.0001984126984126984126983706828895211160546097062251647002995014190673828125
+   = 2.71825396825396825421262969602054226925247348845005035400390625.
+
+A := A + (1 / (8)!)
+   = 2.71825396825396825421262969602054226925247348845005035400390625 + (1 / 40320)
+   = 2.71825396825396825421262969602054226925247348845005035400390625 + 2.48015873015873015872963353611901395068262132781455875374376773834228515625e-05
+   = 2.71827876984126984142610405914552984540932811796665191650390625.
+
+A := A + (1 / (9)!)
+   = 2.71827876984126984142610405914552984540932811796665191650390625 + (1 / 362880)
+   = 2.71827876984126984142610405914552984540932811796665191650390625 + 2.7557319223985890651862166557528187500747396398992350441403687000274658203125e-06
+   = 2.71828152557319224010175251482479552578297443687915802001953125.
+
+A := A + (1 / (10)!)
+   = 2.71828152557319224010175251482479552578297443687915802001953125 + (1 / 3628800)
+   = 2.71828152557319224010175251482479552578297443687915802001953125 + 2.755731922398589065134517867468254520395276596644862365792505443096160888671875e-07
+   = 2.71828180114638447996931736039272209382033906877040863037109375.
+
+A := A + (1 / (11)!)
+   = 2.71828180114638447996931736039272209382033906877040863037109375 + (1 / 39916800)
+   = 2.71828180114638447996931736039272209382033906877040863037109375 + 2.505210838544171877468452021966260117517670547027108796100947074592113494873046875e-08
+   = 2.718281826198492865352684955126960630877874791622161865234375.
+
+A := A + (1 / (12)!)
+   = 2.718281826198492865352684955126960630877874791622161865234375 + (1 / 479001600)
+   = 2.718281826198492865352684955126960630877874791622161865234375 + 2.0876756987868098978903766849718834312647254558559239967507892288267612457275390625e-09
+   = 2.71828182828616856411656221848005543506587855517864227294921875.
+
+A := A + (1 / (13)!)
+   = 2.71828182828616856411656221848005543506587855517864227294921875 + (1 / 6227020800)
+   = 2.71828182828616856411656221848005543506587855517864227294921875 + 1.60590438368216145992538343035032278473177931761572967417350810137577354907989501953125e-10
+   = 2.7182818284467590024162941819696470702183432877063751220703125.
+
+A := A + (1 / (14)!)
+   = 2.7182818284467590024162941819696470702183432877063751220703125 + (1 / 87178291200)
+   = 2.7182818284467590024162941819696470702183432877063751220703125 + 1.1470745597729724713978127618279737549630346144478865166860259705572389066219329833984375e-11
+   = 2.71828182845822974799364357689768212367198430001735687255859375.
+
+A := A + (1 / (15)!)
+   = 2.71828182845822974799364357689768212367198430001735687255859375 + (1 / 1307674368000)
+   = 2.71828182845822974799364357689768212367198430001735687255859375 + 7.6471637318198164760182876165707005249790527865393595374765567385111353360116481781005859375e-13
+   = 2.71828182845899446440883495679230463792919181287288665771484375.
+
+A := A + (1 / (16)!)
+   = 2.71828182845899446440883495679230463792919181287288665771484375 + (1 / 20922789888000)
+   = 2.71828182845899446440883495679230463792919181287288665771484375 + 4.7794773323873852975114297603566878281119079915870997109228479615694595850072801113128662109375e-14
+   = 2.71828182845904225907636420078716810166952200233936309814453125.
+
+A := A + (1 / (17)!)
+   = 2.71828182845904225907636420078716810166952200233936309814453125 + (1 / 355687428096000)
+   = 2.71828182845904225907636420078716810166952200233936309814453125 + 2.8114572543455207631627145083821066578811703150624439991912828507025778890238143503665924072265625e-15
+   = 2.71828182845904507062943789019726636979612521827220916748046875.
+
+A := A + (1 / (18)!)
+   = 2.71828182845904507062943789019726636979612521827220916748046875 + (1 / 6402373705728000)
+   = 2.71828182845904507062943789019726636979612521827220916748046875 + 1.561920696858622646281755141228416303811315922642396415600911374621517779814894311130046844482421875e-16
+   = 2.71828182845904522675455072810990486686932854354381561279296875.
+
+A := A + (1 / (19)!)
+   = 2.71828182845904522675455072810990486686932854354381561279296875 + (1 / 121645100408832000)
+   = 2.71828182845904522675455072810990486686932854354381561279296875 + 8.220635246624329716718057091551259700512195415301490541412415477551256515198474517092108726501464844e-18
+   = 2.71828182845904523499448723899973856532596983015537261962890625.
+
+A := A + (1 / (20)!)
+   = 2.71828182845904523499448723899973856532596983015537261962890625 + (1 / 2432902008176640000)
+   = 2.71828182845904523499448723899973856532596983015537261962890625 + 4.110317623312164858406048319808521350574847169139635097818954361046511758459587326797191053628921509e-19
+   = 2.71828182845904523542816810799394033892895095050334930419921875.
+
+A := A + (1 / (21)!)
+   = 2.71828182845904523542816810799394033892895095050334930419921875 + (1 / 14197454024290336768)
+   = 2.71828182845904523542816810799394033892895095050334930419921875 + 7.043516381804132984552581733844016154884793905449790136826614643386981762240850457601482048630714417e-20
+   = 2.71828182845904523542816810799394033892895095050334930419921875.
+
+A := A + (1 / (22)!)
+   = 2.71828182845904523542816810799394033892895095050334930419921875 + (1 / 17196083355034583040)
+   = 2.71828182845904523542816810799394033892895095050334930419921875 + 5.815277696401867087825620308901504154687317329562106344189912444453752216055875123856822028756141663e-20
+   = 2.71828182845904523542816810799394033892895095050334930419921875.
+
+A := A + (1 / (23)!)
+   = 2.71828182845904523542816810799394033892895095050334930419921875 + (1 / 8128291617894825984)
+   = 2.71828182845904523542816810799394033892895095050334930419921875 + 1.230270820744732847600809726906469170638222121705104977548044832558193917293465347029268741607666016e-19
+   = 2.718281828459045235645008542491041225730441510677337646484375.
+
+A := A + (1 / (24)!)
+   = 2.718281828459045235645008542491041225730441510677337646484375 + (1 / 10611558092380307456)
+   = 2.718281828459045235645008542491041225730441510677337646484375 + 9.423686807294170693318948175954948019683466235544601296535251525304105468805460077419411391019821167e-20
+   = 2.718281828459045235645008542491041225730441510677337646484375.
+
+A := A + (1 / (25)!)
+   = 2.718281828459045235645008542491041225730441510677337646484375 + (1 / 7034535277573963776)
+   = 2.718281828459045235645008542491041225730441510677337646484375 + 1.421558014198878427804392419215390985622496694920617818255280764058040565700480328814592212438583374e-19
+   = 2.71828182845904523586184897698814211253193207085132598876953125.
+
+A := A + (1 / (26)!)
+   = 2.71828182845904523586184897698814211253193207085132598876953125 + (1 / 16877220553537093632)
+   = 2.71828182845904523586184897698814211253193207085132598876953125 + 5.925146245662008780449842354395082473873705632309314560039469494409983263416563659120583906769752502e-20
+   = 2.71828182845904523586184897698814211253193207085132598876953125.
+
+A := A + (1 / (27)!)
+   = 2.71828182845904523586184897698814211253193207085132598876953125 + (1 / 12963097176472289280)
+   = 2.71828182845904523586184897698814211253193207085132598876953125 + 7.714205844379351220442307590283867888447153857127854916092693027609983325021403288701549172401428223e-20
+   = 2.71828182845904523586184897698814211253193207085132598876953125.
+
+A := A + (1 / (28)!)
+   = 2.71828182845904523586184897698814211253193207085132598876953125 + (1 / 12478583540742619136)
+   = 2.71828182845904523586184897698814211253193207085132598876953125 + 8.013730057862709208685990201180404102359911354745243625185241551512477231611342176620382815599441528e-20
+   = 2.71828182845904523586184897698814211253193207085132598876953125.
+
+A := A + (1 / (29)!)
+   = 2.71828182845904523586184897698814211253193207085132598876953125 + (1 / 11390785281054474240)
+   = 2.71828182845904523586184897698814211253193207085132598876953125 + 8.779025987464030508121718994662328990235623784252274002513994418002429842573519636061973869800567627e-20
+   = 2.71828182845904523586184897698814211253193207085132598876953125.
+
+A := A + (1 / (30)!)
+   = 2.71828182845904523586184897698814211253193207085132598876953125 + (1 / 9682165104862298112)
+   = 2.71828182845904523586184897698814211253193207085132598876953125 + 1.032826841072776997026950697730699208625361299463986189138260421926072962772735763792297802865505219e-19
+   = 2.71828182845904523586184897698814211253193207085132598876953125.
+
+A := A + (1 / (31)!)
+   = 2.71828182845904523586184897698814211253193207085132598876953125 + (1 / 4999213071378415616)
+   = 2.71828182845904523586184897698814211253193207085132598876953125 + 2.000314820996964391002384152827705545795997986125651431532452634775784416909516494342824444174766541e-19
+   = 2.7182818284590452360786894114852429993334226310253143310546875.
+
+A := A + (1 / (32)!)
+   = 2.7182818284590452360786894114852429993334226310253143310546875 + (1 / 12400865694432886784)
+   = 2.7182818284590452360786894114852429993334226310253143310546875 + 8.063953151665285768186808446574614784476978848083338270190630530992112467991717039694776758551597595e-20
+   = 2.7182818284590452360786894114852429993334226310253143310546875.
+
+A := A + (1 / (33)!)
+   = 2.7182818284590452360786894114852429993334226310253143310546875 + (1 / 3400198294675128320)
+   = 2.7182818284590452360786894114852429993334226310253143310546875 + 2.94100494540582352051641419389346837770780057644808278616539932081783148554166018584510311484336853e-19
+   = 2.71828182845904523629552984598234388613491319119930267333984375.
+
+A := A + (1 / (34)!)
+   = 2.71828182845904523629552984598234388613491319119930267333984375 + (1 / 4926277576697053184)
+   = 2.71828182845904523629552984598234388613491319119930267333984375 + 2.029930275813802546836213263140678056231305513535500619692556199856817156224053633195580914616584778e-19
+   = 2.718281828459045236512370280479444772936403751373291015625.
+
+A := A + (1 / (35)!)
+   = 2.718281828459045236512370280479444772936403751373291015625 + (1 / 6399018521010896896)
+   = 2.718281828459045236512370280479444772936403751373291015625 + 1.562739655646477380892696552554155496761738949953131410708552116381464536232215323252603411674499512e-19
+   = 2.71828182845904523672921071497654565973789431154727935791015625.
+
+A := A + (1 / (36)!)
+   = 2.71828182845904523672921071497654565973789431154727935791015625 + (1 / 9003737871877668864)
+   = 2.71828182845904523672921071497654565973789431154727935791015625 + 1.110649837023139300042549561205190561515953323270939067541196991093996326860349199705524370074272156e-19
+   = 2.7182818284590452369460511494736465465393848717212677001953125.
+
+A := A + (1 / (37)!)
+   = 2.7182818284590452369460511494736465465393848717212677001953125 + (1 / 1096907932701818880)
+   = 2.7182818284590452369460511494736465465393848717212677001953125 + 9.116535400896201500929943441933132123874700032396657688457333604606369625855677440995350480079650879e-19
+   = 2.7182818284590452378134128874620500937453471124172210693359375.
+
+A := A + (1 / (38)!)
+   = 2.7182818284590452378134128874620500937453471124172210693359375 + (1 / 4789013295250014208)
+   = 2.7182818284590452378134128874620500937453471124172210693359375 + 2.088112808105691869924731083569285259541630716029320990911684108098586576396371583541622385382652283e-19
+   = 2.71828182845904523803025332195915098054683767259120941162109375.
+
+A := A + (1 / (39)!)
+   = 2.71828182845904523803025332195915098054683767259120941162109375 + (1 / 2304077777655037952)
+   = 2.71828182845904523803025332195915098054683767259120941162109375 + 4.340131265090123433015478527485500881114515851366072819926298178606904887288919780985452234745025635e-19
+   = 2.71828182845904523846393419095335275414981879293918609619140625.
+
+A := A + (1 / (40)!)
+   = 2.71828182845904523846393419095335275414981879293918609619140625 + (1 / 18376134811363311616)
+   = 2.71828182845904523846393419095335275414981879293918609619140625 + 5.441840791141925413183004478172199152903907339519060119881344722830157634163583679764997214078903198e-20
+   = 2.71828182845904523846393419095335275414981879293918609619140625.
+
+A := A + (1 / (41)!)
+   = 2.71828182845904523846393419095335275414981879293918609619140625 + (1 / 15551764317513711616)
+   = 2.71828182845904523846393419095335275414981879293918609619140625 + 6.430138597675660950353326517785726873973361451550566389280682460562188484942680588574148714542388916e-20
+   = 2.71828182845904523846393419095335275414981879293918609619140625.
+
+A := A + (1 / (42)!)
+   = 2.71828182845904523846393419095335275414981879293918609619140625 + (1 / 7538058755741581312)
+   = 2.71828182845904523846393419095335275414981879293918609619140625 + 1.326601493041323093804705908412158628351599110254046220970487675360274804070570553449215367436408997e-19
+   = 2.7182818284590452386807746254504536409513093531131744384765625.
+
+A := A + (1 / (43)!)
+   = 2.7182818284590452386807746254504536409513093531131744384765625 + (1 / 10541877243825618944)
+   = 2.7182818284590452386807746254504536409513093531131744384765625 + 9.485976518894681088585945984202713644634515871086129452208364070146459634536029170703841373324394226e-20
+   = 2.7182818284590452386807746254504536409513093531131744384765625.
+
+A := A + (1 / (44)!)
+   = 2.7182818284590452386807746254504536409513093531131744384765625 + (1 / 2673996885588443136)
+   = 2.7182818284590452386807746254504536409513093531131744384765625 + 3.739720137257896377418136692574652015537340387383811719072360135220078891649109209538437426090240479e-19
+   = 2.718281828459045239114455494444655414554290473461151123046875.
+
+A := A + (1 / (45)!)
+   = 2.718281828459045239114455494444655414554290473461151123046875 + (1 / 9649395409222631424)
+   = 2.718281828459045239114455494444655414554290473461151123046875 + 1.036334358362210981733926214460651797062864929183711526852237064981812619812728826218517497181892395e-19
+   = 2.718281828459045239114455494444655414554290473461151123046875.
+
+A := A + (1 / (46)!)
+   = 2.718281828459045239114455494444655414554290473461151123046875 + (1 / 1150331055211806720)
+   = 2.718281828459045239114455494444655414554290473461151123046875 + 8.693149641308025443189145265311138141228065069562171980261825821392762669859166635433211922645568848e-19
+   = 2.7182818284590452399818172324330589617602527141571044921875.
+
+A := A + (1 / (47)!)
+   = 2.7182818284590452399818172324330589617602527141571044921875 + (1 / 17172071447535812608)
+   = 2.7182818284590452399818172324330589617602527141571044921875 + 5.823409266932089994910827473586939922642565582829483048515030398258052191096112437662668526172637939e-20
+   = 2.7182818284590452399818172324330589617602527141571044921875.
+
+A := A + (1 / (48)!)
+   = 2.7182818284590452399818172324330589617602527141571044921875 + (1 / 12602690238498734080)
+   = 2.7182818284590452399818172324330589617602527141571044921875 + 7.934813766549598658208990425096079332701638958718522115960120841835281901843757168535375967621803284e-20
+   = 2.7182818284590452399818172324330589617602527141571044921875.
+
+A := A + (1 / (49)!)
+   = 2.7182818284590452399818172324330589617602527141571044921875 + (1 / 8789267254022766592)
+   = 2.7182818284590452399818172324330589617602527141571044921875 + 1.137751272203390128107638181047964849359748082386584368096104198870080481675870487379143014550209045e-19
+   = 2.71828182845904524019865766693015984856174327433109283447265625.
+
+A := A + (1 / (50)!)
+   = 2.71828182845904524019865766693015984856174327433109283447265625 + (1 / 15188249005818642432)
+   = 2.71828182845904524019865766693015984856174327433109283447265625 + 6.584037433261058626315122747133625100946933977144928122763979037304279962050657104555284604430198669e-20
+   = 2.71828182845904524019865766693015984856174327433109283447265625.
+
+A := A + (1 / (51)!)
+   = 2.71828182845904524019865766693015984856174327433109283447265625 + (1 / 18284192274659147776)
+   = 2.71828182845904524019865766693015984856174327433109283447265625 + 5.469205229185558363221202926338644452360917504749919928199492245380133881305084742052713409066200256e-20
+   = 2.71828182845904524019865766693015984856174327433109283447265625.
+
+A := A + (1 / (52)!)
+   = 2.71828182845904524019865766693015984856174327433109283447265625 + (1 / 9994050523088551936)
+   = 2.71828182845904524019865766693015984856174327433109283447265625 + 1.000595301864614693116746035656340128581767350489224182304672495732490722364360635765478946268558502e-19
+   = 2.71828182845904524019865766693015984856174327433109283447265625.
+
+A := A + (1 / (53)!)
+   = 2.71828182845904524019865766693015984856174327433109283447265625 + (1 / 13175843659825807360)
+   = 2.71828182845904524019865766693015984856174327433109283447265625 + 7.589646825038455307200389676950583077870852261845009400057856808466047460193237839121138677000999451e-20
+   = 2.71828182845904524019865766693015984856174327433109283447265625.
+
+A := A + (1 / (54)!)
+   = 2.71828182845904524019865766693015984856174327433109283447265625 + (1 / 10519282829630636032)
+   = 2.71828182845904524019865766693015984856174327433109283447265625 + 9.50635148988681614421616430881190891954527936199995567880738020234004936881433422968257218599319458e-20
+   = 2.71828182845904524019865766693015984856174327433109283447265625.
+
+A := A + (1 / (55)!)
+   = 2.71828182845904524019865766693015984856174327433109283447265625 + (1 / 6711489344688881664)
+   = 2.71828182845904524019865766693015984856174327433109283447265625 + 1.489982250797056252874586363401948231626454775496495728635927216368731174078732237830990925431251526e-19
+   = 2.7182818284590452404154981014272607353632338345050811767578125.
+
+A := A + (1 / (56)!)
+   = 2.7182818284590452404154981014272607353632338345050811767578125 + (1 / 6908521828386340864)
+   = 2.7182818284590452404154981014272607353632338345050811767578125 + 1.447487646186644772414255907553433559482031998270172859763243089405854169271492537518497556447982788e-19
+   = 2.71828182845904524063233853592436162216472439467906951904296875.
+
+A := A + (1 / (57)!)
+   = 2.71828182845904524063233853592436162216472439467906951904296875 + (1 / 6404118670120845312)
+   = 2.71828182845904524063233853592436162216472439467906951904296875 + 1.561495111990374881012829509246659018763186032708235002030417283916396975484985887305811047554016113e-19
+   = 2.718281828459045240849178970421462508966214954853057861328125.
+
+A := A + (1 / (58)!)
+   = 2.718281828459045240849178970421462508966214954853057861328125 + (1 / 2504001392817995776)
+   = 2.718281828459045240849178970421462508966214954853057861328125 + 3.99360800224876453390472107572710781479406467071782587440471174421163791379285612492822110652923584e-19
+   = 2.7182818284590452412828598394156642825691960752010345458984375.
+
+A := A + (1 / (59)!)
+   = 2.7182818284590452412828598394156642825691960752010345458984375 + (1 / 162129586585337856)
+   = 2.7182818284590452412828598394156642825691960752010345458984375 + 6.167905692361980780047696335557194624433334290686418085132894893740651554026044323109090328216552734e-18
+   = 2.7182818284590452473543920053344891130109317600727081298828125.
+
+A := A + (1 / (60)!)
+   = 2.7182818284590452473543920053344891130109317600727081298828125 + (1 / 9727775195120271360)
+   = 2.7182818284590452473543920053344891130109317600727081298828125 + 1.027984282060330130051050848789682979364409388145885355708833552705085134792994949748390354216098785e-19
+   = 2.7182818284590452473543920053344891130109317600727081298828125.
+
+A := A + (1 / (61)!)
+   = 2.7182818284590452473543920053344891130109317600727081298828125 + (1 / 3098476543630901248)
+   = 2.7182818284590452473543920053344891130109317600727081298828125 + 3.227392513445222501346303134530375502231830080379847252252055705545180641635738538752775639295578003e-19
+   = 2.71828182845904524757123243983158999981242232024669647216796875.
+
+A := A + (1 / (62)!)
+   = 2.71828182845904524757123243983158999981242232024669647216796875 + (1 / 7638104968020361216)
+   = 2.71828182845904524757123243983158999981242232024669647216796875 + 1.309225264888156297662723225479803458091686396959119364087818874206950447991459896002197638154029846e-19
+   = 2.718281828459045247788072874328690886613912880420684814453125.
+
+A := A + (1 / (63)!)
+   = 2.718281828459045247788072874328690886613912880420684814453125 + (1 / 1585267068834414592)
+   = 2.718281828459045247788072874328690886613912880420684814453125 + 6.30808536718838943439616092881744814036363440541414482586453317189412182131036388454958796501159668e-19
+   = 2.71828182845904524843859417781999354701838456094264984130859375.
+
+A := A + (1 / (64)!)
+   = 2.71828182845904524843859417781999354701838456094264984130859375 + (1 / 9223372036854775808)
+   = 2.71828182845904524843859417781999354701838456094264984130859375 + 1.08420217248550443400745280086994171142578125e-19
+   = 2.71828182845904524865543461231709443381987512111663818359375.
+
+B = eulers_number_approximation(N) := 2.71828182845904524865543461231709443381987512111663818359375.
+
+--------------------------------
+END OF PROGRAM
+--------------------------------</pre>
+<hr>
+<p>This web page was last updated on 29_AUGUST_2024. The content displayed on this web page is licensed as <a style="background:#000000;color:#ff9000" href="https://karlinaobject.wordpress.com/public_domain/" target="_blank" rel="noopener">PUBLIC_DOMAIN</a> intellectual property.</p>
+<hr>
