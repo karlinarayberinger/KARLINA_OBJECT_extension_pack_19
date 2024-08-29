@@ -1,0 +1,576 @@
+<hr>
+<p><strong>SQUARE_ROOT_APPROXIMATION</strong></p>
+<hr>
+<p><span style="background:#ffff00">The <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/C%2B%2B" target="_blank" rel="noopener">C++</a> program featured in this tutorial web page computes the approximate square root of a real number using an iterative algorithm.</span></p>
+<p>Note that, even though the program accepts negative real numbers as input values, the square root approximation function returns negative real number values for negative real number input values. Technically, if a negative real number is that function&#8217;s input, the value returned by that function should be a positive real number multiplied by the square root of negative one (and such a return value is an <a style="background:#000000;color:#ff9000" href="https://karlinaobject.wordpress.com/numbers/" target="_blank" rel="noopener">imaginary number</a> instead of a real number).</p>
+<p><em>To view hidden text inside each of the preformatted text boxes below, scroll horizontally.</em></p>
+<pre>Y := square_root(X). // Y = X ^ (1/2).
+(Y * Y) = X. // X = Y ^ 2.
+</pre>
+<hr>
+<p><strong>SOFTWARE_APPLICATION_COMPONENTS</strong></p>
+<hr>
+<p>C++_source_file: <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/square_root_approximation.cpp" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/square_root_approximation.cpp</a></p>
+<p>plain-text_file: <a style="background:#000000;color:#ff9000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/square_root_approximation_output.txt" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/square_root_approximation_output.txt</a></p>
+<hr>
+<p><strong>PROGRAM_COMPILATION_AND_EXECUTION</strong></p>
+<hr>
+<p>STEP_0: Copy and paste the C++ <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/square_root_approximation.cpp" target="_blank" rel="noopener">source code</a> into a new text editor document and save that document as the following file name:</p>
+<pre>square_root_approximation.cpp</pre>
+<p>STEP_1: Open a <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/Unix" target="_blank" rel="noopener">Unix</a> command line terminal application and set the current directory to wherever the C++ is located on the local machine (e.g. Desktop).</p>
+<pre>cd Desktop</pre>
+<p>STEP_2: Compile the C++ file into machine-executable instructions (i.e. object file) and then into an executable piece of software named <strong>app</strong> using the following command:</p>
+<pre>g++ square_root_approximation.cpp -o app</pre>
+<p>STEP_3: If the program compilation command does not work, then use the following commands (in top-down order) to install the C/C++ compiler (which is part of the <a style="background: #ff9000;color: #000000" href="https://en.wikipedia.org/wiki/GNU_Compiler_Collection" target="_blank" rel="noopener">GNU Compiler Collection (GCC)</a>):</p>
+<pre>sudo apt install build-essential</pre>
+<pre>sudo apt-get install g++</pre>
+<p>STEP_4: After running the <strong>g++</strong> command, run the executable file using the following command:</p>
+<pre>./app</pre>
+<p>STEP_5: Once the application is running, the following prompt will appear:</p>
+<pre>Enter a real number (represented using only base-ten digits with an optional radix and with an optional negative sign), x, which is no larger than 100:</pre>
+<p>STEP_6: Enter a value for x using the keyboard.</p>
+<p>STEP_7: Statements showing program throughput and the value returned by the square root function which computes the approximate value of x raised to the power of 0.5 will be printed to the command line terminal and to the file output stream and then the following prompt will appear:</p>
+<pre>Would you like to continue inputting program values? (Enter 1 if YES. Enter 0 if NO):</pre>
+<p>STEP_8: Enter a value according to your preference until you decide to close the program (and save your program data to the <a style="background:#ff9000;color:#000000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/square_root_approximation_output.txt" target="_blank" rel="noopener">output text file</a>).</p>
+<hr>
+<p><strong>PROGRAM_SOURCE_CODE</strong></p>
+<hr>
+<p><em>When copy-pasting the source code from the preformatted text box below into a text editor document, remove the spaces between the angle brackets and the library names in the preprocessing directives code block. (The spaces were inserted between the library names and angle brackets in the preformatted text box below in order to prevent the WordPress server from misinterpreting those C++ library references as <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/HTML" target="_blank" rel="noopener">HTML</a> tags in the source code of this web page).</em></p>
+<p>C++_source_file: <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/square_root_approximation.cpp" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/square_root_approximation.cpp</a></p>
+<hr>
+<pre>
+/**
+ * file: square_root_approximation.cpp
+ * type: C++ (source file)
+ * date: 19_JUNE_2023
+ * author: karbytes
+ * license: PUBLIC_DOMAIN
+ */
+
+/* preprocessing directives */
+#include  &lt; iostream &gt; // standard input (std::cin), standard output (std::cout)
+#include  &lt; fstream &gt; // file input, file output
+#define MAXIMUM_X 100 // constant which represents maximum absolute value of the program input value
+#define E 0.00000001 // constant which represents the degree of accuracy of the square root approximation 
+
+/* function prototypes */
+float absolute_value(float x);
+long double compute_square_root_of_real_number(float x, std::ostream &amp; output);
+
+/**
+ * Return the absolute value of a real number input, x.
+ */
+float absolute_value(float x)
+{
+    if (x &lt; 0) return -1 * x;
+    return x;
+}
+
+/**
+ * Compute the approximate square root of a real number, x, using an iterative method.
+ * 
+ * The square root of x is x raised to the power of 0.5 (i.e. x ^ (1/2)).
+ * 
+ * Assume that x is a float type value and that output is an output stream object.
+ * 
+ * This function returns a value whose data type is long double (which is a floating-point number).
+ */
+long double compute_square_root_of_real_number(float x, std::ostream &amp; output)
+{
+    int i = 0;
+    float original_x = x, absolute_value_of_original_x = 0.0;
+    long double S = 0.0, Y = 1.0;
+    x = absolute_value(x);
+    absolute_value_of_original_x = x;
+    x = (x &gt; MAXIMUM_X) ? 0 : x; // If x is out of range, then set x to 0.
+    S = x;
+    output &lt;&lt; &quot;\n\nx = &quot; &lt;&lt; x &lt;&lt; &quot;. // real number to take the square root of&quot;;
+    output &lt;&lt; &quot;\nS = &quot; &lt;&lt; S &lt;&lt; &quot;. // variable for storing the approximate square root of x&quot;;
+    output &lt;&lt; &quot;\nY = &quot; &lt;&lt; Y &lt; E) 
+    {
+        S = (S + Y) / 2;
+        Y = absolute_value_of_original_x / S;
+        output &lt;&lt; &quot;\n\ni := &quot; &lt;&lt; i &lt;&lt; &quot;.&quot;;
+        output &lt;&lt; &quot;\nS := ((S + Y) / 2) = &quot; &lt;&lt; S &lt;&lt; &quot;.&quot;;
+        output &lt;&lt; &quot;\nY := (absolute_value_of_original_x / S) = &quot; &lt;&lt; Y &lt;&lt; &quot;.&quot;;
+        i += 1;
+    }
+    if (original_x &lt; 0) return -1 * S;
+    return S;
+}
+
+/* program entry point */
+int main()
+{
+    // Declare a float type variable and set its initial value to zero.
+    float x = 0.0;
+
+    // Declare a double type variable and set its initial value to zero.
+    long double A = 0.0;
+
+    // Declare a variable for storing the program user&#039;s answer of whether or not to continue inputting values.
+    int input_additional_values = 1;
+
+    // Declare a file output stream object.
+    std::ofstream file;
+
+    // Set the number of digits of floating-point numbers which are printed to the command line terminal to 100 digits.
+    std::cout.precision(100);
+
+    // Set the number of digits of floating-point numbers which are printed to the file output stream to 100 digits.
+    file.precision(100);
+
+    /**
+     * If square_root_approximation_output.txt does not already exist in the same directory as square_root_approximation.cpp, 
+     * create a new file named square_root_approximation_output.txt.
+     * 
+     * Open the plain-text file named square_root_approximation_output.txt 
+     * and set that file to be overwritten with program data.
+     */
+    file.open(&quot;square_root_approximation_output.txt&quot;);
+
+    // Print an opening message to the command line terminal.
+    std::cout &lt;&lt; &quot;\n\n--------------------------------&quot;;
+    std::cout &lt;&lt; &quot;\nStart Of Program&quot;;
+    std::cout &lt;&lt; &quot;\n--------------------------------&quot;;
+
+    // Print an opening message to the file output stream.
+    file &lt;&lt; &quot;--------------------------------&quot;;
+    file &lt;&lt; &quot;\nStart Of Program&quot;;
+    file &lt;&lt; &quot;\n--------------------------------&quot;;
+
+    // Prompt the user to enter an x value as many times as the user chooses to.
+    while (input_additional_values != 0)
+    {
+        // Print &quot;Enter a real number (represented using only base-ten digits with an optional radix and with an optional negative sign), x, which is no larger than {MAXIMUM_X}: &quot; to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\nEnter a real number (represented using only base-ten digits with an optional radix and with an optional negative sign), x, which is no larger than &quot; &lt;&lt; MAXIMUM_X &lt;&gt; x;
+
+        // Print &quot;The value which was entered for x is {x}.&quot; to the command line terminal.
+        std::cout &lt;&lt; &quot;\nThe value which was entered for x is &quot; &lt;&lt; x &lt;&lt; &quot;.&quot;;
+
+        // Print &quot;The value which was entered for x is {x}.&quot; to the file output stream.
+        file &lt;&lt; &quot;\n\nThe value which was entered for x is &quot; &lt;&lt; x &lt;&lt; &quot;.&quot;;
+
+        // Print a horizontal line to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\n--------------------------------&quot;;
+
+        // Print a horizontal line to the command line terminal.
+        file &lt;&lt; &quot;\n\n--------------------------------&quot;;
+
+        // Print &quot;Computing the approximate square root of x:&quot; to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\nComputing the approximate square root of x:&quot;;
+
+        // Print &quot;Computing the approximate square root of x:&quot; to the file output stream.
+        file &lt;&lt; &quot;\n\nComputing the approximate square root of x:&quot;;
+
+        // Compute the approximate square root of x using Heron&#039;s Method, print the computational steps to the command line terminal, and store the function result in A.
+        A = compute_square_root_of_real_number(x, std::cout);
+
+        // Compute the approximate square root of x using Heron&#039;s Method and print the computational steps to the file output stream.
+        compute_square_root_of_real_number(x, file);
+
+        // Print a horizontal line to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\n--------------------------------&quot;;
+
+        // Print a horizontal line to the command line terminal.
+        file &lt;&lt; &quot;\n\n--------------------------------&quot;;
+
+        // Print &quot;A = approximate_square_root({x}) = {A}.&quot; to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\nA = approximate_square_root(&quot; &lt;&lt; x &lt;&lt; &quot;) = &quot; &lt;&lt; A &lt;&lt; &quot;.&quot;;
+
+        // Print &quot;A = approximate_square_root({x}) = {A}.&quot; to the file output stream.
+        file &lt;&lt; &quot;\n\nA = approximate_square_root(&quot; &lt;&lt; x &lt;&lt; &quot;) = &quot; &lt;&lt; A &lt;&lt; &quot;.&quot;;
+
+        // Print &quot;(A * A) = &quot; &lt;&lt; {(A * A)} &lt;&lt; &quot;. // the approximate value of x&quot; to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\n(A * A) = &quot; &lt;&lt; (A * A) &lt;&lt; &quot;. // the approximate absolute value of x&quot;;
+
+        // Print &quot;(A * A) = &quot; &lt;&lt; {(A * A)} &lt;&lt; &quot;. // the approximate value of x&quot; to the file output stream.
+        file &lt;&lt; &quot;\n\n(A * A) = &quot; &lt;&lt; (A * A) &lt;&lt; &quot;. // the approximate absolute value of x&quot;;
+
+        // Ask the user whether or not to continue inputing values.
+        std::cout &lt;&gt; input_additional_values;
+
+        // Print a horizontal line to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\n--------------------------------&quot;;
+
+        // Print a horizontal line to the command line terminal.
+        file &lt;&lt; &quot;\n\n--------------------------------&quot;;
+    }
+
+    // Print a closing message to the command line terminal.
+    std::cout &lt;&lt; &quot;\nEnd Of Program&quot;;
+    std::cout &lt;&lt; &quot;\n--------------------------------\n\n&quot;;
+
+    // Print a closing message to the file output stream.
+    file &lt;&lt; &quot;\nEnd Of Program&quot;;
+    file &lt;&lt; &quot;\n--------------------------------&quot;;
+
+    // Close the file output stream.
+    file.close();
+
+    // Exit the program.
+    return 0;
+}
+</pre>
+<hr>
+<p><strong>SAMPLE_PROGRAM_OUTPUT</strong></p>
+<hr>
+<p>The text in the preformatted text box below was generated by one use case of the C++ program featured in this <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/Computer_programming" target="_blank" rel="noopener">computer programming</a> tutorial web page.</p>
+<p>plain-text_file: <a style="background:#000000;color:#ff9000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/square_root_approximation_output.txt" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/square_root_approximation_output.txt</a></p>
+<hr>
+<pre>
+--------------------------------
+Start Of Program
+--------------------------------
+
+The value which was entered for x is -25.
+
+--------------------------------
+
+Computing the approximate square root of x:
+
+x = 25. // real number to take the square root of
+S = 25. // variable for storing the approximate square root of x
+Y = 1. // number to add to S before dividing S by 2 for each while loop iteration, i
+
+i := 0.
+S := ((S + Y) / 2) = 13.
+Y := (absolute_value_of_original_x / S) = 1.923076923076923076881376839519788290999713353812694549560546875.
+
+i := 1.
+S := ((S + Y) / 2) = 7.4615384615384615384948985283841693672002293169498443603515625.
+Y := (absolute_value_of_original_x / S) = 3.35051546391752577322940831461295374538167379796504974365234375.
+
+i := 2.
+S := ((S + Y) / 2) = 5.406026962727993655753733204250011112890206277370452880859375.
+Y := (absolute_value_of_original_x / S) = 4.624468241161801379014717472415441079647280275821685791015625.
+
+i := 3.
+S := ((S + Y) / 2) = 5.0152476019448975173842253383327260962687432765960693359375.
+Y := (absolute_value_of_original_x / S) = 4.984798754563000494459401590319203023682348430156707763671875.
+
+i := 4.
+S := ((S + Y) / 2) = 5.0000231782539490059218134643259645599755458533763885498046875.
+Y := (absolute_value_of_original_x / S) = 4.99997682185349678722630084592992716352455317974090576171875.
+
+i := 5.
+S := ((S + Y) / 2) = 5.000000000053722896790897589625046748551540076732635498046875.
+Y := (absolute_value_of_original_x / S) = 4.999999999946277103209102410374953251448459923267364501953125.
+
+--------------------------------
+
+A = approximate_square_root(-25) = -5.000000000053722896790897589625046748551540076732635498046875.
+
+(A * A) = 25.00000000053722896790897589625046748551540076732635498046875. // the approximate absolute value of x
+
+--------------------------------
+
+The value which was entered for x is 100.
+
+--------------------------------
+
+Computing the approximate square root of x:
+
+x = 100. // real number to take the square root of
+S = 100. // variable for storing the approximate square root of x
+Y = 1. // number to add to S before dividing S by 2 for each while loop iteration, i
+
+i := 0.
+S := ((S + Y) / 2) = 50.5.
+Y := (absolute_value_of_original_x / S) = 1.98019801980198019799618569525279099252657033503055572509765625.
+
+i := 1.
+S := ((S + Y) / 2) = 26.24009900990099009888967263037784505286253988742828369140625.
+Y := (absolute_value_of_original_x / S) = 3.81096123007263465711814964809178718496696092188358306884765625.
+
+i := 2.
+S := ((S + Y) / 2) = 15.025530119986812377895490921986265675514005124568939208984375.
+Y := (absolute_value_of_original_x / S) = 6.6553392260670379662786111385486265135114081203937530517578125.
+
+i := 3.
+S := ((S + Y) / 2) = 10.84043467302692517230389146476454698131419718265533447265625.
+Y := (absolute_value_of_original_x / S) = 9.22472234889428614745821022324889781884849071502685546875.
+
+i := 4.
+S := ((S + Y) / 2) = 10.032578510960605659881050844006722400081343948841094970703125.
+Y := (absolute_value_of_original_x / S) = 9.96752728032478032237084786260084001696668565273284912109375.
+
+i := 5.
+S := ((S + Y) / 2) = 10.00005289564269299155963022229798298212699592113494873046875.
+Y := (absolute_value_of_original_x / S) = 9.999947104637100430378493509664394878200255334377288818359375.
+
+i := 6.
+S := ((S + Y) / 2) = 10.00000000013989671053538099698698715656064450740814208984375.
+Y := (absolute_value_of_original_x / S) = 9.99999999986010328946461900301301284343935549259185791015625.
+
+--------------------------------
+
+A = approximate_square_root(100) = 10.00000000013989671053538099698698715656064450740814208984375.
+
+(A * A) = 100.000000002797934210707619939739743131212890148162841796875. // the approximate absolute value of x
+
+--------------------------------
+
+The value which was entered for x is 3.1400001049041748046875.
+
+--------------------------------
+
+Computing the approximate square root of x:
+
+x = 3.1400001049041748046875. // real number to take the square root of
+S = 3.1400001049041748046875. // variable for storing the approximate square root of x
+Y = 1. // number to add to S before dividing S by 2 for each while loop iteration, i
+
+i := 0.
+S := ((S + Y) / 2) = 2.07000005245208740234375.
+Y := (absolute_value_of_original_x / S) = 1.51690822480153237488721684744774620412499643862247467041015625.
+
+i := 1.
+S := ((S + Y) / 2) = 1.793454138626809888615483423723873102062498219311237335205078125.
+Y := (absolute_value_of_original_x / S) = 1.750811485655480336811294639343117296448326669633388519287109375.
+
+i := 2.
+S := ((S + Y) / 2) = 1.77213281214114511271338903153349519925541244447231292724609375.
+Y := (absolute_value_of_original_x / S) = 1.771876285677669133245167032431055531560559757053852081298828125.
+
+i := 3.
+S := ((S + Y) / 2) = 1.77200454890940712303348814060655058710835874080657958984375.
+Y := (absolute_value_of_original_x / S) = 1.7720045396253132270227015343522225521155633032321929931640625.
+
+--------------------------------
+
+A = approximate_square_root(3.1400001049041748046875) = 1.77200454890940712303348814060655058710835874080657958984375.
+
+(A * A) = 3.14000012135563142073695075406902788017760030925273895263671875. // the approximate absolute value of x
+
+--------------------------------
+
+The value which was entered for x is -16.
+
+--------------------------------
+
+Computing the approximate square root of x:
+
+x = 16. // real number to take the square root of
+S = 16. // variable for storing the approximate square root of x
+Y = 1. // number to add to S before dividing S by 2 for each while loop iteration, i
+
+i := 0.
+S := ((S + Y) / 2) = 8.5.
+Y := (absolute_value_of_original_x / S) = 1.882352941176470588241671777485208849611808545887470245361328125.
+
+i := 1.
+S := ((S + Y) / 2) = 5.191176470588235294066625780118329203105531632900238037109375.
+Y := (absolute_value_of_original_x / S) = 3.082152974504249291765045626334540429525077342987060546875.
+
+i := 2.
+S := ((S + Y) / 2) = 4.1366647225462422929158357032264348163153044879436492919921875.
+Y := (absolute_value_of_original_x / S) = 3.867850327050802394790451899098115973174571990966796875.
+
+i := 3.
+S := ((S + Y) / 2) = 4.00225752479852234406998423565937628154642879962921142578125.
+Y := (absolute_value_of_original_x / S) = 3.99774374858735659192532363448435717145912349224090576171875.
+
+i := 4.
+S := ((S + Y) / 2) = 4.00000063669293946799765393507186672650277614593505859375.
+Y := (absolute_value_of_original_x / S) = 3.99999936330716187649937654047249679933884181082248687744140625.
+
+i := 5.
+S := ((S + Y) / 2) = 4.000000000000050672140095020523631319520063698291778564453125.
+Y := (absolute_value_of_original_x / S) = 3.999999999999949327859904979476368680479936301708221435546875.
+
+--------------------------------
+
+A = approximate_square_root(-16) = -4.000000000000050672140095020523631319520063698291778564453125.
+
+(A * A) = 16.000000000000405377120760164189050556160509586334228515625. // the approximate absolute value of x
+
+--------------------------------
+
+The value which was entered for x is 0.
+
+--------------------------------
+
+Computing the approximate square root of x:
+
+x = 0. // real number to take the square root of
+S = 0. // variable for storing the approximate square root of x
+Y = 1. // number to add to S before dividing S by 2 for each while loop iteration, i
+
+--------------------------------
+
+A = approximate_square_root(0) = 0.
+
+(A * A) = 0. // the approximate absolute value of x
+
+--------------------------------
+
+The value which was entered for x is -1.
+
+--------------------------------
+
+Computing the approximate square root of x:
+
+x = 1. // real number to take the square root of
+S = 1. // variable for storing the approximate square root of x
+Y = 1. // number to add to S before dividing S by 2 for each while loop iteration, i
+
+--------------------------------
+
+A = approximate_square_root(-1) = -1.
+
+(A * A) = 1. // the approximate absolute value of x
+
+--------------------------------
+
+The value which was entered for x is 1.
+
+--------------------------------
+
+Computing the approximate square root of x:
+
+x = 1. // real number to take the square root of
+S = 1. // variable for storing the approximate square root of x
+Y = 1. // number to add to S before dividing S by 2 for each while loop iteration, i
+
+--------------------------------
+
+A = approximate_square_root(1) = 1.
+
+(A * A) = 1. // the approximate absolute value of x
+
+--------------------------------
+
+The value which was entered for x is -100.
+
+--------------------------------
+
+Computing the approximate square root of x:
+
+x = 100. // real number to take the square root of
+S = 100. // variable for storing the approximate square root of x
+Y = 1. // number to add to S before dividing S by 2 for each while loop iteration, i
+
+i := 0.
+S := ((S + Y) / 2) = 50.5.
+Y := (absolute_value_of_original_x / S) = 1.98019801980198019799618569525279099252657033503055572509765625.
+
+i := 1.
+S := ((S + Y) / 2) = 26.24009900990099009888967263037784505286253988742828369140625.
+Y := (absolute_value_of_original_x / S) = 3.81096123007263465711814964809178718496696092188358306884765625.
+
+i := 2.
+S := ((S + Y) / 2) = 15.025530119986812377895490921986265675514005124568939208984375.
+Y := (absolute_value_of_original_x / S) = 6.6553392260670379662786111385486265135114081203937530517578125.
+
+i := 3.
+S := ((S + Y) / 2) = 10.84043467302692517230389146476454698131419718265533447265625.
+Y := (absolute_value_of_original_x / S) = 9.22472234889428614745821022324889781884849071502685546875.
+
+i := 4.
+S := ((S + Y) / 2) = 10.032578510960605659881050844006722400081343948841094970703125.
+Y := (absolute_value_of_original_x / S) = 9.96752728032478032237084786260084001696668565273284912109375.
+
+i := 5.
+S := ((S + Y) / 2) = 10.00005289564269299155963022229798298212699592113494873046875.
+Y := (absolute_value_of_original_x / S) = 9.999947104637100430378493509664394878200255334377288818359375.
+
+i := 6.
+S := ((S + Y) / 2) = 10.00000000013989671053538099698698715656064450740814208984375.
+Y := (absolute_value_of_original_x / S) = 9.99999999986010328946461900301301284343935549259185791015625.
+
+--------------------------------
+
+A = approximate_square_root(-100) = -10.00000000013989671053538099698698715656064450740814208984375.
+
+(A * A) = 100.000000002797934210707619939739743131212890148162841796875. // the approximate absolute value of x
+
+--------------------------------
+
+The value which was entered for x is 0.5.
+
+--------------------------------
+
+Computing the approximate square root of x:
+
+x = 0.5. // real number to take the square root of
+S = 0.5. // variable for storing the approximate square root of x
+Y = 1. // number to add to S before dividing S by 2 for each while loop iteration, i
+
+--------------------------------
+
+A = approximate_square_root(0.5) = 0.5.
+
+(A * A) = 0.25. // the approximate absolute value of x
+
+--------------------------------
+
+The value which was entered for x is 0.333000004291534423828125.
+
+--------------------------------
+
+Computing the approximate square root of x:
+
+x = 0.333000004291534423828125. // real number to take the square root of
+S = 0.333000004291534423828125. // variable for storing the approximate square root of x
+Y = 1. // number to add to S before dividing S by 2 for each while loop iteration, i
+
+--------------------------------
+
+A = approximate_square_root(0.333000004291534423828125) = 0.333000004291534423828125.
+
+(A * A) = 0.110889002858161944686798960901796817779541015625. // the approximate absolute value of x
+
+--------------------------------
+
+The value which was entered for x is 64.
+
+--------------------------------
+
+Computing the approximate square root of x:
+
+x = 64. // real number to take the square root of
+S = 64. // variable for storing the approximate square root of x
+Y = 1. // number to add to S before dividing S by 2 for each while loop iteration, i
+
+i := 0.
+S := ((S + Y) / 2) = 32.5.
+Y := (absolute_value_of_original_x / S) = 1.96923076923076923079591882270733549376018345355987548828125.
+
+i := 1.
+S := ((S + Y) / 2) = 17.234615384615384614530597673365264199674129486083984375.
+Y := (absolute_value_of_original_x / S) = 3.713456817674626199606013887688504837569780647754669189453125.
+
+i := 2.
+S := ((S + Y) / 2) = 10.47403610114500540663462491153268274501897394657135009765625.
+Y := (absolute_value_of_original_x / S) = 6.1103474708287113035913573622082139991107396781444549560546875.
+
+i := 3.
+S := ((S + Y) / 2) = 8.292191785986858355329831571367549258866347372531890869140625.
+Y := (absolute_value_of_original_x / S) = 7.7181041697750993844928668607963118120096623897552490234375.
+
+i := 4.
+S := ((S + Y) / 2) = 8.00514797788097886947766834708772876183502376079559326171875.
+Y := (absolute_value_of_original_x / S) = 7.994855332698205459783513671112586962408386170864105224609375.
+
+i := 5.
+S := ((S + Y) / 2) = 8.00000165528959216419691014010595608851872384548187255859375.
+Y := (absolute_value_of_original_x / S) = 7.999998344710750333534654554767939771409146487712860107421875.
+
+i := 6.
+S := ((S + Y) / 2) = 8.0000000000001712484321014784427461563609540462493896484375.
+Y := (absolute_value_of_original_x / S) = 7.9999999999998287515678985215572538436390459537506103515625.
+
+--------------------------------
+
+A = approximate_square_root(64) = 8.0000000000001712484321014784427461563609540462493896484375.
+
+(A * A) = 64.000000000002739974913623655083938501775264739990234375. // the approximate absolute value of x
+
+--------------------------------
+End Of Program
+--------------------------------
+</pre>
+<hr>
+<p>This web page was last updated on 29_AUGUST_2024. The content displayed on this web page is licensed as <a style="background:#000000;color:#ff9000" href="https://karlinaobject.wordpress.com/public_domain/" target="_blank" rel="noopener">PUBLIC_DOMAIN</a> intellectual property.</p>
+<hr>
