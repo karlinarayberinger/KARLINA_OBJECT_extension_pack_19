@@ -1,0 +1,2095 @@
+<hr>
+<p><strong>CUBE_ROOT_APPROXIMATION</strong></p>
+<hr>
+<p><span style="background:#ffff00">The <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/C%2B%2B" target="_blank" rel="noopener">C++</a> program featured in this tutorial web page computes the approximate cube root of a real number using an iterative algorithm.</span></p>
+<p><em>To view hidden text inside each of the preformatted text boxes below, scroll horizontally.</em></p>
+<pre>Y := cube_root(X). // Y = X ^ (1/3).
+(Y * Y * Y) = X. // X = Y ^ 3.
+</pre>
+<hr>
+<p><strong>SOFTWARE_APPLICATION_COMPONENTS</strong></p>
+<hr>
+<p>C++_source_file: <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/cube_root_approximation.cpp" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/cube_root_approximation.cpp</a></p>
+<p>plain-text_file: <a style="background:#000000;color:#ff9000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/cube_root_approximation_output.txt" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/cube_root_approximation_output.txt</a></p>
+<hr>
+<p><strong>PROGRAM_COMPILATION_AND_EXECUTION</strong></p>
+<hr>
+<p>STEP_0: Copy and paste the C++ <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/cube_root_approximation.cpp" target="_blank" rel="noopener">source code</a> into a new text editor document and save that document as the following file name:</p>
+<pre>cube_root_approximation.cpp</pre>
+<p>STEP_1: Open a <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/Unix" target="_blank" rel="noopener">Unix</a> command line terminal application and set the current directory to wherever the C++ is located on the local machine (e.g. Desktop).</p>
+<pre>cd Desktop</pre>
+<p>STEP_2: Compile the C++ file into machine-executable instructions (i.e. object file) and then into an executable piece of software named <strong>app</strong> using the following command:</p>
+<pre>g++ cube_root_approximation.cpp -o app</pre>
+<p>STEP_3: If the program compilation command does not work, then use the following commands (in top-down order) to install the C/C++ compiler (which is part of the <a style="background: #ff9000;color: #000000" href="https://en.wikipedia.org/wiki/GNU_Compiler_Collection" target="_blank" rel="noopener">GNU Compiler Collection (GCC)</a>):</p>
+<pre>sudo apt install build-essential</pre>
+<pre>sudo apt-get install g++</pre>
+<p>STEP_4: After running the <strong>g++</strong> command, run the executable file using the following command:</p>
+<pre>./app</pre>
+<p>STEP_5: Once the application is running, the following prompt will appear:</p>
+<pre>Enter a real number (represented using only base-ten digits with an optional radix and with an optional negative sign), x, which is no larger than 100:</pre>
+<p>STEP_6: Enter a value for N using the keyboard.</p>
+<p>STEP_7: Statements showing program throughput and the value returned by the cube root function which computes the approximate value of x raised to the power of (1/3) will be printed to the command line terminal and to the file output stream and then the following prompt will appear:</p>
+<pre>Would you like to continue inputting program values? (Enter 1 if YES. Enter 0 if NO):</pre>
+<p>STEP_8: Enter a value according to your preference until you decide to close the program (and save your program data to the <a style="background:#000000;color:#ff9000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/cube_root_approximation_output.txt" target="_blank" rel="noopener">output file</a>).</p>
+<hr>
+<p><strong>PROGRAM_SOURCE_CODE</strong></p>
+<hr>
+<p><em>When copy-pasting the source code from the preformatted text box below into a text editor document, remove the spaces between the angle brackets and the library names in the preprocessing directives code block. (The spaces were inserted between the library names and angle brackets in the preformatted text box below in order to prevent the WordPress server from misinterpreting those C++ library references as <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/HTML" target="_blank" rel="noopener">HTML</a> tags in the source code of this web page).</em></p>
+<p>C++_source_file: <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/cube_root_approximation.cpp" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/cube_root_approximation.cpp</a></p>
+<hr>
+<pre>
+/**
+ * file: cube_root_approximation.cpp
+ * type: C++ (source file)
+ * date: 19_JUNE_2023
+ * author: karbytes
+ * license: PUBLIC_DOMAIN
+ */
+
+/* preprocessing directives */
+#include &lt; iostream &gt; // standard input (std::cin), standard output (std::cout)
+#include &lt; fstream &gt; // file input, file output
+#define MAXIMUM_X 1000 // constant which represents maximum absolute value of the program input value
+#define E 0.00000001 // constant which represents the degree of accuracy of the square root approximation 
+
+/* function prototypes */
+float absolute_value(float x);
+long double difference(long double n, long double b);
+long double compute_cube_root_of_real_number(float x, std::ostream &amp; output);
+
+/**
+ * Return the absolute value of a real number input, x.
+ */
+float absolute_value(float x)
+{
+    if (x  (b * b * b)) return (n - (b * b * b));
+    return ((b * b * b) - n);
+}
+
+/**
+ * Return the absolute value of (n - (b *  b * b)).
+ */
+long double difference(long double n, long double b)
+{
+    if (n &gt; (b * b * b)) return (n - (b * b * b));
+    return ((b * b * b) - n);
+}
+
+/**
+ * Compute the approximate cube root of a real number, x, using an iterative method.
+ * 
+ * The cube root of x is x raised to the power of (1/3).
+ * 
+ * Assume that x is a float type value and that output is an output stream object.
+ * 
+ * This function returns a value whose data type is long double (which is a floating-point number).
+ */
+long double compute_cube_root_of_real_number(float x, std::ostream &amp; output)
+{
+    int i = 0;
+    float original_x = x;
+    long double A = 0.0, B = 0.0, C = 0.0, epsilon = 0.0;
+    x = absolute_value(x);
+    x = ((x &gt; MAXIMUM_X) || (x &lt; 1)) ? 0 : x; // If x is out of range, then set x to 0. Also, to avoid an infinite loop as a result of the absolute value of x being too small, set x to 0 if the absolute value of x is smaller than 1.
+    C = x;
+    output &lt;&lt; &quot;\n\nC = &quot; &lt;&lt; C &lt;&lt; &quot;. // real number to take the cube root of&quot;;
+    output &lt;&lt; &quot;\nB = &quot; &lt;&lt; B &lt;&lt; &quot;. // variable for storing the approximate cube root of x&quot;;
+    output &lt;&lt; &quot;\nA = &quot; &lt;&lt; A &lt;&lt; &quot;. // number to add to C before dividing the sum of A and C by 2 for each while loop iteration, i&quot;;
+    output &lt;&lt; &quot;\nepsilon = &quot; &lt;&lt; epsilon &lt;&lt; &quot;. // variable for storing the difference between the input value and B raised to the power of 3&quot;;
+    while (true)
+    {
+        output &lt;&lt; &quot;\n\ni := &quot; &lt;&lt; i &lt;&lt; &quot;.&quot;;
+        output &lt;&lt; &quot;\nC := &quot; &lt;&lt; C &lt;&lt; &quot;.&quot;;
+        output &lt;&lt; &quot;\nA := &quot; &lt;&lt; A &lt;&lt; &quot;.&quot;;
+        B = (A + C) / 2;
+        epsilon = difference(x, B);
+        output &lt;&lt; &quot;\nB := (A + C) / 2 = &quot; &lt;&lt; B &lt;&lt; &quot;.&quot;;
+        output &lt;&lt; &quot;\nepsilon = difference(x , B) = &quot; &lt;&lt; epsilon &lt;&lt; &quot;.&quot;;
+        if (epsilon &lt;= E) 
+        {
+            if (original_x  x) C = B;
+        else A = B;
+        i += 1;
+    }
+}
+
+/* program entry point */
+int main()
+{
+    // Declare a float type variable and set its initial value to zero.
+    float x = 0.0;
+
+    // Declare a double type variable and set its initial value to zero.
+    long double S = 0.0;
+
+    // Declare a variable for storing the program user's answer of whether or not to continue inputting values.
+    int input_additional_values = 1;
+
+    // Declare a file output stream object.
+    std::ofstream file;
+
+    // Set the number of digits of floating-point numbers which are printed to the command line terminal to 100 digits.
+    std::cout.precision(100);
+
+    // Set the number of digits of floating-point numbers which are printed to the file output stream to 100 digits.
+    file.precision(100);
+
+    /**
+     * If cube_root_approximation_output.txt does not already exist in the same directory as cube_root_approximation.cpp, 
+     * create a new file named cube_root_approximation_output.txt.
+     * 
+     * Open the plain-text file named cube_root_approximation_output.txt 
+     * and set that file to be overwritten with program data.
+     */
+    file.open("cube_root_approximation_output.txt");
+
+    // Print an opening message to the command line terminal.
+    std::cout &lt;&lt; &quot;\n\n--------------------------------&quot;;
+    std::cout &lt;&lt; &quot;\nStart Of Program&quot;;
+    std::cout &lt;&lt; &quot;\n--------------------------------&quot;;
+
+    // Print an opening message to the file output stream.
+    file &lt;&lt; &quot;--------------------------------&quot;;
+    file &lt;&lt; &quot;\nStart Of Program&quot;;
+    file &lt;&lt; &quot;\n--------------------------------&quot;;
+
+    // Prompt the user to enter an x value as many times as the user chooses to.
+    while (input_additional_values != 0)
+    {
+        // Print &quot;Enter a real number (represented using only base-ten digits with an optional radix and with an optional negative sign), x, which is no larger than {MAXIMUM_X}: &quot; to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\nEnter a real number (represented using only base-ten digits with an optional radix and with an optional negative sign), x, which is no larger than &quot; &lt;&lt; MAXIMUM_X &lt;&gt; x;
+
+        // Print "The value which was entered for x is {x}." to the command line terminal.
+        std::cout &lt;&lt; &quot;\nThe value which was entered for x is &quot; &lt;&lt; x &lt;&lt; &quot;.&quot;;
+
+        // Print &quot;The value which was entered for x is {x}.&quot; to the file output stream.
+        file &lt;&lt; &quot;\n\nThe value which was entered for x is &quot; &lt;&lt; x &lt;&lt; &quot;.&quot;;
+
+        // Print a horizontal line to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\n--------------------------------&quot;;
+
+        // Print a horizontal line to the command line terminal.
+        file &lt;&lt; &quot;\n\n--------------------------------&quot;;
+
+        // Print &quot;Computing the approximate cube root of x:&quot; to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\nComputing the approximate cube root of x:&quot;;
+
+        // Print &quot;Computing the approximate cube root of x:&quot; to the file output stream.
+        file &lt;&lt; &quot;\n\nComputing the approximate cube root of x:&quot;;
+
+        // Compute the approximate cube root of x using the Bijection Method, print the computational steps to the command line terminal, and store the function result in S.
+        S = compute_cube_root_of_real_number(x, std::cout);
+
+        // Compute the approximate square root of x using Heron&#039;s Method and print the computational steps to the file output stream.
+        compute_cube_root_of_real_number(x, file);
+
+        // Print a horizontal line to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\n--------------------------------&quot;;
+
+        // Print a horizontal line to the command line terminal.
+        file &lt;&lt; &quot;\n\n--------------------------------&quot;;
+
+        // Print &quot;S = approximate_cube_root({x}) = {S}.&quot; to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\nS = approximate_cube_root(&quot; &lt;&lt; x &lt;&lt; &quot;) = &quot; &lt;&lt; S &lt;&lt; &quot;.&quot;;
+
+        // Print &quot;S = approximate_cube_root({x}) = {S}.&quot; to the file output stream.
+        file &lt;&lt; &quot;\n\nS = approximate_cube_root(&quot; &lt;&lt; x &lt;&lt; &quot;) = &quot; &lt;&lt; S &lt;&lt; &quot;.&quot;;
+
+        // Print &quot;(S * S * S) = &quot; &lt;&lt; {(S * S * S)} &lt;&lt; &quot;. // the approximate value of x&quot; to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\n(S * S * S) = &quot; &lt;&lt; (S * S * S) &lt;&lt; &quot;. // the approximate absolute value of x&quot;;
+
+        // Print &quot;(S * S * S) = &quot; &lt;&lt; {(S * S * S)} &lt;&lt; &quot;. // the approximate value of x&quot; to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\n(S * S * S) = &quot; &lt;&lt; (S * S * S) &lt;&lt; &quot;. // the approximate absolute value of x&quot;;
+
+        // Ask the user whether or not to continue inputing values.
+        std::cout &lt;&gt; input_additional_values;
+
+        // Print a horizontal line to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\n--------------------------------&quot;;
+
+        // Print a horizontal line to the command line terminal.
+        file &lt;&lt; &quot;\n\n--------------------------------&quot;;
+    }
+
+    // Print a closing message to the command line terminal.
+    std::cout &lt;&lt; &quot;\nEnd Of Program&quot;;
+    std::cout &lt;&lt; &quot;\n--------------------------------\n\n&quot;;
+
+    // Print a closing message to the file output stream.
+    file &lt;&lt; &quot;\nEnd Of Program&quot;;
+    file &lt;&lt; &quot;\n--------------------------------&quot;;
+
+    // Close the file output stream.
+    file.close();
+
+    // Exit the program.
+    return 0;
+}</pre>
+<hr>
+<p><strong>SAMPLE_PROGRAM_OUTPUT</strong></p>
+<hr>
+<p>The text in the preformatted text box below was generated by one use case of the C++ program featured in this <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/Computer_programming" target="_blank" rel="noopener">computer programming</a> tutorial web page.</p>
+<p>plain-text_file: <a style="background:#000000;color:#ff9000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/cube_root_approximation_output.txt" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/cube_root_approximation_output.txt</a></p>
+<hr>
+<pre>--------------------------------
+Start Of Program
+--------------------------------
+
+The value which was entered for x is 8.
+
+--------------------------------
+
+Computing the approximate cube root of x:
+
+C = 8. // real number to take the cube root of
+B = 0. // variable for storing the approximate cube root of x
+A = 0. // number to add to C before dividing the sum of A and C by 2 for each while loop iteration, i
+epsilon = 0. // variable for storing the difference between the input value and B raised to the power of 3
+
+i := 0.
+C := 8.
+A := 0.
+B := (A + C) / 2 = 4.
+epsilon = difference(x , B) = 56.
+
+i := 1.
+C := 4.
+A := 0.
+B := (A + C) / 2 = 2.
+epsilon = difference(x , B) = 0.
+
+--------------------------------
+
+S = approximate_cube_root(8) = 2.
+
+--------------------------------
+
+The value which was entered for x is 125.
+
+--------------------------------
+
+Computing the approximate cube root of x:
+
+C = 125. // real number to take the cube root of
+B = 0. // variable for storing the approximate cube root of x
+A = 0. // number to add to C before dividing the sum of A and C by 2 for each while loop iteration, i
+epsilon = 0. // variable for storing the difference between the input value and B raised to the power of 3
+
+i := 0.
+C := 125.
+A := 0.
+B := (A + C) / 2 = 62.5.
+epsilon = difference(x , B) = 244015.625.
+
+i := 1.
+C := 62.5.
+A := 0.
+B := (A + C) / 2 = 31.25.
+epsilon = difference(x , B) = 30392.578125.
+
+i := 2.
+C := 31.25.
+A := 0.
+B := (A + C) / 2 = 15.625.
+epsilon = difference(x , B) = 3689.697265625.
+
+i := 3.
+C := 15.625.
+A := 0.
+B := (A + C) / 2 = 7.8125.
+epsilon = difference(x , B) = 351.837158203125.
+
+i := 4.
+C := 7.8125.
+A := 0.
+B := (A + C) / 2 = 3.90625.
+epsilon = difference(x , B) = 65.395355224609375.
+
+i := 5.
+C := 7.8125.
+A := 3.90625.
+B := (A + C) / 2 = 5.859375.
+epsilon = difference(x , B) = 76.165676116943359375.
+
+i := 6.
+C := 5.859375.
+A := 3.90625.
+B := (A + C) / 2 = 4.8828125.
+epsilon = difference(x , B) = 8.584678173065185546875.
+
+i := 7.
+C := 5.859375.
+A := 4.8828125.
+B := (A + C) / 2 = 5.37109375.
+epsilon = difference(x , B) = 29.948793351650238037109375.
+
+i := 8.
+C := 5.37109375.
+A := 4.8828125.
+B := (A + C) / 2 = 5.126953125.
+epsilon = difference(x , B) = 9.765286929905414581298828125.
+
+i := 9.
+C := 5.126953125.
+A := 4.8828125.
+B := (A + C) / 2 = 5.0048828125.
+epsilon = difference(x , B) = 0.366568681783974170684814453125.
+
+i := 10.
+C := 5.0048828125.
+A := 4.8828125.
+B := (A + C) / 2 = 4.94384765625.
+epsilon = difference(x , B) = 4.164306548773311078548431396484375.
+
+i := 11.
+C := 5.0048828125.
+A := 4.94384765625.
+B := (A + C) / 2 = 4.974365234375.
+epsilon = difference(x , B) = 1.912767149406136013567447662353515625.
+
+i := 12.
+C := 5.0048828125.
+A := 4.974365234375.
+B := (A + C) / 2 = 4.9896240234375.
+epsilon = difference(x , B) = 0.776584445929984212853014469146728515625.
+
+i := 13.
+C := 5.0048828125.
+A := 4.9896240234375.
+B := (A + C) / 2 = 4.99725341796875.
+epsilon = difference(x , B) = 0.205880517370360394124872982501983642578125.
+
+i := 14.
+C := 5.0048828125.
+A := 4.99725341796875.
+B := (A + C) / 2 = 5.001068115234375.
+epsilon = difference(x , B) = 0.080125756849014351246296428143978118896484375.
+
+i := 15.
+C := 5.001068115234375.
+A := 4.99725341796875.
+B := (A + C) / 2 = 4.9991607666015625.
+epsilon = difference(x , B) = 0.062931940783439443976021721027791500091552734375.
+
+i := 16.
+C := 5.001068115234375.
+A := 4.9991607666015625.
+B := (A + C) / 2 = 5.00011444091796875.
+epsilon = difference(x , B) = 0.008583265300010634035743350978009402751922607421875.
+
+i := 17.
+C := 5.00011444091796875.
+A := 4.9991607666015625.
+B := (A + C) / 2 = 4.999637603759765625.
+epsilon = difference(x , B) = 0.027177748099647958124336355467676185071468353271484375.
+
+i := 18.
+C := 5.00011444091796875.
+A := 4.999637603759765625.
+B := (A + C) / 2 = 4.9998760223388671875.
+epsilon = difference(x , B) = 0.009298094029959631801052211130809155292809009552001953125.
+
+i := 19.
+C := 5.00011444091796875.
+A := 4.9998760223388671875.
+B := (A + C) / 2 = 4.99999523162841796875.
+epsilon = difference(x , B) = 0.00035762752759194160745437329751439392566680908203125.
+
+i := 20.
+C := 5.00011444091796875.
+A := 4.99999523162841796875.
+B := (A + C) / 2 = 5.000054836273193359375.
+epsilon = difference(x , B) = 0.0041127655949197150508922504741349257528781890869140625.
+
+i := 21.
+C := 5.000054836273193359375.
+A := 4.99999523162841796875.
+B := (A + C) / 2 = 5.0000250339508056640625.
+epsilon = difference(x , B) = 0.001877555710920887632742193318335921503603458404541015625.
+
+i := 22.
+C := 5.0000250339508056640625.
+A := 4.99999523162841796875.
+B := (A + C) / 2 = 5.00001013278961181640625.
+epsilon = difference(x , B) = 0.00075996076098865106285273895991849713027477264404296875.
+
+i := 23.
+C := 5.00001013278961181640625.
+A := 4.99999523162841796875.
+B := (A + C) / 2 = 5.000002682209014892578125.
+epsilon = difference(x , B) = 0.000201165784030642169621927450862131081521511077880859375.
+
+i := 24.
+C := 5.000002682209014892578125.
+A := 4.99999523162841796875.
+B := (A + C) / 2 = 4.9999989569187164306640625.
+epsilon = difference(x , B) = 7.823107994742173332269885577261447906494140625e-05.
+
+i := 25.
+C := 5.000002682209014892578125.
+A := 4.9999989569187164306640625.
+B := (A + C) / 2 = 5.00000081956386566162109375.
+epsilon = difference(x , B) = 6.14672999998955305045456043444573879241943359375e-05.
+
+i := 26.
+C := 5.00000081956386566162109375.
+A := 4.9999989569187164306640625.
+B := (A + C) / 2 = 4.999999888241291046142578125.
+epsilon = difference(x , B) = 8.381902984189171235129833803512156009674072265625e-06.
+
+i := 27.
+C := 5.00000081956386566162109375.
+A := 4.999999888241291046142578125.
+B := (A + C) / 2 = 5.0000003539025783538818359375.
+epsilon = difference(x , B) = 2.654269525524666217819458324811421334743499755859375e-05.
+
+i := 28.
+C := 5.0000003539025783538818359375.
+A := 4.999999888241291046142578125.
+B := (A + C) / 2 = 5.00000012107193470001220703125.
+epsilon = difference(x , B) = 9.080395322380585554356002830900251865386962890625e-06.
+
+i := 29.
+C := 5.00000012107193470001220703125.
+A := 4.999999888241291046142578125.
+B := (A + C) / 2 = 5.000000004656612873077392578125.
+epsilon = difference(x , B) = 3.4924596579999356293910750537179410457611083984375e-07.
+
+i := 30.
+C := 5.000000004656612873077392578125.
+A := 4.999999888241291046142578125.
+B := (A + C) / 2 = 4.9999999464489519596099853515625.
+epsilon = difference(x , B) = 4.016328560015047788311903786961920559406280517578125e-06.
+
+i := 31.
+C := 5.000000004656612873077392578125.
+A := 4.9999999464489519596099853515625.
+B := (A + C) / 2 = 4.99999997555278241634368896484375.
+epsilon = difference(x , B) = 1.833541309802233509884672457701526582241058349609375e-06.
+
+i := 32.
+C := 5.000000004656612873077392578125.
+A := 4.99999997555278241634368896484375.
+B := (A + C) / 2 = 4.999999990104697644710540771484375.
+epsilon = difference(x , B) = 7.42147675182602828414246687316335737705230712890625e-07.
+
+i := 33.
+C := 5.000000004656612873077392578125.
+A := 4.999999990104697644710540771484375.
+B := (A + C) / 2 = 4.9999999973806552588939666748046875.
+epsilon = difference(x , B) = 1.96450855478869090831040011835284531116485595703125e-07.
+
+i := 34.
+C := 5.000000004656612873077392578125.
+A := 4.9999999973806552588939666748046875.
+B := (A + C) / 2 = 5.00000000101863406598567962646484375.
+epsilon = difference(x , B) = 7.6397554969742653696584966382943093776702880859375e-08.
+
+i := 35.
+C := 5.00000000101863406598567962646484375.
+A := 4.9999999973806552588939666748046875.
+B := (A + C) / 2 = 4.999999999199644662439823150634765625.
+epsilon = difference(x , B) = 6.0026650310074369798485349747352302074432373046875e-08.
+
+i := 36.
+C := 5.00000000101863406598567962646484375.
+A := 4.999999999199644662439823150634765625.
+B := (A + C) / 2 = 5.0000000001091393642127513885498046875.
+epsilon = difference(x , B) = 8.1854523159563541412353515625e-09.
+
+--------------------------------
+
+S = approximate_cube_root(125) = 5.0000000001091393642127513885498046875.
+
+--------------------------------
+
+The value which was entered for x is -8.
+
+--------------------------------
+
+Computing the approximate cube root of x:
+
+C = 8. // real number to take the cube root of
+B = 0. // variable for storing the approximate cube root of x
+A = 0. // number to add to C before dividing the sum of A and C by 2 for each while loop iteration, i
+epsilon = 0. // variable for storing the difference between the input value and B raised to the power of 3
+
+i := 0.
+C := 8.
+A := 0.
+B := (A + C) / 2 = 4.
+epsilon = difference(x , B) = 56.
+
+i := 1.
+C := 4.
+A := 0.
+B := (A + C) / 2 = 2.
+epsilon = difference(x , B) = 0.
+
+--------------------------------
+
+S = approximate_cube_root(-8) = -2.
+
+--------------------------------
+
+The value which was entered for x is 1000.
+
+--------------------------------
+
+Computing the approximate cube root of x:
+
+C = 1000. // real number to take the cube root of
+B = 0. // variable for storing the approximate cube root of x
+A = 0. // number to add to C before dividing the sum of A and C by 2 for each while loop iteration, i
+epsilon = 0. // variable for storing the difference between the input value and B raised to the power of 3
+
+i := 0.
+C := 1000.
+A := 0.
+B := (A + C) / 2 = 500.
+epsilon = difference(x , B) = 124999000.
+
+i := 1.
+C := 500.
+A := 0.
+B := (A + C) / 2 = 250.
+epsilon = difference(x , B) = 15624000.
+
+i := 2.
+C := 250.
+A := 0.
+B := (A + C) / 2 = 125.
+epsilon = difference(x , B) = 1952125.
+
+i := 3.
+C := 125.
+A := 0.
+B := (A + C) / 2 = 62.5.
+epsilon = difference(x , B) = 243140.625.
+
+i := 4.
+C := 62.5.
+A := 0.
+B := (A + C) / 2 = 31.25.
+epsilon = difference(x , B) = 29517.578125.
+
+i := 5.
+C := 31.25.
+A := 0.
+B := (A + C) / 2 = 15.625.
+epsilon = difference(x , B) = 2814.697265625.
+
+i := 6.
+C := 15.625.
+A := 0.
+B := (A + C) / 2 = 7.8125.
+epsilon = difference(x , B) = 523.162841796875.
+
+i := 7.
+C := 15.625.
+A := 7.8125.
+B := (A + C) / 2 = 11.71875.
+epsilon = difference(x , B) = 609.325408935546875.
+
+i := 8.
+C := 11.71875.
+A := 7.8125.
+B := (A + C) / 2 = 9.765625.
+epsilon = difference(x , B) = 68.677425384521484375.
+
+i := 9.
+C := 11.71875.
+A := 9.765625.
+B := (A + C) / 2 = 10.7421875.
+epsilon = difference(x , B) = 239.590346813201904296875.
+
+i := 10.
+C := 10.7421875.
+A := 9.765625.
+B := (A + C) / 2 = 10.25390625.
+epsilon = difference(x , B) = 78.122295439243316650390625.
+
+i := 11.
+C := 10.25390625.
+A := 9.765625.
+B := (A + C) / 2 = 10.009765625.
+epsilon = difference(x , B) = 2.932549454271793365478515625.
+
+i := 12.
+C := 10.009765625.
+A := 9.765625.
+B := (A + C) / 2 = 9.8876953125.
+epsilon = difference(x , B) = 33.314452390186488628387451171875.
+
+i := 13.
+C := 10.009765625.
+A := 9.8876953125.
+B := (A + C) / 2 = 9.94873046875.
+epsilon = difference(x , B) = 15.302137195249088108539581298828125.
+
+i := 14.
+C := 10.009765625.
+A := 9.94873046875.
+B := (A + C) / 2 = 9.979248046875.
+epsilon = difference(x , B) = 6.212675567439873702824115753173828125.
+
+i := 15.
+C := 10.009765625.
+A := 9.979248046875.
+B := (A + C) / 2 = 9.9945068359375.
+epsilon = difference(x , B) = 1.647044138962883152998983860015869140625.
+
+i := 16.
+C := 10.009765625.
+A := 9.9945068359375.
+B := (A + C) / 2 = 10.00213623046875.
+epsilon = difference(x , B) = 0.641006054792114809970371425151824951171875.
+
+i := 17.
+C := 10.00213623046875.
+A := 9.9945068359375.
+B := (A + C) / 2 = 9.998321533203125.
+epsilon = difference(x , B) = 0.503455526267515551808173768222332000732421875.
+
+i := 18.
+C := 10.00213623046875.
+A := 9.998321533203125.
+B := (A + C) / 2 = 10.0002288818359375.
+epsilon = difference(x , B) = 0.068666122400085072285946807824075222015380859375.
+
+i := 19.
+C := 10.0002288818359375.
+A := 9.998321533203125.
+B := (A + C) / 2 = 9.99927520751953125.
+epsilon = difference(x , B) = 0.217421984797183664994690843741409480571746826171875.
+
+i := 20.
+C := 10.0002288818359375.
+A := 9.99927520751953125.
+B := (A + C) / 2 = 9.999752044677734375.
+epsilon = difference(x , B) = 0.074384752239677054408417689046473242342472076416015625.
+
+i := 21.
+C := 10.0002288818359375.
+A := 9.999752044677734375.
+B := (A + C) / 2 = 9.9999904632568359375.
+epsilon = difference(x , B) = 0.00286102022073553285963498638011515140533447265625.
+
+i := 22.
+C := 10.0002288818359375.
+A := 9.9999904632568359375.
+B := (A + C) / 2 = 10.00010967254638671875.
+epsilon = difference(x , B) = 0.0329021247593577204071380037930794060230255126953125.
+
+i := 23.
+C := 10.00010967254638671875.
+A := 9.9999904632568359375.
+B := (A + C) / 2 = 10.000050067901611328125.
+epsilon = difference(x , B) = 0.015020445687367101061937546546687372028827667236328125.
+
+i := 24.
+C := 10.000050067901611328125.
+A := 9.9999904632568359375.
+B := (A + C) / 2 = 10.0000202655792236328125.
+epsilon = difference(x , B) = 0.00607968608790920850282191167934797704219818115234375.
+
+i := 25.
+C := 10.0000202655792236328125.
+A := 9.9999904632568359375.
+B := (A + C) / 2 = 10.00000536441802978515625.
+epsilon = difference(x , B) = 0.001609326272245137356975419606897048652172088623046875.
+
+i := 26.
+C := 10.00000536441802978515625.
+A := 9.9999904632568359375.
+B := (A + C) / 2 = 9.999997913837432861328125.
+epsilon = difference(x , B) = 0.00062584863957937386658159084618091583251953125.
+
+i := 27.
+C := 10.00000536441802978515625.
+A := 9.999997913837432861328125.
+B := (A + C) / 2 = 10.0000016391277313232421875.
+epsilon = difference(x , B) = 0.0004917383999991642440363648347556591033935546875.
+
+i := 28.
+C := 10.0000016391277313232421875.
+A := 9.999997913837432861328125.
+B := (A + C) / 2 = 9.99999977648258209228515625.
+epsilon = difference(x , B) = 6.7055223873513369881038670428097248077392578125e-05.
+
+i := 29.
+C := 10.0000016391277313232421875.
+A := 9.99999977648258209228515625.
+B := (A + C) / 2 = 10.000000707805156707763671875.
+epsilon = difference(x , B) = 0.00021234156204197329742555666598491370677947998046875.
+
+i := 30.
+C := 10.000000707805156707763671875.
+A := 9.99999977648258209228515625.
+B := (A + C) / 2 = 10.0000002421438694000244140625.
+epsilon = difference(x , B) = 7.2643162579044684434848022647202014923095703125e-05.
+
+i := 31.
+C := 10.0000002421438694000244140625.
+A := 9.99999977648258209228515625.
+B := (A + C) / 2 = 10.00000000931322574615478515625.
+epsilon = difference(x , B) = 2.79396772639994850351286004297435283660888671875e-06.
+
+i := 32.
+C := 10.00000000931322574615478515625.
+A := 9.99999977648258209228515625.
+B := (A + C) / 2 = 9.999999892897903919219970703125.
+epsilon = difference(x , B) = 3.2130628480120382306495230295695364475250244140625e-05.
+
+i := 33.
+C := 10.00000000931322574615478515625.
+A := 9.999999892897903919219970703125.
+B := (A + C) / 2 = 9.9999999511055648326873779296875.
+epsilon = difference(x , B) = 1.4668330478417868079077379661612212657928466796875e-05.
+
+i := 34.
+C := 10.00000000931322574615478515625.
+A := 9.9999999511055648326873779296875.
+B := (A + C) / 2 = 9.99999998020939528942108154296875.
+epsilon = difference(x , B) = 5.937181401460822627313973498530685901641845703125e-06.
+
+i := 35.
+C := 10.00000000931322574615478515625.
+A := 9.99999998020939528942108154296875.
+B := (A + C) / 2 = 9.999999994761310517787933349609375.
+epsilon = difference(x , B) = 1.571606843830952726648320094682276248931884765625e-06.
+
+i := 36.
+C := 10.00000000931322574615478515625.
+A := 9.999999994761310517787933349609375.
+B := (A + C) / 2 = 10.0000000020372681319713592529296875.
+epsilon = difference(x , B) = 6.11180439757941229572679731063544750213623046875e-07.
+
+i := 37.
+C := 10.0000000020372681319713592529296875.
+A := 9.999999994761310517787933349609375.
+B := (A + C) / 2 = 9.99999999839928932487964630126953125.
+epsilon = difference(x , B) = 4.80213202480594958387882797978818416595458984375e-07.
+
+i := 38.
+C := 10.0000000020372681319713592529296875.
+A := 9.99999999839928932487964630126953125.
+B := (A + C) / 2 = 10.000000000218278728425502777099609375.
+epsilon = difference(x , B) = 6.54836185276508331298828125e-08.
+
+i := 39.
+C := 10.000000000218278728425502777099609375.
+A := 9.99999999839928932487964630126953125.
+B := (A + C) / 2 = 9.9999999993087840266525745391845703125.
+epsilon = difference(x , B) = 2.0736479200422763824462890625e-07.
+
+i := 40.
+C := 10.000000000218278728425502777099609375.
+A := 9.9999999993087840266525745391845703125.
+B := (A + C) / 2 = 9.99999999976353137753903865814208984375.
+epsilon = difference(x , B) = 7.0940586738288402557373046875e-08.
+
+i := 41.
+C := 10.000000000218278728425502777099609375.
+A := 9.99999999976353137753903865814208984375.
+B := (A + C) / 2 = 9.999999999990905052982270717620849609375.
+epsilon = difference(x , B) = 2.7284841053187847137451171875e-09.
+
+--------------------------------
+
+S = approximate_cube_root(1000) = 9.999999999990905052982270717620849609375.
+
+--------------------------------
+
+The value which was entered for x is 3.1400001049041748046875.
+
+--------------------------------
+
+Computing the approximate cube root of x:
+
+C = 3.1400001049041748046875. // real number to take the cube root of
+B = 0. // variable for storing the approximate cube root of x
+A = 0. // number to add to C before dividing the sum of A and C by 2 for each while loop iteration, i
+epsilon = 0. // variable for storing the difference between the input value and B raised to the power of 3
+
+i := 0.
+C := 3.1400001049041748046875.
+A := 0.
+B := (A + C) / 2 = 1.57000005245208740234375.
+epsilon = difference(x , B) = 0.72989328296328886773979005564427779972902499139308929443359375.
+
+i := 1.
+C := 1.57000005245208740234375.
+A := 0.
+B := (A + C) / 2 = 0.785000026226043701171875.
+epsilon = difference(x , B) = 2.65626343142074184560698368873232766418368555605411529541015625.
+
+i := 2.
+C := 1.57000005245208740234375.
+A := 0.785000026226043701171875.
+B := (A + C) / 2 = 1.1775000393390655517578125.
+epsilon = difference(x , B) = 1.5073888318975885679262827210322939208708703517913818359375.
+
+i := 3.
+C := 1.57000005245208740234375.
+A := 1.1775000393390655517578125.
+B := (A + C) / 2 = 1.37375004589557647705078125.
+epsilon = difference(x , B) = 0.5474738704539012898626915148980742742423899471759796142578125.
+
+i := 4.
+C := 1.57000005245208740234375.
+A := 1.37375004589557647705078125.
+B := (A + C) / 2 = 1.471875049173831939697265625.
+epsilon = difference(x , B) = 0.04869378768681393893254238935952571409870870411396026611328125.
+
+i := 5.
+C := 1.471875049173831939697265625.
+A := 1.37375004589557647705078125.
+B := (A + C) / 2 = 1.4228125475347042083740234375.
+epsilon = difference(x , B) = 0.25966472170411463902227333644390228073461912572383880615234375.
+
+i := 6.
+C := 1.471875049173831939697265625.
+A := 1.4228125475347042083740234375.
+B := (A + C) / 2 = 1.44734379835426807403564453125.
+epsilon = difference(x , B) = 0.10809842450396796591401138432075867967796511948108673095703125.
+
+i := 7.
+C := 1.471875049173831939697265625.
+A := 1.44734379835426807403564453125.
+B := (A + C) / 2 = 1.459609423764050006866455078125.
+epsilon = difference(x , B) = 0.0303610937093032767254696668857150143594481050968170166015625.
+
+i := 8.
+C := 1.471875049173831939697265625.
+A := 1.459609423764050006866455078125.
+B := (A + C) / 2 = 1.4657422364689409732818603515625.
+epsilon = difference(x , B) = 0.0090009611727116579406315910460989471175707876682281494140625.
+
+i := 9.
+C := 1.4657422364689409732818603515625.
+A := 1.459609423764050006866455078125.
+B := (A + C) / 2 = 1.46267583011649549007415771484375.
+epsilon = difference(x , B) = 0.0107213262234489643993928797982562173274345695972442626953125.
+
+i := 10.
+C := 1.4657422364689409732818603515625.
+A := 1.46267583011649549007415771484375.
+B := (A + C) / 2 = 1.464209033292718231678009033203125.
+epsilon = difference(x , B) = 0.0008705083265141623678762261562269486603327095508575439453125.
+
+i := 11.
+C := 1.4657422364689409732818603515625.
+A := 1.464209033292718231678009033203125.
+B := (A + C) / 2 = 1.4649756348808296024799346923828125.
+epsilon = difference(x , B) = 0.0040626436212677177230168101829121951595880091190338134765625.
+
+i := 12.
+C := 1.4649756348808296024799346923828125.
+A := 1.464209033292718231678009033203125.
+B := (A + C) / 2 = 1.46459233408677391707897186279296875.
+epsilon = difference(x , B) = 0.00159542211586210179972977751816642921767197549343109130859375.
+
+i := 13.
+C := 1.46459233408677391707897186279296875.
+A := 1.464209033292718231678009033203125.
+B := (A + C) / 2 = 1.464400683689746074378490447998046875.
+epsilon = difference(x , B) = 0.00036229553291318612739946303236138192005455493927001953125.
+
+i := 14.
+C := 1.464400683689746074378490447998046875.
+A := 1.464209033292718231678009033203125.
+B := (A + C) / 2 = 1.4643048584912321530282497406005859375.
+epsilon = difference(x , B) = 0.00025414673460094866323799589480358918081037700176239013671875.
+
+i := 15.
+C := 1.464400683689746074378490447998046875.
+A := 1.4643048584912321530282497406005859375.
+B := (A + C) / 2 = 1.46435277109048911370337009429931640625.
+epsilon = difference(x , B) = 5.406431437603685663528807481270632706582546234130859375e-05.
+
+i := 16.
+C := 1.46435277109048911370337009429931640625.
+A := 1.4643048584912321530282497406005859375.
+B := (A + C) / 2 = 1.464328814790860633365809917449951171875.
+epsilon = difference(x , B) = 0.00010004373126623069233109841746909296489320695400238037109375.
+
+i := 17.
+C := 1.46435277109048911370337009429931640625.
+A := 1.464328814790860633365809917449951171875.
+B := (A + C) / 2 = 1.4643407929406748735345900058746337890625.
+epsilon = difference(x , B) = 2.2990338738696457221433178119696094654500484466552734375e-05.
+
+i := 18.
+C := 1.46435277109048911370337009429931640625.
+A := 1.4643407929406748735345900058746337890625.
+B := (A + C) / 2 = 1.46434678201558199361898005008697509765625.
+epsilon = difference(x , B) = 1.55368302446261090377088720515530440025031566619873046875e-05.
+
+i := 19.
+C := 1.46434678201558199361898005008697509765625.
+A := 1.4643407929406748735345900058746337890625.
+B := (A + C) / 2 = 1.464343787478128433576785027980804443359375.
+epsilon = difference(x , B) = 3.72679364046553211753387557791938888840377330780029296875e-06.
+
+i := 20.
+C := 1.46434678201558199361898005008697509765625.
+A := 1.464343787478128433576785027980804443359375.
+B := (A + C) / 2 = 1.4643452847468552135978825390338897705078125.
+epsilon = difference(x , B) = 5.90500845371239903303095530873179086484014987945556640625e-06.
+
+i := 21.
+C := 1.4643452847468552135978825390338897705078125.
+A := 1.464343787478128433576785027980804443359375.
+B := (A + C) / 2 = 1.46434453611249182358733378350734710693359375.
+epsilon = difference(x , B) = 1.08910494453257240821120177542979945428669452667236328125e-06.
+
+i := 22.
+C := 1.46434453611249182358733378350734710693359375.
+A := 1.464343787478128433576785027980804443359375.
+B := (A + C) / 2 = 1.464344161795310128582059405744075775146484375.
+epsilon = difference(x , B) = 1.318844963489086696828422873295494355261325836181640625e-06.
+
+i := 23.
+C := 1.46434453611249182358733378350734710693359375.
+A := 1.464344161795310128582059405744075775146484375.
+B := (A + C) / 2 = 1.4643443489539009760846965946257114410400390625.
+epsilon = difference(x , B) = 1.1487016335874622452450921628042124211788177490234375e-07.
+
+i := 24.
+C := 1.46434453611249182358733378350734710693359375.
+A := 1.4643443489539009760846965946257114410400390625.
+B := (A + C) / 2 = 1.46434444253319639983601518906652927398681640625.
+epsilon = difference(x , B) = 4.8711735211692634706093230079204658977687358856201171875e-07.
+
+i := 25.
+C := 1.46434444253319639983601518906652927398681640625.
+A := 1.4643443489539009760846965946257114410400390625.
+B := (A + C) / 2 = 1.464344395743548687960355891846120357513427734375.
+epsilon = difference(x , B) = 1.8612358476167469023554446039270260371267795562744140625e-07.
+
+i := 26.
+C := 1.464344395743548687960355891846120357513427734375.
+A := 1.4643443489539009760846965946257114410400390625.
+B := (A + C) / 2 = 1.4643443723487248320225262432359158992767333984375.
+epsilon = difference(x , B) = 3.562670829702907493441443875781260430812835693359375e-08.
+
+i := 27.
+C := 1.4643443723487248320225262432359158992767333984375.
+A := 1.4643443489539009760846965946257114410400390625.
+B := (A + C) / 2 = 1.46434436065131290405361141893081367015838623046875.
+epsilon = difference(x , B) = 3.9621728131940259221011046975036151707172393798828125e-08.
+
+i := 28.
+C := 1.4643443723487248320225262432359158992767333984375.
+A := 1.46434436065131290405361141893081367015838623046875.
+B := (A + C) / 2 = 1.464344366500018868038068831083364784717559814453125.
+epsilon = difference(x , B) = 1.997510067942853684286319548846222460269927978515625e-09.
+
+--------------------------------
+
+S = approximate_cube_root(3.1400001049041748046875) = 1.464344366500018868038068831083364784717559814453125.
+
+--------------------------------
+
+The value which was entered for x is 2.
+
+--------------------------------
+
+Computing the approximate cube root of x:
+
+C = 2. // real number to take the cube root of
+B = 0. // variable for storing the approximate cube root of x
+A = 0. // number to add to C before dividing the sum of A and C by 2 for each while loop iteration, i
+epsilon = 0. // variable for storing the difference between the input value and B raised to the power of 3
+
+i := 0.
+C := 2.
+A := 0.
+B := (A + C) / 2 = 1.
+epsilon = difference(x , B) = 1.
+
+i := 1.
+C := 2.
+A := 1.
+B := (A + C) / 2 = 1.5.
+epsilon = difference(x , B) = 1.375.
+
+i := 2.
+C := 1.5.
+A := 1.
+B := (A + C) / 2 = 1.25.
+epsilon = difference(x , B) = 0.046875.
+
+i := 3.
+C := 1.5.
+A := 1.25.
+B := (A + C) / 2 = 1.375.
+epsilon = difference(x , B) = 0.599609375.
+
+i := 4.
+C := 1.375.
+A := 1.25.
+B := (A + C) / 2 = 1.3125.
+epsilon = difference(x , B) = 0.260986328125.
+
+i := 5.
+C := 1.3125.
+A := 1.25.
+B := (A + C) / 2 = 1.28125.
+epsilon = difference(x , B) = 0.103302001953125.
+
+i := 6.
+C := 1.28125.
+A := 1.25.
+B := (A + C) / 2 = 1.265625.
+epsilon = difference(x , B) = 0.027286529541015625.
+
+i := 7.
+C := 1.265625.
+A := 1.25.
+B := (A + C) / 2 = 1.2578125.
+epsilon = difference(x , B) = 0.010024547576904296875.
+
+i := 8.
+C := 1.265625.
+A := 1.2578125.
+B := (A + C) / 2 = 1.26171875.
+epsilon = difference(x , B) = 0.008573234081268310546875.
+
+i := 9.
+C := 1.26171875.
+A := 1.2578125.
+B := (A + C) / 2 = 1.259765625.
+epsilon = difference(x , B) = 0.000740073621273040771484375.
+
+i := 10.
+C := 1.26171875.
+A := 1.259765625.
+B := (A + C) / 2 = 1.2607421875.
+epsilon = difference(x , B) = 0.003912973217666149139404296875.
+
+i := 11.
+C := 1.2607421875.
+A := 1.259765625.
+B := (A + C) / 2 = 1.26025390625.
+epsilon = difference(x , B) = 0.001585548394359648227691650390625.
+
+i := 12.
+C := 1.26025390625.
+A := 1.259765625.
+B := (A + C) / 2 = 1.260009765625.
+epsilon = difference(x , B) = 0.000422512079239822924137115478515625.
+
+i := 13.
+C := 1.260009765625.
+A := 1.259765625.
+B := (A + C) / 2 = 1.2598876953125.
+epsilon = difference(x , B) = 0.000158837092385510914027690887451171875.
+
+i := 14.
+C := 1.260009765625.
+A := 1.2598876953125.
+B := (A + C) / 2 = 1.25994873046875.
+epsilon = difference(x , B) = 0.000131823412402809481136500835418701171875.
+
+i := 15.
+C := 1.25994873046875.
+A := 1.2598876953125.
+B := (A + C) / 2 = 1.259918212890625.
+epsilon = difference(x , B) = 1.3510360162172219133935868740081787109375e-05.
+
+i := 16.
+C := 1.25994873046875.
+A := 1.259918212890625.
+B := (A + C) / 2 = 1.2599334716796875.
+epsilon = difference(x , B) = 5.9155646066955114292795769870281219482421875e-05.
+
+i := 17.
+C := 1.2599334716796875.
+A := 1.259918212890625.
+B := (A + C) / 2 = 1.25992584228515625.
+epsilon = difference(x , B) = 2.2822422940382836031858460046350955963134765625e-05.
+
+i := 18.
+C := 1.25992584228515625.
+A := 1.259918212890625.
+B := (A + C) / 2 = 1.259922027587890625.
+epsilon = difference(x , B) = 4.655976386269689015762196504510939121246337890625e-06.
+
+i := 19.
+C := 1.259922027587890625.
+A := 1.259918212890625.
+B := (A + C) / 2 = 1.2599201202392578125.
+epsilon = difference(x , B) = 4.427205638639353235674889219808392226696014404296875e-06.
+
+i := 20.
+C := 1.259922027587890625.
+A := 1.2599201202392578125.
+B := (A + C) / 2 = 1.25992107391357421875.
+epsilon = difference(x , B) = 1.14381936140543760682675156203913502395153045654296875e-07.
+
+i := 21.
+C := 1.25992107391357421875.
+A := 1.2599201202392578125.
+B := (A + C) / 2 = 1.259920597076416015625.
+epsilon = difference(x , B) = 2.156412710667735509184606002008877112530171871185302734375e-06.
+
+i := 22.
+C := 1.25992107391357421875.
+A := 1.259920597076416015625.
+B := (A + C) / 2 = 1.2599208354949951171875.
+epsilon = difference(x , B) = 1.02101560211825988233602657828669180162250995635986328125e-06.
+
+i := 23.
+C := 1.25992107391357421875.
+A := 1.2599208354949951171875.
+B := (A + C) / 2 = 1.25992095470428466796875.
+epsilon = difference(x , B) = 4.5331688670251051032078493108201655559241771697998046875e-07.
+
+i := 24.
+C := 1.25992107391357421875.
+A := 1.25992095470428466796875.
+B := (A + C) / 2 = 1.259921014308929443359375.
+epsilon = difference(x , B) = 1.6946748870936938213827005483835819177329540252685546875e-07.
+
+i := 25.
+C := 1.25992107391357421875.
+A := 1.259921014308929443359375.
+B := (A + C) / 2 = 1.2599210441112518310546875.
+epsilon = difference(x , B) = 2.7542779641536417611913378777899197302758693695068359375e-08.
+
+i := 26.
+C := 1.25992107391357421875.
+A := 1.2599210441112518310546875.
+B := (A + C) / 2 = 1.25992105901241302490234375.
+epsilon = difference(x , B) = 4.341957741027697992297618156953831203281879425048828125e-08.
+
+i := 27.
+C := 1.25992105901241302490234375.
+A := 1.2599210441112518310546875.
+B := (A + C) / 2 = 1.259921051561832427978515625.
+epsilon = difference(x , B) = 7.93839867452295067096201819367706775665283203125e-09.
+
+--------------------------------
+
+S = approximate_cube_root(2) = 1.259921051561832427978515625.
+
+--------------------------------
+
+The value which was entered for x is -10.
+
+--------------------------------
+
+Computing the approximate cube root of x:
+
+C = 10. // real number to take the cube root of
+B = 0. // variable for storing the approximate cube root of x
+A = 0. // number to add to C before dividing the sum of A and C by 2 for each while loop iteration, i
+epsilon = 0. // variable for storing the difference between the input value and B raised to the power of 3
+
+i := 0.
+C := 10.
+A := 0.
+B := (A + C) / 2 = 5.
+epsilon = difference(x , B) = 115.
+
+i := 1.
+C := 5.
+A := 0.
+B := (A + C) / 2 = 2.5.
+epsilon = difference(x , B) = 5.625.
+
+i := 2.
+C := 2.5.
+A := 0.
+B := (A + C) / 2 = 1.25.
+epsilon = difference(x , B) = 8.046875.
+
+i := 3.
+C := 2.5.
+A := 1.25.
+B := (A + C) / 2 = 1.875.
+epsilon = difference(x , B) = 3.408203125.
+
+i := 4.
+C := 2.5.
+A := 1.875.
+B := (A + C) / 2 = 2.1875.
+epsilon = difference(x , B) = 0.467529296875.
+
+i := 5.
+C := 2.1875.
+A := 1.875.
+B := (A + C) / 2 = 2.03125.
+epsilon = difference(x , B) = 1.619110107421875.
+
+i := 6.
+C := 2.1875.
+A := 2.03125.
+B := (A + C) / 2 = 2.109375.
+epsilon = difference(x , B) = 0.614414215087890625.
+
+i := 7.
+C := 2.1875.
+A := 2.109375.
+B := (A + C) / 2 = 2.1484375.
+epsilon = difference(x , B) = 0.083277225494384765625.
+
+i := 8.
+C := 2.1875.
+A := 2.1484375.
+B := (A + C) / 2 = 2.16796875.
+epsilon = difference(x , B) = 0.189644992351531982421875.
+
+i := 9.
+C := 2.16796875.
+A := 2.1484375.
+B := (A + C) / 2 = 2.158203125.
+epsilon = difference(x , B) = 0.052566416561603546142578125.
+
+i := 10.
+C := 2.158203125.
+A := 2.1484375.
+B := (A + C) / 2 = 2.1533203125.
+epsilon = difference(x , B) = 0.015509421937167644500732421875.
+
+i := 11.
+C := 2.158203125.
+A := 2.1533203125.
+B := (A + C) / 2 = 2.15576171875.
+epsilon = difference(x , B) = 0.018489949288778007030487060546875.
+
+i := 12.
+C := 2.15576171875.
+A := 2.1533203125.
+B := (A + C) / 2 = 2.154541015625.
+epsilon = difference(x , B) = 0.001480632126913405954837799072265625.
+
+i := 13.
+C := 2.154541015625.
+A := 2.1533203125.
+B := (A + C) / 2 = 2.1539306640625.
+epsilon = difference(x , B) = 0.007016802110229036770761013031005859375.
+
+i := 14.
+C := 2.154541015625.
+A := 2.1539306640625.
+B := (A + C) / 2 = 2.15423583984375.
+epsilon = difference(x , B) = 0.002768686878198423073627054691314697265625.
+
+i := 15.
+C := 2.154541015625.
+A := 2.15423583984375.
+B := (A + C) / 2 = 2.154388427734375.
+epsilon = difference(x , B) = 0.000644177857935801512212492525577545166015625.
+
+i := 16.
+C := 2.154541015625.
+A := 2.154388427734375.
+B := (A + C) / 2 = 2.1544647216796875.
+epsilon = difference(x , B) = 0.000418189512583211353557999245822429656982421875.
+
+i := 17.
+C := 2.1544647216796875.
+A := 2.154388427734375.
+B := (A + C) / 2 = 2.15442657470703125.
+epsilon = difference(x , B) = 0.000113003577986159342572136665694415569305419921875.
+
+i := 18.
+C := 2.1544647216796875.
+A := 2.15442657470703125.
+B := (A + C) / 2 = 2.154445648193359375.
+epsilon = difference(x , B) = 0.000152590615950243257969987098476849496364593505859375.
+
+i := 19.
+C := 2.154445648193359375.
+A := 2.15442657470703125.
+B := (A + C) / 2 = 2.1544361114501953125.
+epsilon = difference(x , B) = 1.9792931147573356032154379136045463383197784423828125e-05.
+
+i := 20.
+C := 2.1544361114501953125.
+A := 2.15442657470703125.
+B := (A + C) / 2 = 2.15443134307861328125.
+epsilon = difference(x , B) = 4.6605470377584883034938201262775692157447338104248046875e-05.
+
+i := 21.
+C := 2.1544361114501953125.
+A := 2.15443134307861328125.
+B := (A + C) / 2 = 2.154433727264404296875.
+epsilon = difference(x , B) = 1.34063063546192851038796334250946529209613800048828125e-05.
+
+i := 22.
+C := 2.1544361114501953125.
+A := 2.154433727264404296875.
+B := (A + C) / 2 = 2.1544349193572998046875.
+epsilon = difference(x , B) = 3.193303211568125632435766192429582588374614715576171875e-06.
+
+i := 23.
+C := 2.1544349193572998046875.
+A := 2.154433727264404296875.
+B := (A + C) / 2 = 2.15443432331085205078125.
+epsilon = difference(x , B) = 5.106503867751722991474849777659983374178409576416015625e-06.
+
+i := 24.
+C := 2.1544349193572998046875.
+A := 2.15443432331085205078125.
+B := (A + C) / 2 = 2.154434621334075927734375.
+epsilon = difference(x , B) = 9.56600902148226073240522282503661699593067169189453125e-07.
+
+i := 25.
+C := 2.1544349193572998046875.
+A := 2.154434621334075927734375.
+B := (A + C) / 2 = 2.1544347703456878662109375.
+epsilon = difference(x , B) = 1.118351011196276612036371034264448098838329315185546875e-06.
+
+i := 26.
+C := 2.1544347703456878662109375.
+A := 2.154434621334075927734375.
+B := (A + C) / 2 = 2.15443469583988189697265625.
+epsilon = difference(x , B) = 8.0875018644739615769623242158559150993824005126953125e-08.
+
+i := 27.
+C := 2.15443469583988189697265625.
+A := 2.154434621334075927734375.
+B := (A + C) / 2 = 2.154434658586978912353515625.
+epsilon = difference(x , B) = 4.37862950721130961273530601829406805336475372314453125e-07.
+
+i := 28.
+C := 2.15443469583988189697265625.
+A := 2.154434658586978912353515625.
+B := (A + C) / 2 = 2.1544346772134304046630859375.
+epsilon = difference(x , B) = 1.78493968280325765451976849362836219370365142822265625e-07.
+
+i := 29.
+C := 2.15443469583988189697265625.
+A := 2.1544346772134304046630859375.
+B := (A + C) / 2 = 2.15443468652665615081787109375.
+epsilon = difference(x , B) = 4.88094753781087575816854950971901416778564453125e-08.
+
+i := 30.
+C := 2.15443469583988189697265625.
+A := 2.15443468652665615081787109375.
+B := (A + C) / 2 = 2.154434691183269023895263671875.
+epsilon = difference(x , B) = 1.6032771493236508408841700656921602785587310791015625e-08.
+
+i := 31.
+C := 2.154434691183269023895263671875.
+A := 2.15443468652665615081787109375.
+B := (A + C) / 2 = 2.1544346888549625873565673828125.
+epsilon = difference(x , B) = 1.63883519775642749749522408819757401943206787109375e-08.
+
+i := 32.
+C := 2.154434691183269023895263671875.
+A := 2.1544346888549625873565673828125.
+B := (A + C) / 2 = 2.15443469001911580562591552734375.
+epsilon = difference(x , B) = 1.777902512711815319335073581896722316741943359375e-10.
+
+--------------------------------
+
+S = approximate_cube_root(-10) = -2.15443469001911580562591552734375.
+
+--------------------------------
+
+The value which was entered for x is -1.
+
+--------------------------------
+
+Computing the approximate cube root of x:
+
+C = 1. // real number to take the cube root of
+B = 0. // variable for storing the approximate cube root of x
+A = 0. // number to add to C before dividing the sum of A and C by 2 for each while loop iteration, i
+epsilon = 0. // variable for storing the difference between the input value and B raised to the power of 3
+
+i := 0.
+C := 1.
+A := 0.
+B := (A + C) / 2 = 0.5.
+epsilon = difference(x , B) = 0.875.
+
+i := 1.
+C := 1.
+A := 0.5.
+B := (A + C) / 2 = 0.75.
+epsilon = difference(x , B) = 0.578125.
+
+i := 2.
+C := 1.
+A := 0.75.
+B := (A + C) / 2 = 0.875.
+epsilon = difference(x , B) = 0.330078125.
+
+i := 3.
+C := 1.
+A := 0.875.
+B := (A + C) / 2 = 0.9375.
+epsilon = difference(x , B) = 0.176025390625.
+
+i := 4.
+C := 1.
+A := 0.9375.
+B := (A + C) / 2 = 0.96875.
+epsilon = difference(x , B) = 0.090850830078125.
+
+i := 5.
+C := 1.
+A := 0.96875.
+B := (A + C) / 2 = 0.984375.
+epsilon = difference(x , B) = 0.046146392822265625.
+
+i := 6.
+C := 1.
+A := 0.984375.
+B := (A + C) / 2 = 0.9921875.
+epsilon = difference(x , B) = 0.023254871368408203125.
+
+i := 7.
+C := 1.
+A := 0.9921875.
+B := (A + C) / 2 = 0.99609375.
+epsilon = difference(x , B) = 0.011673033237457275390625.
+
+i := 8.
+C := 1.
+A := 0.99609375.
+B := (A + C) / 2 = 0.998046875.
+epsilon = difference(x , B) = 0.005847938358783721923828125.
+
+i := 9.
+C := 1.
+A := 0.998046875.
+B := (A + C) / 2 = 0.9990234375.
+epsilon = difference(x , B) = 0.002926827408373355865478515625.
+
+i := 10.
+C := 1.
+A := 0.9990234375.
+B := (A + C) / 2 = 0.99951171875.
+epsilon = difference(x , B) = 0.001464128610678017139434814453125.
+
+i := 11.
+C := 1.
+A := 0.99951171875.
+B := (A + C) / 2 = 0.999755859375.
+epsilon = difference(x , B) = 0.000732243075617589056491851806640625.
+
+i := 12.
+C := 1.
+A := 0.999755859375.
+B := (A + C) / 2 = 0.9998779296875.
+epsilon = difference(x , B) = 0.000366166235835407860577106475830078125.
+
+i := 13.
+C := 1.
+A := 0.9998779296875.
+B := (A + C) / 2 = 0.99993896484375.
+epsilon = difference(x , B) = 0.000183094293106478289701044559478759765625.
+
+i := 14.
+C := 1.
+A := 0.99993896484375.
+B := (A + C) / 2 = 0.999969482421875.
+epsilon = difference(x , B) = 9.1549940435697862994857132434844970703125e-05.
+
+i := 15.
+C := 1.
+A := 0.999969482421875.
+B := (A + C) / 2 = 0.9999847412109375.
+epsilon = difference(x , B) = 4.5775668699121752069913782179355621337890625e-05.
+
+i := 16.
+C := 1.
+A := 0.9999847412109375.
+B := (A + C) / 2 = 0.99999237060546875.
+epsilon = difference(x , B) = 2.2888008971211348807628382928669452667236328125e-05.
+
+i := 17.
+C := 1.
+A := 0.99999237060546875.
+B := (A + C) / 2 = 0.999996185302734375.
+epsilon = difference(x , B) = 1.1444048141184826050675837905146181583404541015625e-05.
+
+i := 18.
+C := 1.
+A := 0.999996185302734375.
+B := (A + C) / 2 = 0.9999980926513671875.
+epsilon = difference(x , B) = 5.722034984508017618765052247908897697925567626953125e-06.
+
+i := 19.
+C := 1.
+A := 0.9999980926513671875.
+B := (A + C) / 2 = 0.99999904632568359375.
+epsilon = difference(x , B) = 2.861020220735512042953274658430018462240695953369140625e-06.
+
+i := 20.
+C := 1.
+A := 0.99999904632568359375.
+B := (A + C) / 2 = 0.999999523162841796875.
+epsilon = difference(x , B) = 1.430510792488457090521070114164103870280086994171142578125e-06.
+
+i := 21.
+C := 1.
+A := 0.999999523162841796875.
+B := (A + C) / 2 = 0.9999997615814208984375.
+epsilon = difference(x , B) = 7.1525556677443091757595539093017578125e-07.
+
+i := 22.
+C := 1.
+A := 0.9999997615814208984375.
+B := (A + C) / 2 = 0.99999988079071044921875.
+epsilon = difference(x , B) = 3.576278260197796043939888477325439453125e-07.
+
+i := 23.
+C := 1.
+A := 0.99999988079071044921875.
+B := (A + C) / 2 = 0.999999940395355224609375.
+epsilon = difference(x , B) = 1.78813923668030838598497211933135986328125e-07.
+
+i := 24.
+C := 1.
+A := 0.999999940395355224609375.
+B := (A + C) / 2 = 0.9999999701976776123046875.
+epsilon = difference(x , B) = 8.940696449855067839962430298328399658203125e-08.
+
+i := 25.
+C := 1.
+A := 0.9999999701976776123046875.
+B := (A + C) / 2 = 0.99999998509883880615234375.
+epsilon = difference(x , B) = 4.47034829154091539749060757458209991455078125e-08.
+
+i := 26.
+C := 1.
+A := 0.99999998509883880615234375.
+B := (A + C) / 2 = 0.999999992549419403076171875.
+epsilon = difference(x , B) = 2.2351741624238030681226518936455249786376953125e-08.
+
+i := 27.
+C := 1.
+A := 0.999999992549419403076171875.
+B := (A + C) / 2 = 0.9999999962747097015380859375.
+epsilon = difference(x , B) = 1.117587085375237876405662973411381244659423828125e-08.
+
+i := 28.
+C := 1.
+A := 0.9999999962747097015380859375.
+B := (A + C) / 2 = 0.99999999813735485076904296875.
+epsilon = difference(x , B) = 5.5879354372845302378891574335284531116485595703125e-09.
+
+--------------------------------
+
+S = approximate_cube_root(-1) = -0.99999999813735485076904296875.
+
+--------------------------------
+
+The value which was entered for x is 0.
+
+--------------------------------
+
+Computing the approximate cube root of x:
+
+C = 0. // real number to take the cube root of
+B = 0. // variable for storing the approximate cube root of x
+A = 0. // number to add to C before dividing the sum of A and C by 2 for each while loop iteration, i
+epsilon = 0. // variable for storing the difference between the input value and B raised to the power of 3
+
+i := 0.
+C := 0.
+A := 0.
+B := (A + C) / 2 = 0.
+epsilon = difference(x , B) = 0.
+
+--------------------------------
+
+S = approximate_cube_root(0) = 0.
+
+--------------------------------
+
+The value which was entered for x is 0.5.
+
+--------------------------------
+
+Computing the approximate cube root of x:
+
+C = 0. // real number to take the cube root of
+B = 0. // variable for storing the approximate cube root of x
+A = 0. // number to add to C before dividing the sum of A and C by 2 for each while loop iteration, i
+epsilon = 0. // variable for storing the difference between the input value and B raised to the power of 3
+
+i := 0.
+C := 0.
+A := 0.
+B := (A + C) / 2 = 0.
+epsilon = difference(x , B) = 0.
+
+--------------------------------
+
+S = approximate_cube_root(0.5) = 0.
+
+--------------------------------
+
+The value which was entered for x is -81.
+
+--------------------------------
+
+Computing the approximate cube root of x:
+
+C = 81. // real number to take the cube root of
+B = 0. // variable for storing the approximate cube root of x
+A = 0. // number to add to C before dividing the sum of A and C by 2 for each while loop iteration, i
+epsilon = 0. // variable for storing the difference between the input value and B raised to the power of 3
+
+i := 0.
+C := 81.
+A := 0.
+B := (A + C) / 2 = 40.5.
+epsilon = difference(x , B) = 66349.125.
+
+i := 1.
+C := 40.5.
+A := 0.
+B := (A + C) / 2 = 20.25.
+epsilon = difference(x , B) = 8222.765625.
+
+i := 2.
+C := 20.25.
+A := 0.
+B := (A + C) / 2 = 10.125.
+epsilon = difference(x , B) = 956.970703125.
+
+i := 3.
+C := 10.125.
+A := 0.
+B := (A + C) / 2 = 5.0625.
+epsilon = difference(x , B) = 48.746337890625.
+
+i := 4.
+C := 5.0625.
+A := 0.
+B := (A + C) / 2 = 2.53125.
+epsilon = difference(x , B) = 64.781707763671875.
+
+i := 5.
+C := 5.0625.
+A := 2.53125.
+B := (A + C) / 2 = 3.796875.
+epsilon = difference(x , B) = 26.263263702392578125.
+
+i := 6.
+C := 5.0625.
+A := 3.796875.
+B := (A + C) / 2 = 4.4296875.
+epsilon = difference(x , B) = 5.919909954071044921875.
+
+i := 7.
+C := 4.4296875.
+A := 3.796875.
+B := (A + C) / 2 = 4.11328125.
+epsilon = difference(x , B) = 11.407054603099822998046875.
+
+i := 8.
+C := 4.4296875.
+A := 4.11328125.
+B := (A + C) / 2 = 4.271484375.
+epsilon = difference(x , B) = 3.064295388758182525634765625.
+
+i := 9.
+C := 4.4296875.
+A := 4.271484375.
+B := (A + C) / 2 = 4.3505859375.
+epsilon = difference(x , B) = 1.346141687594354152679443359375.
+
+i := 10.
+C := 4.3505859375.
+A := 4.271484375.
+B := (A + C) / 2 = 4.31103515625.
+epsilon = difference(x , B) = 0.879307645722292363643646240234375.
+
+i := 11.
+C := 4.3505859375.
+A := 4.31103515625.
+B := (A + C) / 2 = 4.330810546875.
+epsilon = difference(x , B) = 0.228336121697793714702129364013671875.
+
+i := 12.
+C := 4.330810546875.
+A := 4.31103515625.
+B := (A + C) / 2 = 4.3209228515625.
+epsilon = difference(x , B) = 0.326753086765165789984166622161865234375.
+
+i := 13.
+C := 4.330810546875.
+A := 4.3209228515625.
+B := (A + C) / 2 = 4.32586669921875.
+epsilon = difference(x , B) = 0.049525676228995507699437439441680908203125.
+
+i := 14.
+C := 4.330810546875.
+A := 4.32586669921875.
+B := (A + C) / 2 = 4.328338623046875.
+epsilon = difference(x , B) = 0.089325878997186691776732914149761199951171875.
+
+i := 15.
+C := 4.328338623046875.
+A := 4.32586669921875.
+B := (A + C) / 2 = 4.3271026611328125.
+epsilon = difference(x , B) = 0.019880271113965619633745518513023853302001953125.
+
+i := 16.
+C := 4.3271026611328125.
+A := 4.32586669921875.
+B := (A + C) / 2 = 4.32648468017578125.
+epsilon = difference(x , B) = 0.014827659417025795818290134775452315807342529296875.
+
+i := 17.
+C := 4.3271026611328125.
+A := 4.32648468017578125.
+B := (A + C) / 2 = 4.326793670654296875.
+epsilon = difference(x , B) = 0.002525066545089493796893975741113536059856414794921875.
+
+i := 18.
+C := 4.326793670654296875.
+A := 4.32648468017578125.
+B := (A + C) / 2 = 4.3266391754150390625.
+epsilon = difference(x , B) = 0.006151606250750417392847424480351037345826625823974609375.
+
+i := 19.
+C := 4.326793670654296875.
+A := 4.3266391754150390625.
+B := (A + C) / 2 = 4.32671642303466796875.
+epsilon = difference(x , B) = 0.001813347307908885763794160084216855466365814208984375.
+
+i := 20.
+C := 4.326793670654296875.
+A := 4.32671642303466796875.
+B := (A + C) / 2 = 4.326755046844482421875.
+epsilon = difference(x , B) = 0.00035584025464784063697010196847259066998958587646484375.
+
+i := 21.
+C := 4.326755046844482421875.
+A := 4.32671642303466796875.
+B := (A + C) / 2 = 4.3267357349395751953125.
+epsilon = difference(x , B) = 0.000728758367594527223243261460083886049687862396240234375.
+
+i := 22.
+C := 4.326755046844482421875.
+A := 4.3267357349395751953125.
+B := (A + C) / 2 = 4.32674539089202880859375.
+epsilon = difference(x , B) = 0.000186460266717043687823007758197491057217121124267578125.
+
+i := 23.
+C := 4.326755046844482421875.
+A := 4.32674539089202880859375.
+B := (A + C) / 2 = 4.326750218868255615234375.
+epsilon = difference(x , B) = 8.4689691404134237462386636252631433308124542236328125e-05.
+
+i := 24.
+C := 4.326750218868255615234375.
+A := 4.32674539089202880859375.
+B := (A + C) / 2 = 4.3267478048801422119140625.
+epsilon = difference(x , B) = 5.0885363296726549009463269612751901149749755859375e-05.
+
+i := 25.
+C := 4.326750218868255615234375.
+A := 4.3267478048801422119140625.
+B := (A + C) / 2 = 4.32674901187419891357421875.
+epsilon = difference(x , B) = 1.69021451436324188222215525456704199314117431640625e-05.
+
+i := 26.
+C := 4.32674901187419891357421875.
+A := 4.3267478048801422119140625.
+B := (A + C) / 2 = 4.326748408377170562744140625.
+epsilon = difference(x , B) = 1.6991613804064054082942902823560871183872222900390625e-05.
+
+i := 27.
+C := 4.32674901187419891357421875.
+A := 4.326748408377170562744140625.
+B := (A + C) / 2 = 4.3267487101256847381591796875.
+epsilon = difference(x , B) = 4.47355121002690481191166327334940433502197265625e-08.
+
+i := 28.
+C := 4.32674901187419891357421875.
+A := 4.3267487101256847381591796875.
+B := (A + C) / 2 = 4.32674886099994182586669921875.
+epsilon = difference(x , B) = 8.42870452029409467087361917947418987751007080078125e-06.
+
+i := 29.
+C := 4.32674886099994182586669921875.
+A := 4.3267487101256847381591796875.
+B := (A + C) / 2 = 4.326748785562813282012939453125.
+epsilon = difference(x , B) = 4.191984430225448310380897964932955801486968994140625e-06.
+
+i := 30.
+C := 4.326748785562813282012939453125.
+A := 4.3267487101256847381591796875.
+B := (A + C) / 2 = 4.3267487478442490100860595703125.
+epsilon = difference(x , B) = 2.073624440601662399785709567368030548095703125e-06.
+
+i := 31.
+C := 4.3267487478442490100860595703125.
+A := 4.3267487101256847381591796875.
+B := (A + C) / 2 = 4.32674872898496687412261962890625.
+epsilon = difference(x , B) = 1.014444459636332229734989596181549131870269775390625e-06.
+
+i := 32.
+C := 4.32674872898496687412261962890625.
+A := 4.3267487101256847381591796875.
+B := (A + C) / 2 = 4.326748719555325806140899658203125.
+epsilon = difference(x , B) = 4.8485447261270575580738295684568583965301513671875e-07.
+
+i := 33.
+C := 4.326748719555325806140899658203125.
+A := 4.3267487101256847381591796875.
+B := (A + C) / 2 = 4.3267487148405052721500396728515625.
+epsilon = difference(x , B) = 2.20059479971723703783936798572540283203125e-07.
+
+i := 34.
+C := 4.3267487148405052721500396728515625.
+A := 4.3267487101256847381591796875.
+B := (A + C) / 2 = 4.32674871248309500515460968017578125.
+epsilon = difference(x , B) = 8.76619838663383887933377991430461406707763671875e-08.
+
+i := 35.
+C := 4.32674871248309500515460968017578125.
+A := 4.3267487101256847381591796875.
+B := (A + C) / 2 = 4.326748711304389871656894683837890625.
+epsilon = difference(x , B) = 2.1463235862217988625388898071832954883575439453125e-08.
+
+i := 36.
+C := 4.326748711304389871656894683837890625.
+A := 4.3267487101256847381591796875.
+B := (A + C) / 2 = 4.3267487107150373049080371856689453125.
+epsilon = difference(x , B) = 1.1636138115556082794910253142006695270538330078125e-08.
+
+i := 37.
+C := 4.326748711304389871656894683837890625.
+A := 4.3267487107150373049080371856689453125.
+B := (A + C) / 2 = 4.32674871100971358828246593475341796875.
+epsilon = difference(x , B) = 4.9135488733309529152393224649131298065185546875e-09.
+
+--------------------------------
+
+S = approximate_cube_root(-81) = -4.32674871100971358828246593475341796875.
+
+--------------------------------
+
+The value which was entered for x is 27.
+
+--------------------------------
+
+Computing the approximate cube root of x:
+
+C = 27. // real number to take the cube root of
+B = 0. // variable for storing the approximate cube root of x
+A = 0. // number to add to C before dividing the sum of A and C by 2 for each while loop iteration, i
+epsilon = 0. // variable for storing the difference between the input value and B raised to the power of 3
+
+i := 0.
+C := 27.
+A := 0.
+B := (A + C) / 2 = 13.5.
+epsilon = difference(x , B) = 2433.375.
+
+i := 1.
+C := 13.5.
+A := 0.
+B := (A + C) / 2 = 6.75.
+epsilon = difference(x , B) = 280.546875.
+
+i := 2.
+C := 6.75.
+A := 0.
+B := (A + C) / 2 = 3.375.
+epsilon = difference(x , B) = 11.443359375.
+
+i := 3.
+C := 3.375.
+A := 0.
+B := (A + C) / 2 = 1.6875.
+epsilon = difference(x , B) = 22.194580078125.
+
+i := 4.
+C := 3.375.
+A := 1.6875.
+B := (A + C) / 2 = 2.53125.
+epsilon = difference(x , B) = 10.781707763671875.
+
+i := 5.
+C := 3.375.
+A := 2.53125.
+B := (A + C) / 2 = 2.953125.
+epsilon = difference(x , B) = 1.245952606201171875.
+
+i := 6.
+C := 3.375.
+A := 2.953125.
+B := (A + C) / 2 = 3.1640625.
+epsilon = difference(x , B) = 4.676352024078369140625.
+
+i := 7.
+C := 3.1640625.
+A := 2.953125.
+B := (A + C) / 2 = 3.05859375.
+epsilon = difference(x , B) = 1.613131463527679443359375.
+
+i := 8.
+C := 3.05859375.
+A := 2.953125.
+B := (A + C) / 2 = 3.005859375.
+epsilon = difference(x , B) = 0.158512316644191741943359375.
+
+i := 9.
+C := 3.005859375.
+A := 2.953125.
+B := (A + C) / 2 = 2.9794921875.
+epsilon = difference(x , B) = 0.549934429116547107696533203125.
+
+i := 10.
+C := 3.005859375.
+A := 2.9794921875.
+B := (A + C) / 2 = 2.99267578125.
+epsilon = difference(x , B) = 0.197271501529030501842498779296875.
+
+i := 11.
+C := 3.005859375.
+A := 2.99267578125.
+B := (A + C) / 2 = 2.999267578125.
+epsilon = difference(x , B) = 0.019770563041674904525279998779296875.
+
+i := 12.
+C := 3.005859375.
+A := 2.999267578125.
+B := (A + C) / 2 = 3.0025634765625.
+epsilon = difference(x , B) = 0.069273026741939247585833072662353515625.
+
+i := 13.
+C := 3.0025634765625.
+A := 2.999267578125.
+B := (A + C) / 2 = 3.00091552734375.
+epsilon = difference(x , B) = 0.024726782761490539996884763240814208984375.
+
+i := 14.
+C := 3.00091552734375.
+A := 2.999267578125.
+B := (A + C) / 2 = 3.000091552734375.
+epsilon = difference(x , B) = 0.002471999266020930008380673825740814208984375.
+
+i := 15.
+C := 3.000091552734375.
+A := 2.999267578125.
+B := (A + C) / 2 = 2.9996795654296875.
+epsilon = difference(x , B) = 0.008650809326514519170814310200512409210205078125.
+
+i := 16.
+C := 3.000091552734375.
+A := 2.9996795654296875.
+B := (A + C) / 2 = 2.99988555908203125.
+epsilon = difference(x , B) = 0.003089786916141701311744327540509402751922607421875.
+
+i := 17.
+C := 3.000091552734375.
+A := 2.99988555908203125.
+B := (A + C) / 2 = 2.999988555908203125.
+epsilon = difference(x , B) = 0.000308989299811990303368247623438946902751922607421875.
+
+i := 18.
+C := 3.000091552734375.
+A := 2.999988555908203125.
+B := (A + C) / 2 = 3.0000400543212890625.
+epsilon = difference(x , B) = 0.001081481114006833943452789981165551580488681793212890625.
+
+i := 19.
+C := 3.0000400543212890625.
+A := 2.999988555908203125.
+B := (A + C) / 2 = 3.00001430511474609375.
+epsilon = difference(x , B) = 0.00038623993987423055340713062832946889102458953857421875.
+
+i := 20.
+C := 3.00001430511474609375.
+A := 2.999988555908203125.
+B := (A + C) / 2 = 3.000001430511474609375.
+epsilon = difference(x , B) = 3.86238282317243053487487713937298394739627838134765625e-05.
+
+i := 21.
+C := 3.000001430511474609375.
+A := 2.999988555908203125.
+B := (A + C) / 2 = 2.9999949932098388671875.
+epsilon = difference(x , B) = 0.00013518310873918137904325931231142021715641021728515625.
+
+i := 22.
+C := 3.000001430511474609375.
+A := 2.9999949932098388671875.
+B := (A + C) / 2 = 2.99999821186065673828125.
+epsilon = difference(x , B) = 4.827973349109081213637040264075039885938167572021484375e-05.
+
+i := 23.
+C := 3.000001430511474609375.
+A := 2.99999821186065673828125.
+B := (A + C) / 2 = 2.999999821186065673828125.
+epsilon = difference(x , B) = 4.827975939036832642159424722194671630859375e-06.
+
+i := 24.
+C := 3.000001430511474609375.
+A := 2.999999821186065673828125.
+B := (A + C) / 2 = 3.0000006258487701416015625.
+epsilon = difference(x , B) = 1.689792031900338997729704715311527252197265625e-05.
+
+i := 25.
+C := 3.0000006258487701416015625.
+A := 2.999999821186065673828125.
+B := (A + C) / 2 = 3.00000022351741790771484375.
+epsilon = difference(x , B) = 6.0349707331486257544383988715708255767822265625e-06.
+
+i := 26.
+C := 3.00000022351741790771484375.
+A := 2.999999821186065673828125.
+B := (A + C) / 2 = 3.000000022351741790771484375.
+epsilon = difference(x , B) = 6.03497032847233327856883988715708255767822265625e-07.
+
+i := 27.
+C := 3.000000022351741790771484375.
+A := 2.999999821186065673828125.
+B := (A + C) / 2 = 2.9999999217689037322998046875.
+epsilon = difference(x , B) = 2.11223954414696546422192113823257386684417724609375e-06.
+
+i := 28.
+C := 3.000000022351741790771484375.
+A := 2.9999999217689037322998046875.
+B := (A + C) / 2 = 2.99999997206032276153564453125.
+epsilon = difference(x , B) = 7.543712784129075199501812676317058503627777099609375e-07.
+
+i := 29.
+C := 3.000000022351741790771484375.
+A := 2.99999997206032276153564453125.
+B := (A + C) / 2 = 2.999999997206032276153564453125.
+epsilon = difference(x , B) = 7.543712847446482072655271622352302074432373046875e-08.
+
+i := 30.
+C := 3.000000022351741790771484375.
+A := 2.999999997206032276153564453125.
+B := (A + C) / 2 = 3.0000000097788870334625244140625.
+epsilon = difference(x , B) = 2.640299507639110032641838188283145427703857421875e-07.
+
+i := 31.
+C := 3.0000000097788870334625244140625.
+A := 2.999999997206032276153564453125.
+B := (A + C) / 2 = 3.00000000349245965480804443359375.
+epsilon = difference(x , B) = 9.429641078910477869357009694795124232769012451171875e-08.
+
+i := 32.
+C := 3.00000000349245965480804443359375.
+A := 2.999999997206032276153564453125.
+B := (A + C) / 2 = 3.000000000349245965480804443359375.
+epsilon = difference(x , B) = 9.429641067981719970703125e-09.
+
+--------------------------------
+
+S = approximate_cube_root(27) = 3.000000000349245965480804443359375.
+
+--------------------------------
+End Of Program
+--------------------------------</pre>
+<hr>
+<p>This web page was last updated on 29_AUGUST_2024. The content displayed on this web page is licensed as <a style="background:#000000;color:#ff9000" href="https://karlinaobject.wordpress.com/public_domain/" target="_blank" rel="noopener">PUBLIC_DOMAIN</a> intellectual property.</p>
+<hr>
