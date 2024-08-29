@@ -1,7 +1,7 @@
 /**
  * file: karbytes_social_media_posts.txt
  * type: plain-text
- * date: 28_AUGUST_2024
+ * date: 29_AUGUST_2024
  * author: karbytes
  * license: PUBLIC_DOMAIN
  */
@@ -338,5 +338,19 @@ tweet_url: https://x.com/karbytes/status/1828535722049167823
 * * *
 
 On 28_AUGUST_2024 at approximately 10:00PM Pacific Standard Time, karbytes shared the following karbytes-created web page as a social media post on karbytes' Twitter dot Com page, on karbytes' Minds dot Com page, on karbytes' LinkedIn dot Com page, and on karbytes' Patreon dot Com page:
+
+https://karbytesforlifeblog.wordpress.com/karbytes_30_august_2024/
+
+* * *
+
+On 29_AUGUST_2024 at approximately 9:00PM, karbytes shared the following plain-text as a tweet on karbytes' Twitter page and then as a Minds post on karbytes' Minds page (using the copied plain-text tweet, the URL to that tweet, and a screenshot of that tweet) before deleting both of those posts within 30 minutes of posting them:
+
+tweet_text: Proposed policy: legally require all males to undergo a reversible vasectomy before they reach age 10 and only reverse the procedure for adult males who pass specific eligibility requirements (to prevent unplanned/unwanted pregnancies and impoverishment of children & women).
+
+tweet_url: https://x.com/karbytes/status/1829180171196477604
+
+* * *
+
+On 29_AUGUST_2024 at approximately 9:30PM Pacific Standard Time, karbytes deleted the social media post which featured the following karbytes-created web page from karbytes' Twitter dot Com page, from karbytes' Minds dot Com page, from karbytes' LinkedIn dot Com page, and from karbytes' Patreon dot Com page:
 
 https://karbytesforlifeblog.wordpress.com/karbytes_30_august_2024/
