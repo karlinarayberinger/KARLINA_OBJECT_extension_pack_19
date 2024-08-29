@@ -1,0 +1,708 @@
+<hr>
+<p><strong>FIBONACCI_NUMBERS</strong></p>
+<hr>
+<p><span style="background:#ffff00">The <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/C%2B%2B" target="_blank" rel="noopener">C++</a> program featured in this tutorial web page computes the Nth term of the <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/Fibonacci_sequence" target="_blank" rel="noopener">Fibonacci Sequence</a> using recursion and using iteration. If N is a natural number which is larger than or equal to two, then fibonacci(N) is the sum of fibonacci(N &#8211; 2) and fibonacci(N &#8211; 1). If N is either zero or else one, then fibonacci(N) is one.</span></p>
+<p><em>To view hidden text inside each of the preformatted text boxes below, scroll horizontally.</em></p>
+<pre> fibonacci(0) := 1. // The first term of the Fibonacci Sequence is 1.
+ fibonacci(1) := 1. // The second term of the Fibonacci Sequence is 1.
+ fibonacci(i) := fibonacci(i - 2) + fibonacci(i - 1). // i is a natural number which is larger than or equal to 2.
+</pre>
+<hr>
+<p><strong>SOFTWARE_APPLICATION_COMPONENTS</strong></p>
+<hr>
+<p>C++_source_file: <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/fibonacci_numbers.cpp" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/fibonacci_numbers.cpp</a></p>
+<p>plain-text_file: <a style="background:#000000;color:#ff9000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/fibonacci_numbers_output.txt" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/fibonacci_numbers_output.txt</a></p>
+<hr>
+<p><strong>PROGRAM_COMPILATION_AND_EXECUTION</strong></p>
+<hr>
+<p>STEP_0: Copy and paste the C++ <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/fibonacci_numbers.cpp" target="_blank" rel="noopener">source code</a> into a new text editor document and save that document as the following file name:</p>
+<pre>fibonacci_numbers.cpp</pre>
+<p>STEP_1: Open a <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/Unix" target="_blank" rel="noopener">Unix</a> command line terminal application and set the current directory to wherever the C++ is located on the local machine (e.g. Desktop).</p>
+<pre>cd Desktop</pre>
+<p>STEP_2: Compile the C++ file into machine-executable instructions (i.e. object file) and then into an executable piece of software named <strong>app</strong> using the following command:</p>
+<pre>g++ fibonacci_numbers.cpp -o app</pre>
+<p>STEP_3: If the program compilation command does not work, then use the following commands (in top-down order) to install the C/C++ compiler (which is part of the <a style="background: #ff9000;color: #000000" href="https://en.wikipedia.org/wiki/GNU_Compiler_Collection" target="_blank" rel="noopener">GNU Compiler Collection (GCC)</a>):</p>
+<pre>sudo apt install build-essential</pre>
+<pre>sudo apt-get install g++</pre>
+<p>STEP_4: After running the <strong>g++</strong> command, run the executable file using the following command:</p>
+<pre>./app</pre>
+<p>STEP_5: Once the application is running, the following prompt will appear:</p>
+<pre>Enter a nonnegative integer which is no larger than 45:</pre>
+<p>STEP_6: Enter a value for N using the keyboard.</p>
+<p>STEP_7: Observe program results on the command line terminal and in the <a style="background:#000000;color:#ff9000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/fibonacci_numbers_output.txt" target="_blank" rel="noopener">output file</a>.</p>
+<hr>
+<p><strong>PROGRAM_SOURCE_CODE</strong></p>
+<hr>
+<p><em>When copy-pasting the source code from the preformatted text box below into a text editor document, remove the spaces between the angle brackets and the library names in the preprocessing directives code block. (The spaces were inserted between the library names and angle brackets in the preformatted text box below in order to prevent the WordPress server from misinterpreting those C++ library references as <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/HTML" target="_blank" rel="noopener">HTML</a> tags in the source code of this web page).</em></p>
+<p>C++_source_file: <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/fibonacci_numbers.cpp" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/fibonacci_numbers.cpp</a></p>
+<hr>
+<pre>/**
+ * file: fibonacci_numbers.cpp
+ * type: C++ (source file)
+ * date: 14_JUNE_2023
+ * author: karbytes
+ * license: PUBLIC_DOMAIN
+ */
+
+/* preprocessing directives */
+#include &lt; iostream &gt; // standard input (std::cin), standard output (std::cout)
+#include &lt; fstream &gt; // file input, file output
+#define MAXIMUM_N 45 // constant which represents maximum N value
+
+/* function prototypes */
+int compute_Nth_fibonacci_sequence_term_using_recursion(int N, std::ostream &amp; output, int &amp; C);
+int compute_Nth_fibonacci_sequence_term_using_iteration(int N, std::ostream &amp; output);
+
+/**
+ * Compute the Nth term of the Fibonacci Sequence using a recursive algorithm.
+ * 
+ * Assume that N is an integer value and that output is an output stream object.
+ * 
+ * Assume that C is a reference to an int type variable whose initial value is zero.
+ * 
+ * C is assumed to represent the total number of times this function is called during 
+ * a particular function call chain which is initiated when this function is called
+ * inside the scope in which C is declared.
+ * 
+ * If this function is going to be called more than one time from inside of the same
+ * scope in which C is declared, C will need to be reset to 0 before each of those
+ * function calls is implemented to ensure that C stores the correct number of time this 
+ * function calls itself during a particular compute_Nth_fibonacci_sequence_term_using_recursion 
+ * function call from within C's program scope.
+ * 
+ * For each compute_Nth_fibonacci_sequence_term_using_recursion function call, 
+ * print an algebraic expression which represents the Nth term of the Fibonacci Sequence.
+ * 
+ * ------------------------------------------------------------------------------------------------------
+ * 
+ * The first term of the Fibonacci Sequence is one.
+ * 
+ * fibonacci(0) := 1. 
+ * 
+ * ------------------------------------------------------------------------------------------------------
+ * 
+ * The second term of the Fibonacci Sequence is one.
+ * 
+ * fibonacci(1) := 1. 
+ * 
+ * ------------------------------------------------------------------------------------------------------
+ * 
+ * If N is a natural number larger than or equal to two,
+ * the Nth term of the Fibonacci Sequence is the sum 
+ * of the previous two terms of the Fibonacci Sequence.
+ * 
+ * fibonacci(N) := fibonacci(N - 2) + fibonacci(N - 1). 
+ * 
+ * ------------------------------------------------------------------------------------------------------
+ */
+int compute_Nth_fibonacci_sequence_term_using_recursion(int N, std::ostream &amp; output, int &amp; C)
+{
+    // base case: if N is smaller than 2 or if N is larger than MAXIMUM_N, return 1.
+    if ((N &lt; 2) || (N &gt; MAXIMUM_N))
+    {
+        C += 1; 
+        output &lt;&lt; "\n\nfibonacci(" &lt;&lt; N &lt;&lt; ") = 1. // base case (C = " &lt;&lt; C &lt;&lt; ")";
+        return 1;
+    }
+    // recursive case: if N is larger than 2 and if N is smaller than or equal to MAXIMUM_N, 
+    // return the sum of the (N - 2)th term of the Fibonacci Sequence 
+    // and the (N - 1)nth term of the Fibonacci Sequence.
+    else
+    {
+        C += 1; 
+        output &lt;&lt; "\n\nfibonacci(" &lt;&lt; N &lt;&lt; ") = fibonacci(" &lt;&lt; N - 2 &lt;&lt; ") + fibonacci(" &lt;&lt; N - 1 &lt;&lt; "). // recursive case (C = " &lt;&lt; C &lt;&lt; ")" ;
+        return compute_Nth_fibonacci_sequence_term_using_recursion(N - 2, output, C) + compute_Nth_fibonacci_sequence_term_using_recursion(N - 1, output, C);
+    }
+}
+
+/**
+ * Compute the Nth term of the Fibonacci Sequence using an iterative algorithm.
+ * 
+ * Assume that N is an integer value and that output is an output stream object.
+ * 
+ * For each while loop iteration, i, 
+ * print an algebraic expression which represents the ith term of the Fibonacci Sequence.
+ * 
+ * fibonacci(0) := 1. // The first term of the Fibonacci Sequence is 1.
+ * fibonacci(1) := 1. // The second term of the Fibonacci Sequence is 1.
+ * fibonacci(i) := fibonacci(i - 2) + fibonacci(i - 1). // if i is a natural number larger than 1
+ */
+int compute_Nth_fibonacci_sequence_term_using_iteration(int N, std::ostream &amp; output)
+{
+    // Define four int type variables for storing whole number values which increment zero or more times during any compute_Nth_fibonacci_sequence_term_using_iteration function call.
+    int i = 0, A = 1, B = 1, C = 0;
+
+    // Print the value of the first term of the Fibonacci Sequence (i.e. fibonacci(0)) to the output stream.
+    output &lt;&lt; "\n\nfibonacci(" &lt;&lt; i &lt;&lt; ") = 1. // i = " &lt;&lt; i; // i = 0
+
+    // If N is smaller than 1 or if N is larger than MAXIMUM_N, return 1.
+    if ((N &lt; 1) || (N &gt; MAXIMUM_N)) return 1;
+
+    // Increment the value of i by one.
+    i += 1;
+
+    // Print the value of the second term of the Fibonacci Sequence (i.e. fibonacci(1)).
+    output &lt;&lt; "\n\nfibonacci(" &lt;&lt; i &lt;&lt; ") = 1. // i = " &lt;&lt; i; // i = 1
+
+    // If N is equal to 1, return 1.
+    if (N == 1) return 1;
+
+    // If N is larger than 2, return the sum of the (N - 2)th term of the Fibonacci Sequence and the (N - 1)nth term of the Fibonacci Sequence.
+    while (i &lt; N) 
+    {
+    	i += 1;
+        C = A;
+        A = B;
+        B += C;
+        output &lt;&lt; "\n\nfibonacci(" &lt;&lt; i &lt;&lt; ") = ";
+        output &lt;&lt; B &lt;&lt; " = fibonacci(" &lt;&lt; i - 2 &lt;&lt; ") + fibonacci(" &lt;&lt; i - 1 &lt;&lt; ") = ";
+        output &lt;&lt; C &lt;&lt; " + " &lt;&lt; A;
+        output &lt;&lt; ". // i = " &lt;&lt; i;
+    }
+
+    // Return the value of fibonacci(N).
+    return B;
+}
+
+/* program entry point */
+int main()
+{
+    // Declare four int type variables and set each of their initial values to 0.
+    int N = 0, A = 0, B = 0, C = 0;
+
+    // Declare a file output stream object.
+    std::ofstream file;
+
+    /**
+     * If fibonacci_numbers_output.txt does not already exist in the same directory as fibonacci_numbers.cpp, 
+     * create a new file named fibonacci_numbers_output.txt.
+     * 
+     * Open the plain-text file named fibonacci_numbers_output.txt 
+     * and set that file to be overwritten with program data.
+     */
+    file.open("fibonacci_numbers_output.txt");
+
+    // Print an opening message to the command line terminal.
+    std::cout &lt;&lt; "\n\n--------------------------------";
+    std::cout &lt;&lt; "\nStart Of Program";
+    std::cout &lt;&lt; "\n--------------------------------";
+
+    // Print an opening message to the file output stream.
+    file &lt;&lt; "--------------------------------";
+    file &lt;&lt; "\nStart Of Program";
+    file &lt;&lt; "\n--------------------------------";
+
+    // Print a warning message to the command line terminal.
+    std::cout &lt;&lt; "\n\nWARNING: the recursive function execution time increases exponentially as the value of N increases.";
+
+    // Print a warning message to the file output stream.
+    file &lt;&lt; "\n\nWARNING: the recursive function execution time increases exponentially as the value of N increases.";
+
+    // Print "Enter a nonnegative integer which is no larger than {MAXIMUM_N}: " to the command line terminal.
+    std::cout &lt;&lt; "\n\nEnter a nonnegative integer which is no larger than " &lt;&lt; MAXIMUM_N &lt;&lt; ": ";
+
+    // Scan the command line terminal for the most recent keyboard input value.
+    std::cin &gt;&gt; N;
+
+    // Print "The value which was entered for N is {N}." to the command line terminal.
+    std::cout &lt;&lt; "\nThe value which was entered for N is " &lt;&lt; N &lt;&lt; ".";
+
+    // Print "The value which was entered for N is {N}." to the file output stream.
+    file &lt;&lt; "\n\nThe value which was entered for N is " &lt;&lt; N &lt;&lt; ".";
+
+    // If N is smaller than 0 or if N is larger than MAXIMUM_N, set N to 0.
+    N = ((N &lt; 0) || (N &gt; MAXIMUM_N)) ? 0 : N; // A tertiary operation (using the tertiary operator (?)) is an alternative to using if-else statements.
+
+    // Print "N := {N}." to the command line terminal.
+    std::cout &lt;&lt; "\n\nN := " &lt;&lt; N &lt;&lt; ".";
+
+    // Print "N := {N}." to the file output stream.
+    file &lt;&lt; "\n\nN := " &lt;&lt; N &lt;&lt; ".";
+
+    // Print a horizontal line to the command line terminal.
+    std::cout &lt;&lt; "\n\n--------------------------------";
+
+    // Print a horizontal line to the command line terminal.
+    file &lt;&lt; "\n\n--------------------------------";
+
+    // Print "Computing the Nth term of the Fibonacci using recursion:" to the command line terminal.
+    std::cout &lt;&lt; "\n\nComputing the Nth term of the Fibonacci Sequence using recursion:";
+
+    // Print "Computing the Nth term of the Fibonacci using recursion:"to the file output stream.
+    file &lt;&lt; "\n\nComputing the Nth term of the Fibonacci Sequence using recursion:";
+
+    // Compute the Nth term of the Fibonacci Sequence using recursion, store the result in A, and print each function call in the recursive function call chain to the command line terminal.
+    A = compute_Nth_fibonacci_sequence_term_using_recursion(N, std::cout, C);
+
+    // Reset the value of C to zero.
+    C = 0;
+
+    // Compute the Nth term of the Fibonacci Sequence using recursion and print each function call in the recursive function call chain to the file output stream.
+    compute_Nth_fibonacci_sequence_term_using_recursion(N, file, C);
+
+    // Print the value of A to the command line terminal.
+    std::cout &lt;&lt; "\n\nA = fibonacci(" &lt;&lt; N &lt;&lt; ") = " &lt;&lt; A &lt;&lt; ".";
+
+    // Print the value of A to the file output stream.
+    file &lt;&lt; "\n\nA = fibonacci(" &lt;&lt; N &lt;&lt; ") = " &lt;&lt; A &lt;&lt; ".";
+
+    // Print "The number of times which the recursive Fibonacci Sequence term function was called during this program runtime instance is {C}." to the command line terminal.
+    std::cout &lt;&lt; "\n\nThe number of times which the recursive Fibonacci Sequence term function was called during this program runtime instance is " &lt;&lt; C &lt;&lt; ".";
+
+    // Print "The number of times which the recursive Fibonacci Sequence term function was called during this program runtime instance is {C}." to the file output stream.
+    file &lt;&lt; "\n\nThe number of times which the recursive Fibonacci Sequence term function was called during this program runtime instance is " &lt;&lt; C &lt;&lt; ".";
+
+    // Print a horizontal line to the command line terminal.
+    std::cout &lt;&lt; "\n\n--------------------------------";
+
+    // Print a horizontal line to the command line terminal.
+    file &lt;&lt; "\n\n--------------------------------";
+
+    // Print "Computing the Nth term of the Fibonacci using iteration:" to the command line terminal.
+    std::cout &lt;&lt; "\n\nComputing the Nth term of the Fibonacci Sequence using iteration:";
+
+    // Print "Computing the Nth term of the Fibonacci using iteration:" to the file output stream.
+    file &lt;&lt; "\n\nComputing the Nth term of the Fibonacci Sequence using iteration:";
+
+    // Compute the Nth term of the Fibonacci Sequence using iteration and print each additive term of fibonacci(N) to the command line terminal.
+    B = compute_Nth_fibonacci_sequence_term_using_iteration(N, std::cout);
+
+    // Compute the Nth term of the Fibonacci Sequence using iteration and print each additive term of fibonacci(N) to the file output stream.   
+    compute_Nth_fibonacci_sequence_term_using_iteration(N, file);
+
+    // Print the value of B to the command line terminal.
+    std::cout &lt;&lt; "\n\nB = fibonacci(" &lt;&lt; N &lt;&lt; ") = " &lt;&lt; B &lt;&lt; ".";
+
+    // Print the value of B to the file output stream.
+    file &lt;&lt; "\n\nB = fibonacci(" &lt;&lt; N &lt;&lt; ") = " &lt;&lt; B &lt;&lt; ".";
+
+    // Print a closing message to the command line terminal.
+    std::cout &lt;&lt; "\n\n--------------------------------";
+    std::cout &lt;&lt; "\nEnd Of Program";
+    std::cout &lt;&lt; "\n--------------------------------\n\n";
+
+    // Print a closing message to the file output stream.
+    file &lt;&lt; "\n\n--------------------------------";
+    file &lt;&lt; "\nEnd Of Program";
+    file &lt;&lt; "\n--------------------------------";
+
+    // Close the file output stream.
+    file.close();
+
+    // Exit the program.
+    return 0;
+}
+</pre>
+<hr>
+<p><strong>SAMPLE_PROGRAM_OUTPUT</strong></p>
+<hr>
+<p>The text in the preformatted text box below was generated by one use case of the C++ program featured in this <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/Computer_programming" target="_blank" rel="noopener">computer programming</a> tutorial web page.</p>
+<p>plain-text_file: <a style="background:#000000;color:#ff9000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/fibonacci_numbers_output.txt" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/fibonacci_numbers_output.txt</a></p>
+<hr>
+<pre>--------------------------------
+Start Of Program
+--------------------------------
+
+WARNING: the recursive function execution time increases exponentially as the value of N increases.
+
+The value which was entered for N is 10.
+
+N := 10.
+
+--------------------------------
+
+Computing the Nth term of the Fibonacci Sequence using recursion:
+
+fibonacci(10) = fibonacci(8) + fibonacci(9). // recursive case (C = 1)
+
+fibonacci(8) = fibonacci(6) + fibonacci(7). // recursive case (C = 2)
+
+fibonacci(6) = fibonacci(4) + fibonacci(5). // recursive case (C = 3)
+
+fibonacci(4) = fibonacci(2) + fibonacci(3). // recursive case (C = 4)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 5)
+
+fibonacci(0) = 1. // base case (C = 6)
+
+fibonacci(1) = 1. // base case (C = 7)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 8)
+
+fibonacci(1) = 1. // base case (C = 9)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 10)
+
+fibonacci(0) = 1. // base case (C = 11)
+
+fibonacci(1) = 1. // base case (C = 12)
+
+fibonacci(5) = fibonacci(3) + fibonacci(4). // recursive case (C = 13)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 14)
+
+fibonacci(1) = 1. // base case (C = 15)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 16)
+
+fibonacci(0) = 1. // base case (C = 17)
+
+fibonacci(1) = 1. // base case (C = 18)
+
+fibonacci(4) = fibonacci(2) + fibonacci(3). // recursive case (C = 19)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 20)
+
+fibonacci(0) = 1. // base case (C = 21)
+
+fibonacci(1) = 1. // base case (C = 22)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 23)
+
+fibonacci(1) = 1. // base case (C = 24)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 25)
+
+fibonacci(0) = 1. // base case (C = 26)
+
+fibonacci(1) = 1. // base case (C = 27)
+
+fibonacci(7) = fibonacci(5) + fibonacci(6). // recursive case (C = 28)
+
+fibonacci(5) = fibonacci(3) + fibonacci(4). // recursive case (C = 29)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 30)
+
+fibonacci(1) = 1. // base case (C = 31)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 32)
+
+fibonacci(0) = 1. // base case (C = 33)
+
+fibonacci(1) = 1. // base case (C = 34)
+
+fibonacci(4) = fibonacci(2) + fibonacci(3). // recursive case (C = 35)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 36)
+
+fibonacci(0) = 1. // base case (C = 37)
+
+fibonacci(1) = 1. // base case (C = 38)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 39)
+
+fibonacci(1) = 1. // base case (C = 40)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 41)
+
+fibonacci(0) = 1. // base case (C = 42)
+
+fibonacci(1) = 1. // base case (C = 43)
+
+fibonacci(6) = fibonacci(4) + fibonacci(5). // recursive case (C = 44)
+
+fibonacci(4) = fibonacci(2) + fibonacci(3). // recursive case (C = 45)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 46)
+
+fibonacci(0) = 1. // base case (C = 47)
+
+fibonacci(1) = 1. // base case (C = 48)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 49)
+
+fibonacci(1) = 1. // base case (C = 50)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 51)
+
+fibonacci(0) = 1. // base case (C = 52)
+
+fibonacci(1) = 1. // base case (C = 53)
+
+fibonacci(5) = fibonacci(3) + fibonacci(4). // recursive case (C = 54)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 55)
+
+fibonacci(1) = 1. // base case (C = 56)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 57)
+
+fibonacci(0) = 1. // base case (C = 58)
+
+fibonacci(1) = 1. // base case (C = 59)
+
+fibonacci(4) = fibonacci(2) + fibonacci(3). // recursive case (C = 60)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 61)
+
+fibonacci(0) = 1. // base case (C = 62)
+
+fibonacci(1) = 1. // base case (C = 63)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 64)
+
+fibonacci(1) = 1. // base case (C = 65)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 66)
+
+fibonacci(0) = 1. // base case (C = 67)
+
+fibonacci(1) = 1. // base case (C = 68)
+
+fibonacci(9) = fibonacci(7) + fibonacci(8). // recursive case (C = 69)
+
+fibonacci(7) = fibonacci(5) + fibonacci(6). // recursive case (C = 70)
+
+fibonacci(5) = fibonacci(3) + fibonacci(4). // recursive case (C = 71)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 72)
+
+fibonacci(1) = 1. // base case (C = 73)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 74)
+
+fibonacci(0) = 1. // base case (C = 75)
+
+fibonacci(1) = 1. // base case (C = 76)
+
+fibonacci(4) = fibonacci(2) + fibonacci(3). // recursive case (C = 77)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 78)
+
+fibonacci(0) = 1. // base case (C = 79)
+
+fibonacci(1) = 1. // base case (C = 80)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 81)
+
+fibonacci(1) = 1. // base case (C = 82)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 83)
+
+fibonacci(0) = 1. // base case (C = 84)
+
+fibonacci(1) = 1. // base case (C = 85)
+
+fibonacci(6) = fibonacci(4) + fibonacci(5). // recursive case (C = 86)
+
+fibonacci(4) = fibonacci(2) + fibonacci(3). // recursive case (C = 87)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 88)
+
+fibonacci(0) = 1. // base case (C = 89)
+
+fibonacci(1) = 1. // base case (C = 90)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 91)
+
+fibonacci(1) = 1. // base case (C = 92)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 93)
+
+fibonacci(0) = 1. // base case (C = 94)
+
+fibonacci(1) = 1. // base case (C = 95)
+
+fibonacci(5) = fibonacci(3) + fibonacci(4). // recursive case (C = 96)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 97)
+
+fibonacci(1) = 1. // base case (C = 98)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 99)
+
+fibonacci(0) = 1. // base case (C = 100)
+
+fibonacci(1) = 1. // base case (C = 101)
+
+fibonacci(4) = fibonacci(2) + fibonacci(3). // recursive case (C = 102)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 103)
+
+fibonacci(0) = 1. // base case (C = 104)
+
+fibonacci(1) = 1. // base case (C = 105)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 106)
+
+fibonacci(1) = 1. // base case (C = 107)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 108)
+
+fibonacci(0) = 1. // base case (C = 109)
+
+fibonacci(1) = 1. // base case (C = 110)
+
+fibonacci(8) = fibonacci(6) + fibonacci(7). // recursive case (C = 111)
+
+fibonacci(6) = fibonacci(4) + fibonacci(5). // recursive case (C = 112)
+
+fibonacci(4) = fibonacci(2) + fibonacci(3). // recursive case (C = 113)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 114)
+
+fibonacci(0) = 1. // base case (C = 115)
+
+fibonacci(1) = 1. // base case (C = 116)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 117)
+
+fibonacci(1) = 1. // base case (C = 118)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 119)
+
+fibonacci(0) = 1. // base case (C = 120)
+
+fibonacci(1) = 1. // base case (C = 121)
+
+fibonacci(5) = fibonacci(3) + fibonacci(4). // recursive case (C = 122)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 123)
+
+fibonacci(1) = 1. // base case (C = 124)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 125)
+
+fibonacci(0) = 1. // base case (C = 126)
+
+fibonacci(1) = 1. // base case (C = 127)
+
+fibonacci(4) = fibonacci(2) + fibonacci(3). // recursive case (C = 128)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 129)
+
+fibonacci(0) = 1. // base case (C = 130)
+
+fibonacci(1) = 1. // base case (C = 131)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 132)
+
+fibonacci(1) = 1. // base case (C = 133)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 134)
+
+fibonacci(0) = 1. // base case (C = 135)
+
+fibonacci(1) = 1. // base case (C = 136)
+
+fibonacci(7) = fibonacci(5) + fibonacci(6). // recursive case (C = 137)
+
+fibonacci(5) = fibonacci(3) + fibonacci(4). // recursive case (C = 138)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 139)
+
+fibonacci(1) = 1. // base case (C = 140)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 141)
+
+fibonacci(0) = 1. // base case (C = 142)
+
+fibonacci(1) = 1. // base case (C = 143)
+
+fibonacci(4) = fibonacci(2) + fibonacci(3). // recursive case (C = 144)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 145)
+
+fibonacci(0) = 1. // base case (C = 146)
+
+fibonacci(1) = 1. // base case (C = 147)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 148)
+
+fibonacci(1) = 1. // base case (C = 149)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 150)
+
+fibonacci(0) = 1. // base case (C = 151)
+
+fibonacci(1) = 1. // base case (C = 152)
+
+fibonacci(6) = fibonacci(4) + fibonacci(5). // recursive case (C = 153)
+
+fibonacci(4) = fibonacci(2) + fibonacci(3). // recursive case (C = 154)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 155)
+
+fibonacci(0) = 1. // base case (C = 156)
+
+fibonacci(1) = 1. // base case (C = 157)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 158)
+
+fibonacci(1) = 1. // base case (C = 159)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 160)
+
+fibonacci(0) = 1. // base case (C = 161)
+
+fibonacci(1) = 1. // base case (C = 162)
+
+fibonacci(5) = fibonacci(3) + fibonacci(4). // recursive case (C = 163)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 164)
+
+fibonacci(1) = 1. // base case (C = 165)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 166)
+
+fibonacci(0) = 1. // base case (C = 167)
+
+fibonacci(1) = 1. // base case (C = 168)
+
+fibonacci(4) = fibonacci(2) + fibonacci(3). // recursive case (C = 169)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 170)
+
+fibonacci(0) = 1. // base case (C = 171)
+
+fibonacci(1) = 1. // base case (C = 172)
+
+fibonacci(3) = fibonacci(1) + fibonacci(2). // recursive case (C = 173)
+
+fibonacci(1) = 1. // base case (C = 174)
+
+fibonacci(2) = fibonacci(0) + fibonacci(1). // recursive case (C = 175)
+
+fibonacci(0) = 1. // base case (C = 176)
+
+fibonacci(1) = 1. // base case (C = 177)
+
+A = fibonacci(10) = 89.
+
+The number of times which the recursive Fibonacci Sequence term function was called during this program runtime instance is 177.
+
+--------------------------------
+
+Computing the Nth term of the Fibonacci Sequence using iteration:
+
+fibonacci(0) = 1. // i = 0
+
+fibonacci(1) = 1. // i = 1
+
+fibonacci(2) = 2 = fibonacci(0) + fibonacci(1) = 1 + 1. // i = 2
+
+fibonacci(3) = 3 = fibonacci(1) + fibonacci(2) = 1 + 2. // i = 3
+
+fibonacci(4) = 5 = fibonacci(2) + fibonacci(3) = 2 + 3. // i = 4
+
+fibonacci(5) = 8 = fibonacci(3) + fibonacci(4) = 3 + 5. // i = 5
+
+fibonacci(6) = 13 = fibonacci(4) + fibonacci(5) = 5 + 8. // i = 6
+
+fibonacci(7) = 21 = fibonacci(5) + fibonacci(6) = 8 + 13. // i = 7
+
+fibonacci(8) = 34 = fibonacci(6) + fibonacci(7) = 13 + 21. // i = 8
+
+fibonacci(9) = 55 = fibonacci(7) + fibonacci(8) = 21 + 34. // i = 9
+
+fibonacci(10) = 89 = fibonacci(8) + fibonacci(9) = 34 + 55. // i = 10
+
+B = fibonacci(10) = 89.
+
+--------------------------------
+End Of Program
+--------------------------------
+</pre>
+<hr>
+<p>This web page was last updated on 29_AUGUST_2024. The content displayed on this web page is licensed as <a style="background:#000000;color:#ff9000" href="https://karlinaobject.wordpress.com/public_domain/" target="_blank" rel="noopener">PUBLIC_DOMAIN</a> intellectual property.</p>
+<hr>
