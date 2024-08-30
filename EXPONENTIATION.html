@@ -1,0 +1,478 @@
+<hr>
+<p><strong>EXPONENTIATION</strong></p>
+<hr>
+<p><span style="background:#ffff00">The <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/C%2B%2B" target="_blank" rel="noopener">C++</a> program featured in this tutorial web page computes the approximate value of some <a style="background:#000000;color:#ff9000" href="https://karlinaobject.wordpress.com/numbers/" target="_blank" rel="noopener">real number</a> <strong>base</strong> (which the program user inputs) raised to the <strong>power</strong> of some real number <strong>exponent</strong> (which the program user also inputs). Such a mathematical operation is referred to as <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/Exponentiation" target="_blank" rel="noopener">exponentiation</a>. The C++ program featured in this web page uses the <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/Natural_logarithm" target="_blank" rel="noopener">natural logarithm</a> and the base of the natural logarithm (which is <a style="background:#000000;color:#00ff00" href="https://karlinaobject.wordpress.com/eulers_number_approximation/" target="_blank" rel="noopener">Euler&#8217;s Number</a>) raised to the power of some number to approximate base to the power of exponent. (Note that the C++ program featured in this web page does not include either cmath of math.h (which are each C++ libraries)).</span></p>
+<p><em>To view hidden text inside each of the preformatted text boxes below, scroll horizontally.</em></p>
+<pre>Let base be a real number.
+Let exponent be a real number.
+Let power(base,exponent) return a real number equivalent to base raised to the power of exponent (i.e. base ^ exponent) using the following procedure:
+procedure power(base, exponent):
+    Let e be approximately equal to Euler's Number.
+    Let exp(x) be e raised to the power of some real number x.
+    Let log(x) be the base-e logarithm of some real number x.
+    If exponent is zero: return one.
+    If exponent is one: return base.
+    If exponent is a whole number: 
+        If exponent is a positive number:
+            return base multiplied by base exponent times.
+        End if.
+        If exponent is a negative number:
+            return the reciprocal of the number represented by base multiplied by base exponent times.
+        End if.
+    End if.
+    If exponent is not a whole number:
+        If exponent is a negative number:
+            return exp(log(base) * exponent).
+        End if.
+        If exponent is a positive number:
+            return exp(exp(log(base) * absolute_value(exponent))).
+        End if.
+    End if.
+End procedure.
+</pre>
+<hr>
+<p><strong>SOFTWARE_APPLICATION_COMPONENTS</strong></p>
+<hr>
+<p>C++_source_file: <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_extension_pack_2/main/power.cpp" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_extension_pack_2/main/power.cpp</a></p>
+<p>plain-text_file: <a style="background:#000000;color:#ff9000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/power_output.txt" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/power_output.txt</a></p>
+<hr>
+<p><strong>PROGRAM_COMPILATION_AND_EXECUTION</strong></p>
+<hr>
+<p>STEP_0: Copy and paste the C++ <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_extension_pack_2/main/power.cpp" target="_blank" rel="noopener">source code</a> into a new text editor document and save that document as the following file name:</p>
+<pre>power.cpp</pre>
+<p>STEP_1: Open a <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/Unix" target="_blank" rel="noopener">Unix</a> command line terminal application and set the current directory to wherever the C++ is located on the local machine (e.g. Desktop).</p>
+<pre>cd Desktop</pre>
+<p>STEP_2: Compile the C++ file into machine-executable instructions (i.e. object file) and then into an executable piece of software named <strong>app</strong> using the following command:</p>
+<pre>g++ power.cpp -o app</pre>
+<p>STEP_3: If the program compilation command does not work, then use the following commands (in top-down order) to install the C/C++ compiler (which is part of the <a style="background: #ff9000;color: #000000" href="https://en.wikipedia.org/wiki/GNU_Compiler_Collection" target="_blank" rel="noopener">GNU Compiler Collection (GCC)</a>):</p>
+<pre>sudo apt install build-essential</pre>
+<pre>sudo apt-get install g++</pre>
+<p>STEP_4: After running the <strong>g++</strong> command, run the executable file using the following command:</p>
+<pre>./app</pre>
+<p>STEP_5: Once the application is running, the following prompt will appear:</p>
+<pre>Enter a real number value for base which is no larger than 100 and no smaller than -100:</pre>
+<p>STEP_6: Enter a value for base using the using the keyboard.</p>
+<p>STEP_7: After a value for base is entered, the following prompt will appear:</p>
+<pre>Enter a real number value for exponent which is no larger than 100 and no smaller than -100:</pre>
+<p>STEP_8: Enter a value for exponent using the keyboard.</p>
+<p>STEP_9: A statement showing the value returned by the power function which computes the approximate value of base raised to the power of exponent will be printed to the command line terminal and then the following prompt will appear:</p>
+<pre>Would you like to continue inputting program values? (Enter 1 if YES. Enter 0 if NO):</pre>
+<p>STEP_10: Enter a value according to your preference until you decide to close the program (and save your program data to the <a style="background:#000000;color:#ff9000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/power_output.txt" target="_blank" rel="noopener">output text file</a>).</p>
+<hr>
+<p><strong>PROGRAM_SOURCE_CODE</strong></p>
+<hr>
+<p><em>When copy-pasting the source code from the preformatted text box below into a text editor document, remove the spaces between the angle brackets and the library names in the preprocessing directives code block. (The spaces were inserted between the library names and angle brackets in the preformatted text box below in order to prevent the WordPress server from misinterpreting those C++ library references as <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/HTML" target="_blank" rel="noopener">HTML</a> tags in the source code of this web page).</em></p>
+<p>C++_source_file: <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_extension_pack_2/main/power.cpp" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_extension_pack_2/main/power.cpp</a></p>
+<hr>
+<pre>
+/**
+ * file: power.cpp
+ * type: C++ (source file)
+ * date: 18_OCTOBER_2023
+ * author: karbytes
+ * license: PUBLIC_DOMAIN
+ */
+
+/* preprocessing directives */
+#include &lt; iostream &gt; // standard input (std::cin), standard output (std::cout)
+#include &lt; fstream &gt; // file input, file output
+// #include &lt; cmath &gt; // exp() and log() functions
+#define MAXIMUM_ABSOLUTE_VALUE_BASE 100 // constant which represents maximum absolute value for base
+#define MAXIMUM_ABSOLUTE_VALUE_EXPONENT 100 // constant which represents maximum absolute value for exponent
+
+/* function prototypes */
+bool is_whole_number(double x);
+double absolute_value(double x);
+double power_of_e_to_x(double x);
+float ln(float x);
+double power(double base, double exponent);
+
+/* program entry point */
+int main()
+{
+    // Declare a file output stream object named file.
+    std::ofstream file;
+
+    // Declare three variables for storing floating-point number values.
+    double base = 0.0, exponent = 0.0, result = 0.0;
+
+    // Declare a variable for storing the program user&#039;s answer of whether or not to continue inputting values.
+    int input_additional_values = 1;
+
+    // Set the number of digits of floating-point numbers which are printed to the command line terminal to 100 digits.
+    std::cout.precision(100);
+
+    // Set the number of digits of floating-point numbers which are printed to the file output stream to 100 digits.
+    file.precision(100);
+
+    /**
+     * If the file named power_output.txt does not already exist 
+     * inside of the same file directory as the file named power.cpp, 
+     * create a new file named power_output.txt in that directory.
+     * 
+     * Open the plain-text file named power_output.txt 
+     * and set that file to be overwritten with program data.
+     */
+    file.open(&quot;power_output.txt&quot;);
+
+    // Print an opening message to the command line terminal.
+    std::cout &lt;&lt; &quot;\n\n--------------------------------&quot;;
+    std::cout &lt;&lt; &quot;\nSTART OF PROGRAM&quot;;
+    std::cout &lt;&lt; &quot;\n--------------------------------&quot;;
+
+    // Print an opening message to the file output stream.
+    file &lt;&lt; &quot;--------------------------------&quot;;
+    file &lt;&lt; &quot;\nSTART OF PROGRAM&quot;;
+    file &lt;&lt; &quot;\n--------------------------------&quot;;
+
+    // Print some program-related data to the command line terminal.
+    std::cout &lt;&lt; &quot;\n\npower(base, exponent) = base ^ exponent.&quot;;
+
+    // Print some program-related data to the file output stream.
+    file &lt;&lt; &quot;\n\npower(base, exponent) = base ^ exponent.&quot;;
+
+    while (input_additional_values != 0)
+    {
+        // Print a divider line to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\n--------------------------------&quot;;
+
+        // Print a divider line to the file output stream.
+        file &lt;&lt; &quot;\n\n--------------------------------&quot;;
+
+        // Prompt the user to enter a value to store in the variable named base (to the command line terminal).
+        std::cout &lt;&lt; &quot;\n\nEnter a real number value for base which is no larger than &quot;;
+        std::cout &lt;&lt; MAXIMUM_ABSOLUTE_VALUE_BASE;
+        std::cout &lt;&lt; &quot; and no smaller than &quot;;
+        std::cout &lt;&lt; (-1 * MAXIMUM_ABSOLUTE_VALUE_BASE) &lt;&lt; &quot;: &quot;;
+
+        // Print the prompt for entering a base value to the file output stream.
+        file &lt;&lt; &quot;\n\nEnter a real number value for base which is no larger than &quot;;
+        file &lt;&lt; MAXIMUM_ABSOLUTE_VALUE_BASE;
+        file &lt;&lt; &quot; and no smaller than &quot;;
+        file &lt;&lt; (-1 * MAXIMUM_ABSOLUTE_VALUE_BASE) &lt;&gt; base;
+
+        // Print the most recently input keyboard value to the command line terminal.
+        std::cout &lt;&lt; base;
+
+        // Print the most recently input keyboard value to the file output stream.
+        file &lt;&lt; base;
+
+        // Prompt the user to enter a value to store in the variable named exponent (to the command line terminal).
+        std::cout &lt;&lt; &quot;\n\nEnter a real number value for exponent which is no larger than &quot;;
+        std::cout &lt;&lt; MAXIMUM_ABSOLUTE_VALUE_EXPONENT;
+        std::cout &lt;&lt; &quot; and no smaller than &quot;;
+        std::cout &lt;&lt; (-1 * MAXIMUM_ABSOLUTE_VALUE_EXPONENT) &lt;&lt; &quot;: &quot;;
+
+        // Print the prompt for entering an exponent value to the output file.
+        file &lt;&lt; &quot;\n\nEnter a real number value for exponent which is no larger than &quot;;
+        file &lt;&lt; MAXIMUM_ABSOLUTE_VALUE_EXPONENT;
+        file &lt;&lt; &quot; and no smaller than &quot;;
+        file &lt;&lt; (-1 * MAXIMUM_ABSOLUTE_VALUE_EXPONENT) &lt;&gt; exponent;
+
+        // Print the most recently input keyboard value to the command line terminal.
+        std::cout &lt;&lt; exponent;
+
+        // Print the most recently input keyboard value to the file output stream.
+        file &lt;&lt; exponent;
+
+        // If base is not within the range of accepted values, set base to 1.
+        if ((base  MAXIMUM_ABSOLUTE_VALUE_BASE)) 
+        {
+            base = 1;
+            std::cout &lt;&lt; &quot;\n\nBecause the input value for base was not within the range of accepted values, base was set to the default value of 1.&quot;;
+            file &lt;&lt; &quot;\n\nBecause the input value for base was not within the range of accepted values, base was set to the default value of 1.&quot;;
+        }
+
+        // If exponent is not within the range of accepted values, set exponent to 0.
+        if ((exponent  MAXIMUM_ABSOLUTE_VALUE_EXPONENT)) 
+        {
+            exponent = 0;
+            std::cout &lt;&lt; &quot;\n\nBecause the input value for exponent was not within the range of accepted values, exponent was set to the default value of 0.&quot;;
+            file &lt;&lt; &quot;\n\nBecause the input value for exponent was not within the range of accepted values, exponent was set to the default value of 0.&quot;;
+        }
+
+        // Compute base to the power of exponent.
+        result = power(base, exponent);
+
+        // Print the result returned by the power function defined in this program to the command line terminal.
+        std::cout &lt;&lt; &quot;\n\nresult = power(base,exponent) = power(&quot; &lt;&lt; base &lt;&lt; &quot;, &quot; &lt;&lt; exponent &lt;&lt; &quot;) = &quot; &lt;&lt; base &lt;&lt; &quot; ^ &quot; &lt;&lt; exponent &lt;&lt; &quot; = &quot; &lt;&lt; result &lt;&lt; &quot;.&quot;;
+
+        // Print the result returned by the power function defined in this program to the file output stream.
+        file &lt;&lt; &quot;\n\nresult = power(base,exponent) = power(&quot; &lt;&lt; base &lt;&lt; &quot;, &quot; &lt;&lt; exponent &lt;&lt; &quot;) = &quot; &lt;&lt; base &lt;&lt; &quot; ^ &quot; &lt;&lt; exponent &lt;&lt; &quot; = &quot; &lt;&lt; result &lt;&lt; &quot;.&quot;;
+
+        // Ask the user whether or not to continue inputing values.
+        std::cout &lt;&gt; input_additional_values;
+    }
+
+    // Print a closing message to the command line terminal.
+    std::cout &lt;&lt; &quot;\n--------------------------------&quot;;
+    std::cout &lt;&lt; &quot;\nEND OF PROGRAM&quot;;
+    std::cout &lt;&lt; &quot;\n--------------------------------\n\n&quot;;
+
+    // Print a closing message to the file output stream.
+    file &lt;&lt; &quot;\n\n--------------------------------&quot;;
+    file &lt;&lt; &quot;\nEND OF PROGRAM&quot;;
+    file &lt;&lt; &quot;\n--------------------------------&quot;;
+
+    // Close the file output stream.
+    file.close();
+
+    // Exit the program.
+    return 0;
+}
+
+/**
+ * If x is determined to be a whole number, return true.
+ * Otherwise, return false.
+ */
+bool is_whole_number(double x)
+{
+    return (x == (long int) x); 
+}
+
+/**
+ * Return the absolute value of a real number input, x.
+ */
+double absolute_value(double x)
+{
+    if (x &lt; 0) return -1 * x;
+    return x;
+}
+
+/**
+ * Return the approximate value of Euler&#039;s Number to the power of some real number x.
+ * 
+ * This function is essentially identical to the C++ library math.h function exp().
+ */
+double power_of_e_to_x(double x) {
+    double a = 1.0, e = a;
+    int n = 1;
+    int invert = x &lt; 0;
+    x = absolute_value(x);
+    for (n = 1; e != e + a; n += 1) {
+        a = a * x / n;
+        e += a;
+    }
+    return invert ? (1 / e) : e;
+}
+
+//-----------------------------------------------------------------------------------------------
+// The following function and associated comments were not written by karbytes. 
+//
+// The following function is essentially identical to the C++ library math.h function log().
+//-----------------------------------------------------------------------------------------------
+
+// ln.c
+//
+// simple, fast, accurate natural log approximation
+// when without 
+
+// featuring * floating point bit level hacking,
+//           * x=m*2^p =&gt; ln(x)=ln(m)+ln(2)p,
+//           * Remez algorithm
+
+// by Lingdong Huang, 2020. Public domain.
+
+// ============================================
+
+float ln(float x) {
+  unsigned int bx = * (unsigned int *) (&amp;x);
+  unsigned int ex = bx &gt;&gt; 23;
+  signed int t = (signed int)ex-(signed int)127;
+  unsigned int s = (t &lt; 0) ? (-t) : t;
+  bx = 1065353216 | (bx &amp; 8388607);
+  x = * (float *) (&amp;bx);
+  return -1.49278+(2.11263+(-0.729104+0.10969*x)*x)*x+0.6931471806*t;
+}
+// done.
+
+//-----------------------------------------------------------------------------------------------
+// End of code which was not written by karbytes. 
+//-----------------------------------------------------------------------------------------------
+
+/**
+ * Reverse engineer the cmath pow() function 
+ * using the following properties of natural logarithms:
+ * 
+ * ln(x ^ y) = y * ln(x).
+ * 
+ * ln(e ^ x) = x. // e is approximately Euler&#039;s Number.
+ * 
+ * Note that the base of the logarithmic function 
+ * used by the cmath log() function is e.
+ * 
+ * Hence, log(x) is approximately the 
+ * natural log of x (i.e. ln(x)).
+ * 
+ * Note that the base of the exponential function
+ * used by the cmath exp() function is
+ * (approximately) Euler&#039;s Number.
+ * 
+ * Hence, exp(x) is approximately 
+ * x ^ e (where e is approximately Euler&#039;s Number).
+ * 
+ * Note that any number, x, raised to the power of 0 is 1.
+ * In more succinct terms, x ^ 0 = 1.
+ * 
+ * Note that any number, x, raised to the power of 1 is x.
+ * In more succinct terms, x ^ 1 = x.
+ * 
+ * Note that any whole number, x, 
+ * raised to the power of a positive whole number exponent, y, 
+ * is x multiplied by itself y times.
+ * For example, if x is 2 and y is 3, 
+ * 2 ^ 3 = power(2, 3) = 2 * 2 * 2 = 8.
+ * 
+ * Note that any whole number, x, 
+ * raised to the power of a negative exponent, y, 
+ * is 1 / (x ^ (-1 * y)).
+ * For example, if x is 2 and y is -3,
+ * 2 ^ -3 = power(2, -3) = 1 / (2 * 2 * 2) = 1 / 8 = 0.125.
+ */
+double power(double base, double exponent)
+{
+    double output = 1.0;
+    if (exponent == 0) return 1; 
+    if (exponent == 1) return base;
+    // if ((base == 0) &amp;&amp; (exponent  0)
+        {
+            while (exponent &gt; 0) 
+            {
+                output *= base;
+                exponent -= 1;
+            }
+            return output;
+        }
+        else 
+        {
+            exponent = absolute_value(exponent);
+            while (exponent &gt; 0)
+            {
+                output *= base;
+                exponent -= 1;
+            }
+            return 1 / output;
+        }
+    }
+    if (exponent &gt; 0) return power_of_e_to_x(ln(base) * exponent); // Return e ^ (ln(base) * exponent). 
+    return power_of_e_to_x(power_of_e_to_x(ln(base) * absolute_value(exponent))); // Return e ^ (e ^ (ln(base) * absolute_value(exponent))).
+}
+</pre>
+<hr>
+<p><strong>SAMPLE_PROGRAM_OUTPUT</strong></p>
+<hr>
+<p><em>Note that the value returned by the function call pow(-1, 0.5) (and pow() is a function encapsulated by the C++ libraries cmath and math.h) returned the value -nan.</em></p>
+<p><em>By contrast, the value returned by the function call power(-1, 0.5) (and power() is a function defined in <a style="background:#000000;color:#00ff00" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/power.cpp" target="_blank" rel="noopener">power.cpp</a>)  returned the value 340357746532624088885911455895174250496.</em></p>
+<p><em>That is because -1 to the power of 0.5 is an <a style="background:#000000;color:#ff9000" href="https://karlinaobject.wordpress.com/numbers/" target="_blank" rel="noopener">imaginary number</a> instead of a real number.</em></p>
+<hr>
+<p>The text in the preformatted text box below was generated by one use case of the C++ program featured in this <a style="background:#ff9000;color:#000000" href="https://en.wikipedia.org/wiki/Computer_programming" target="_blank" rel="noopener">computer programming</a> tutorial web page.</p>
+<p>plain-text_file: <a style="background:#000000;color:#ff9000" href="https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/power_output.txt" target="_blank" rel="noopener">https://raw.githubusercontent.com/karlinarayberinger/KARLINA_OBJECT_summer_2023_starter_pack/main/power_output.txt</a></p>
+<hr>
+<pre>--------------------------------
+START OF PROGRAM
+--------------------------------
+
+power(base, exponent) = base ^ exponent.
+
+--------------------------------
+
+Enter a real number value for base which is no larger than 100 and no smaller than -100: 0
+
+Enter a real number value for exponent which is no larger than 100 and no smaller than -100: 0
+
+result = power(base,exponent) = power(0, 0) = 0 ^ 0 = 1.
+
+--------------------------------
+
+Enter a real number value for base which is no larger than 100 and no smaller than -100: 2
+
+Enter a real number value for exponent which is no larger than 100 and no smaller than -100: 3
+
+result = power(base,exponent) = power(2, 3) = 2 ^ 3 = 8.
+
+--------------------------------
+
+Enter a real number value for base which is no larger than 100 and no smaller than -100: -2
+
+Enter a real number value for exponent which is no larger than 100 and no smaller than -100: 3
+
+result = power(base,exponent) = power(-2, 3) = -2 ^ 3 = -8.
+
+--------------------------------
+
+Enter a real number value for base which is no larger than 100 and no smaller than -100: 2
+
+Enter a real number value for exponent which is no larger than 100 and no smaller than -100: -3
+
+result = power(base,exponent) = power(2, -3) = 2 ^ -3 = 0.125.
+
+--------------------------------
+
+Enter a real number value for base which is no larger than 100 and no smaller than -100: -2
+
+Enter a real number value for exponent which is no larger than 100 and no smaller than -100: -3
+
+result = power(base,exponent) = power(-2, -3) = -2 ^ -3 = -0.125.
+
+--------------------------------
+
+Enter a real number value for base which is no larger than 100 and no smaller than -100: 2
+
+Enter a real number value for exponent which is no larger than 100 and no smaller than -100: 0.5
+
+result = power(base,exponent) = power(2, 0.5) = 2 ^ 0.5 = 1.41452190152525414390538571751676499843597412109375.
+
+--------------------------------
+
+Enter a real number value for base which is no larger than 100 and no smaller than -100: 2
+
+Enter a real number value for exponent which is no larger than 100 and no smaller than -100: -2
+
+result = power(base,exponent) = power(2, -2) = 2 ^ -2 = 0.25.
+
+--------------------------------
+
+Enter a real number value for base which is no larger than 100 and no smaller than -100: 2
+
+Enter a real number value for exponent which is no larger than 100 and no smaller than -100: -1
+
+result = power(base,exponent) = power(2, -1) = 2 ^ -1 = 0.5.
+
+--------------------------------
+
+Enter a real number value for base which is no larger than 100 and no smaller than -100: 0.5
+
+Enter a real number value for exponent which is no larger than 100 and no smaller than -100: -1
+
+result = power(base,exponent) = power(0.5, -1) = 0.5 ^ -1 = 2.
+
+--------------------------------
+
+Enter a real number value for base which is no larger than 100 and no smaller than -100: 0.5
+
+Enter a real number value for exponent which is no larger than 100 and no smaller than -100: 0.5
+
+result = power(base,exponent) = power(0.5, 0.5) = 0.5 ^ 0.5 = 0.7072609494155397413805985706858336925506591796875.
+
+--------------------------------
+
+Enter a real number value for base which is no larger than 100 and no smaller than -100: 100
+
+Enter a real number value for exponent which is no larger than 100 and no smaller than -100: 0.5
+
+result = power(base,exponent) = power(100, 0.5) = 100 ^ 0.5 = 10.0015620834400120742202489054761826992034912109375.
+
+--------------------------------
+
+Enter a real number value for base which is no larger than 100 and no smaller than -100: -100
+
+Enter a real number value for exponent which is no larger than 100 and no smaller than -100: 0.5
+
+result = power(base,exponent) = power(-100, 0.5) = -100 ^ 0.5 = 3403358482654129315574312994291840974848.
+
+--------------------------------
+END OF PROGRAM
+--------------------------------</pre>
+<hr>
+<p>This web page was last updated on 29_AUGUST_2024. The content displayed on this web page is licensed as <a style="background:#000000;color:#ff9000" href="https://karlinaobject.wordpress.com/public_domain/" target="_blank" rel="noopener">PUBLIC_DOMAIN</a> intellectual property.</p>
+<hr>
