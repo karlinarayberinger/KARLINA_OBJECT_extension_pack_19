@@ -3,10 +3,12 @@ Start Of Program
 --------------------------------
 
 Enter a natural number, N, which is no larger than 1000 (to represent the total number of elements to store in the array named A): 
-The value which was entered for N is 50.
+
+The value which was entered for N is 21.
 
 Enter a nonnegative integer, T, which is no larger than 1000 (to represent the total number of states each element of A can represent exactly one of per instance): 
-The value which was entered for T is 14.
+
+The value which was entered for T is 5.
 
 --------------------------------
 End Of Program

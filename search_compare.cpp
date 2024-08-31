@@ -61,10 +61,10 @@ int main()
     std::cin >> N;
 
     // Print "The value which was entered for N is {N}." to the command line terminal.
-    std::cout << "\nThe value which was entered for N is " << N << ".";
+    std::cout << "\n\nThe value which was entered for N is " << N << ".";
 
     // Print "The value which was entered for N is {N}." to the output file stream.
-    file << "\nThe value which was entered for N is " << N << ".";
+    file << "\n\nThe value which was entered for N is " << N << ".";
 
     // Prompt the program user to input a value to store in the main function variable named T.
     std::cout << "\n\nEnter a nonnegative integer, T, which is no larger than ";
@@ -80,10 +80,10 @@ int main()
     std::cin >> T;
 
     // Print "The value which was entered for T is {T}." to the command line terminal.
-    std::cout << "\nThe value which was entered for T is " << T << ".";
+    std::cout << "\n\nThe value which was entered for T is " << T << ".";
 
     // Print "The value which was entered for T is {T}." to the output file stream.
-    file << "\nThe value which was entered for T is " << T << ".";
+    file << "\n\nThe value which was entered for T is " << T << ".";
 
     // Print a closing message to the command line terminal.
     std::cout << "\n\n--------------------------------";
