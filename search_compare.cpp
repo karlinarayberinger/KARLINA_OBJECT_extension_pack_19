@@ -98,7 +98,10 @@ int * generate_randomized_array(int N, int T)
     // Populate the array with random values which are no smaller than 0 and no larger than T.
     for (int i = 0; i < N; ++i) A[i] = std::rand() % (T + 1);
 
-    // Shuffle the array to ensure the elements are in a random order.
+    /**
+     * Shuffle the array to ensure that its elements are arranged in a random order.
+     * (The elements which are selected to be shuffled are the elements starting at A[0] and ending at A[N -1]).
+     */
     std::random_shuffle(A, A + N);
 
     // Return the array after setting each element of that array to a randomized nonnegative integer value.
