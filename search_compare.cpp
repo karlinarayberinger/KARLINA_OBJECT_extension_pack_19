@@ -84,6 +84,9 @@ int * generate_randomized_array(int N, int T)
      */
     std::srand(std::time(0));
 
+    // If the N value which is passed into this function is "out of range", then store the default value ten in the local variable named N.
+    N = ((N < 1) || (N > MAXIMUM_N))? 10 : N;
+
     // If the T value which is passed into this function is "out of range", then store the default value ten in the local variable named T.
     T = ((T < 1) || (T > MAXIMUM_T))? 10 : T;
 
