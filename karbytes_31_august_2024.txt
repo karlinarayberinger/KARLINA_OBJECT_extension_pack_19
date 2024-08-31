@@ -16,4 +16,4 @@ It is assumed by karbytes that (any and all) virtual layers of reality cannot ex
 
 It is assumed by karbytes that the physical layer of reality can and has existed independently of the emergent virtual layer(s) of reality.
 
-It is assumed by karbytes that it is possible for there to be multiple layers of virtual reality such that each of those layers of virtual reality, X, either simulates another virtual reality in a recursive manner or else X is the final (and “most virtual”) layer in some chain of (some natural number of) recursively nested layers of virtual reality.
+It is assumed by karbytes that it is possible for there to be multiple layers of virtual reality such that each of those layers of virtual reality, X, either simulates another layer of virtual reality, (X’), in a recursive manner or else X is the final (and “most virtual”) layer in some chain of (some natural number of) recursively nested layers of virtual reality.
