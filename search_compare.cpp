@@ -91,6 +91,7 @@ int * generate_randomized_array(int N, int T)
      * Dynamically allocate memory for the array.
      * (Allocate N contiguous int-sized chunks of random access memory (RAM) to the array and store the address of the first element of that array in the pointer-to-int variable named A).
      * (Note that an int-type variable occupies four contiguous memory cells and that each memory cell has a data capacity of one byte).
+     * (Note that the address of a variable is the memory address of the first memory cell of the chunk of contiguous memory cells which is allocated to that variable).
      */
     int * A = new int[N];
 
