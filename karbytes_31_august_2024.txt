@@ -1,0 +1,19 @@
+/**
+ * file: karbytes_31_august_2024.txt
+ * type: plain-text
+ * date: 31_AUGUST_2024
+ * author: karbytes
+ * license: PUBLIC_DOMAIN
+ */
+
+It is assumed by karbytes that physics existed prior to virtual reality (and, according to karbytes’ definitions, virtual reality includes any and all minds).
+
+It is assumed by karbytes that it is possible for virtual realities to simulate complete laws of physics and resulting physical phenomena which are as comprehensive as the underlying physical layer which substantiates those virtual realities.
+
+It is assumed by karbytes that virtual reality can and does influence how phenomena at the underlying physical layer evolve as time in elapses.
+
+It is assumed by karbytes that (any and all) virtual layers of reality cannot exist without (exactly one) underlying physical layer of reality.
+
+It is assumed by karbytes that the physical layer of reality can and has existed independently of the emergent virtual layer(s) of reality.
+
+It is assumed by karbytes that it is possible for there to be multiple layers of virtual reality such that each of those layers of virtual reality, X, either simulates another virtual reality in a recursive manner or else X is the final (and “most virtual”) layer in some chain of (some natural number of) recursively nested layers of virtual reality.
