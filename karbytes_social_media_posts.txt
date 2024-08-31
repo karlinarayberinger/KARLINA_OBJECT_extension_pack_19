@@ -1,7 +1,7 @@
 /**
  * file: karbytes_social_media_posts.txt
  * type: plain-text
- * date: 29_AUGUST_2024
+ * date: 31_AUGUST_2024
  * author: karbytes
  * license: PUBLIC_DOMAIN
  */
@@ -498,3 +498,9 @@ https://karbytesforlifeblog.wordpress.com/karbytes_02_july_2024/
 On 29_AUGUST_2024 at approximately 11:30PM Pacific Standard Time, karbytes shared the following karbytes-created web page as a social media post on karbytes' Twitter dot Com page, on karbytes' Minds dot Com page, on karbytes' LinkedIn dot Com page, and on karbytes' Patreon dot Com page (because karbytes made updates to each of the C++ web pages and to the home page of the website named Karlina Object dot WordPress dot Com on 29_AUGUST_2024):
 
 https://karlinaobject.wordpress.com/
+
+* * *
+
+On 31_AUGUST_2024 at approximately 4:30AM Pacific Standard Time, karbytes re-shared the following karbytes-created web page as a social media post on karbytes' Twitter dot Com page, on karbytes' Minds dot Com page, on karbytes' LinkedIn dot Com page, and on karbytes' Patreon dot Com page (because that social media post was accidentally deleted during karbytes' latest social media purge):
+
+https://karbytesforlifeblog.wordpress.com/karbytes_31_august_2024/
