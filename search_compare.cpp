@@ -23,8 +23,8 @@ void print_array(int * A, int N, std::ostream & output);
 /* program entry point */
 int main()
 {
-    // Define two int type variables such that each of their initial values is set to 0.
-    int N = 0, T = 0;
+    // Define four int type variables such that each of their initial values is set to 0.
+    int N = 0, T = 0, x = 0, c = 0;
 
     // Declare one pointer-to-int variable named A.
     int * A;
@@ -61,7 +61,10 @@ int main()
     file << MAXIMUM_N;
     file << " (to represent the total number of elements to store in the array named A): ";
 
-    // Scan the command line terminal for the most recent keyboard input value.
+    /**
+     * Scan the command line terminal for the most recent keyboard input value.
+     * Store that value in the main function variable named N.
+     */
     std::cin >> N;
 
     // Print "The value which was entered for N is {N}." to the command line terminal.
@@ -132,6 +135,34 @@ int main()
 
     // Print the contents of the array to the command line terminal.
     print_array(A, N, file);
+
+    // Print a horizontal divider line to the command line terminal.
+    std::cout << "\n\n--------------------------------";
+
+    // Print a horizontal divider line to the output file stream.
+    file << "\n\n--------------------------------";
+
+    // Prompt the program user to input a value to store in the main function variable named x.
+    std::cout << "\n\nEnter a nonnegative integer value, x, which is no larger than ";
+    std::cout << MAXIMUM_T;
+    std::cout << " to search for in the array named A: ";
+
+    // Print the above command line prompt to the output text file.
+    file << "\n\nEnter a nonnegative integer value, x, which is no larger than ";
+    file << MAXIMUM_T;
+    file << " to search for in the array named A: ";
+
+    /**
+     * Scan the command line terminal for the most recent keyboard input value.
+     * Store that value in the main function variable named x.
+     */
+    std::cin >> x;
+
+    // Print "The value which was entered for x is {x}." to the command line terminal.
+    std::cout << "\n\nThe value which was entered for x is " << x << ".";
+
+    // Print "The value which was entered for x is {x}." to the output file stream.
+    file << "\n\nThe value which was entered for x is " << x << ".";
 
     // De-allocate memory which was used to instantiate the dynamically-allocated array named A.
     delete [] A;
@@ -206,5 +237,5 @@ int * generate_randomized_array(int N, int T)
 void print_array(int * A, int N, std::ostream & output)
 {
     output << "\n\nARRAY A: ";
-    for (int i = 0; i < N; i++) output << "\n\nA[" << i << "] := " << A[i] << ". // memory address of A[" << i << "] is " << &A[i] << ".";
+    for (int i = 0; i < N; i++) output << "\n\nA[" << i << "] := " << A[i] << ". // The memory address of A[" << i << "] is " << &A[i] << ".";
 }
