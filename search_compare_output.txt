@@ -4,11 +4,17 @@ Start Of Program
 
 Enter a natural number, N, which is no larger than 1000 (to represent the total number of elements to store in the array named A): 
 
-The value which was entered for N is 21.
+The value which was entered for N is -3.
 
 Enter a nonnegative integer, T, which is no larger than 1000 (to represent the total number of states each element of A can represent exactly one of per instance): 
 
-The value which was entered for T is 5.
+The value which was entered for T is -4.
+
+--------------------------------
+
+WARNING: N was reset to 10 because the user input value for N was out of range.
+
+WARNING: T was reset to 100 because the user input value for T was out of range.
 
 --------------------------------
 End Of Program

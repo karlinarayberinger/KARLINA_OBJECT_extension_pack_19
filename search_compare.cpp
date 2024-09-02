@@ -1,7 +1,7 @@
 /**
  * file: search_compare.cpp
  * type: C++ (source file)
- * date: 30_AUGUST_2023
+ * date: 02_SEPTEMBER_2023
  * author: karbytes
  * license: PUBLIC_DOMAIN
  */
@@ -85,6 +85,38 @@ int main()
     // Print "The value which was entered for T is {T}." to the output file stream.
     file << "\n\nThe value which was entered for T is " << T << ".";
 
+    // Print a horizontal divider line to the command line terminal.
+    std::cout << "\n\n--------------------------------";
+
+    // Print a horizontal divider line to the output file stream.
+    file << "\n\n--------------------------------";
+
+    /**
+     * If the N value which was input by the program user is "out of range", 
+     * store the default value ten in the main function variable named N
+     * and output a message stating this fact to the command line terminal
+     * and to the output file stream.
+     */
+    if ((N < 1) || (N > MAXIMUM_N))
+    {
+        N = 10;
+        std::cout << "\n\nWARNING: N was reset to 10 because the user input value for N was out of range.";
+        file << "\n\nWARNING: N was reset to 10 because the user input value for N was out of range.";
+    }
+
+    /**
+     * If the T value which was input by the program user is "out of range", 
+     * store the default value one hundred in the main function variable named T
+     * and output a message stating this fact to the command line terminal
+     * and to the output file stream.
+     */
+    if ((T < 0) || (T > MAXIMUM_T))
+    {
+        T = 100;
+        std::cout << "\n\nWARNING: T was reset to 100 because the user input value for T was out of range.";
+        file << "\n\nWARNING: T was reset to 100 because the user input value for T was out of range.";
+    }
+
     // Print a closing message to the command line terminal.
     std::cout << "\n\n--------------------------------";
     std::cout << "\nEnd Of Program";
@@ -134,7 +166,7 @@ int * generate_randomized_array(int N, int T)
     int * A = new int[N];
 
     // Populate the array with random values which are no smaller than 0 and no larger than T.
-    for (int i = 0; i < N; ++i) A[i] = std::rand() % T;
+    for (int i = 0; i < N; i += 1) A[i] = std::rand() % T;
 
     // Return the array after setting each element of that array to a randomized nonnegative integer value.
     return A;
