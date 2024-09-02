@@ -184,8 +184,8 @@ int * generate_randomized_array(int N, int T)
      */
     int * A = new int[N];
 
-    // Populate the array with random values which are no smaller than 0 and no larger than T.
-    for (int i = 0; i < N; i += 1) A[i] = std::rand() % (T + 1);
+    // Populate the array with random values which are no smaller than 0 and no larger than (T - 1).
+    for (int i = 0; i < N; i += 1) A[i] = std::rand() % T;
 
     // Return the array after setting each element of that array to a randomized nonnegative integer value.
     return A;
