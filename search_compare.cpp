@@ -17,13 +17,17 @@
 
 /* function prototypes */
 int * generate_randomized_array(int N, int T);
+void print_array(int * A, int N, std::ostream & output);
 //int linear_search(int A[], int N, int x);
 
 /* program entry point */
 int main()
 {
-    // Declare three int type variables and set each of their initial values to 0.
-    int N = 0, T = 0, i = 0;
+    // Define two int type variables such that each of their initial values is set to 0.
+    int N = 0, T = 0;
+
+    // Declare one pointer-to-int variable named A.
+    int * A;
 
     // Declare a file output stream object.
     std::ofstream file;
@@ -117,6 +121,21 @@ int main()
         file << "\n\nWARNING: T was reset to 100 because the user input value for T was out of range.";
     }
 
+    /** 
+     * Dynamically allocate N contiguous int-sized chunks of memory to a one-dimensional array named A.
+     * Then populate that array with N random nonnegative integer values which are each no larger than T.
+     */
+    A = generate_randomized_array(N, T);
+
+    // Print the contents of the array to the command line terminal.
+    print_array(A, N, std::cout);
+
+    // Print the contents of the array to the command line terminal.
+    print_array(A, N, file);
+
+    // De-allocate memory which was used to instantiate the dynamically-allocated array named A.
+    delete [] A;
+
     // Print a closing message to the command line terminal.
     std::cout << "\n\n--------------------------------";
     std::cout << "\nEnd Of Program";
@@ -139,7 +158,7 @@ int main()
  * which each have a value which is no larger than T and such that those elements 
  * are arranged in a randomized order.
  * 
- * N is assumed to be a natural number no larger than T.
+ * N is assumed to be a natural number no larger than MAXIMUM_N.
  * 
  * T is assumed to be a nonnegative integer no larger than MAXIMUM_T.
  */
@@ -166,8 +185,26 @@ int * generate_randomized_array(int N, int T)
     int * A = new int[N];
 
     // Populate the array with random values which are no smaller than 0 and no larger than T.
-    for (int i = 0; i < N; i += 1) A[i] = std::rand() % T;
+    for (int i = 0; i < N; i += 1) A[i] = std::rand() % (T + 1);
 
     // Return the array after setting each element of that array to a randomized nonnegative integer value.
     return A;
+}
+
+/**
+ * Print the contents of the array whose first element (i.e. A[0]) is the memory address stored in A.
+ * 
+ * First print the following header to the output stream (quotations excluded): "ARRAY A:"
+ * Thenn print the data value of each element of A and the memory address of that element on its own separate line.
+ * 
+ * Assume that A is a pointer-to-int containing the address of A[0].
+ * 
+ * Assume that N is the total number of elements in A.
+ * 
+ * Assume that output is an output stream handler.
+ */
+void print_array(int * A, int N, std::ostream & output)
+{
+    output << "\n\nARRAY A: ";
+    for (int i = 0; i < N; i++) output << "\n\nA[" << i << "] := " << A[i] << ". // memory address of A[" << i << "] is " << &A[i] << ".";
 }

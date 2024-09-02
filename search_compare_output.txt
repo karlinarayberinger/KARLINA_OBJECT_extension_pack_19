@@ -4,17 +4,75 @@ Start Of Program
 
 Enter a natural number, N, which is no larger than 1000 (to represent the total number of elements to store in the array named A): 
 
-The value which was entered for N is -3.
+The value which was entered for N is 30.
 
 Enter a nonnegative integer, T, which is no larger than 1000 (to represent the total number of states each element of A can represent exactly one of per instance): 
 
-The value which was entered for T is -4.
+The value which was entered for T is 9.
 
 --------------------------------
 
-WARNING: N was reset to 10 because the user input value for N was out of range.
+ARRAY A: 
 
-WARNING: T was reset to 100 because the user input value for T was out of range.
+A[0] := 3. // memory address of A[0] is 0x61eb01f39cc0.
+
+A[1] := 9. // memory address of A[1] is 0x61eb01f39cc4.
+
+A[2] := 7. // memory address of A[2] is 0x61eb01f39cc8.
+
+A[3] := 5. // memory address of A[3] is 0x61eb01f39ccc.
+
+A[4] := 2. // memory address of A[4] is 0x61eb01f39cd0.
+
+A[5] := 9. // memory address of A[5] is 0x61eb01f39cd4.
+
+A[6] := 4. // memory address of A[6] is 0x61eb01f39cd8.
+
+A[7] := 6. // memory address of A[7] is 0x61eb01f39cdc.
+
+A[8] := 7. // memory address of A[8] is 0x61eb01f39ce0.
+
+A[9] := 5. // memory address of A[9] is 0x61eb01f39ce4.
+
+A[10] := 6. // memory address of A[10] is 0x61eb01f39ce8.
+
+A[11] := 0. // memory address of A[11] is 0x61eb01f39cec.
+
+A[12] := 2. // memory address of A[12] is 0x61eb01f39cf0.
+
+A[13] := 6. // memory address of A[13] is 0x61eb01f39cf4.
+
+A[14] := 4. // memory address of A[14] is 0x61eb01f39cf8.
+
+A[15] := 2. // memory address of A[15] is 0x61eb01f39cfc.
+
+A[16] := 2. // memory address of A[16] is 0x61eb01f39d00.
+
+A[17] := 8. // memory address of A[17] is 0x61eb01f39d04.
+
+A[18] := 4. // memory address of A[18] is 0x61eb01f39d08.
+
+A[19] := 6. // memory address of A[19] is 0x61eb01f39d0c.
+
+A[20] := 8. // memory address of A[20] is 0x61eb01f39d10.
+
+A[21] := 6. // memory address of A[21] is 0x61eb01f39d14.
+
+A[22] := 5. // memory address of A[22] is 0x61eb01f39d18.
+
+A[23] := 9. // memory address of A[23] is 0x61eb01f39d1c.
+
+A[24] := 1. // memory address of A[24] is 0x61eb01f39d20.
+
+A[25] := 9. // memory address of A[25] is 0x61eb01f39d24.
+
+A[26] := 4. // memory address of A[26] is 0x61eb01f39d28.
+
+A[27] := 6. // memory address of A[27] is 0x61eb01f39d2c.
+
+A[28] := 6. // memory address of A[28] is 0x61eb01f39d30.
+
+A[29] := 3. // memory address of A[29] is 0x61eb01f39d34.
 
 --------------------------------
 End Of Program
