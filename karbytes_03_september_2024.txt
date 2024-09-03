@@ -14,7 +14,7 @@ Note also that, when karbytes copy-pasted the whole chat log of each of the afor
 
 (Note also that, during one of the three aforementioned conversations, karbytes was prompted by ChatGPT to select one of two responses (and karbytes selected the response labeled "Response 1"). Both responses are transcribed in this file).
 
-Finally, each of the convesation headers below have a comment beneath them depicting the name of the respective conversation which ChatGPT came up with.
+Finally, each of the conversation headers below have a comment beneath them depicting the name of the respective conversation which ChatGPT came up with.
 
 * * *
 
