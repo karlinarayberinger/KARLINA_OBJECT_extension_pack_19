@@ -1,7 +1,7 @@
 /**
  * file: mdisc_karbytes_ultra_2024_edition_12.txt
  * type: plain-text
- * date: 02_SEPTEMBER_2024
+ * date: 03_SEPTEMBER_2024
  * author: karbytes
  * license: PUBLIC_DOMAIN
  */
@@ -30,7 +30,7 @@ M_DISC 3 of 3 data collection size: 4.2 gigabytes
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-karbytes_ultra_2024_edition_12: // folder contains exactly 15 files (4129.1 megabytes total).
+karbytes_ultra_2024_edition_12: // folder contains exactly 15 files (4150.2 megabytes total).
 
     - KARBYTES_FOR_LIFE_BLOG-main_[undefined_day].zip // 609.5 kilobytes
 
