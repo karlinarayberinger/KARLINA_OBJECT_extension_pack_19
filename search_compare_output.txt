@@ -4,81 +4,41 @@ Start Of Program
 
 Enter a natural number, N, which is no larger than 1000 (to represent the total number of elements to store in the array named A): 
 
-The value which was entered for N is 30.
+The value which was entered for N is 10.
 
 Enter a nonnegative integer, T, which is no larger than 1000 (to represent the total number of states each element of A can represent exactly one of per instance): 
 
-The value which was entered for T is 3.
+The value which was entered for T is 10.
 
 --------------------------------
 
 ARRAY A: 
 
-A[0] := 0. // The memory address of A[0] is 0x5d792ce2dcc0.
+A[0] := 5. // The memory address of A[0] is 0x5e47fae2dcc0.
 
-A[1] := 1. // The memory address of A[1] is 0x5d792ce2dcc4.
+A[1] := 8. // The memory address of A[1] is 0x5e47fae2dcc4.
 
-A[2] := 0. // The memory address of A[2] is 0x5d792ce2dcc8.
+A[2] := 8. // The memory address of A[2] is 0x5e47fae2dcc8.
 
-A[3] := 1. // The memory address of A[3] is 0x5d792ce2dccc.
+A[3] := 4. // The memory address of A[3] is 0x5e47fae2dccc.
 
-A[4] := 2. // The memory address of A[4] is 0x5d792ce2dcd0.
+A[4] := 7. // The memory address of A[4] is 0x5e47fae2dcd0.
 
-A[5] := 2. // The memory address of A[5] is 0x5d792ce2dcd4.
+A[5] := 4. // The memory address of A[5] is 0x5e47fae2dcd4.
 
-A[6] := 1. // The memory address of A[6] is 0x5d792ce2dcd8.
+A[6] := 7. // The memory address of A[6] is 0x5e47fae2dcd8.
 
-A[7] := 2. // The memory address of A[7] is 0x5d792ce2dcdc.
+A[7] := 4. // The memory address of A[7] is 0x5e47fae2dcdc.
 
-A[8] := 1. // The memory address of A[8] is 0x5d792ce2dce0.
+A[8] := 1. // The memory address of A[8] is 0x5e47fae2dce0.
 
-A[9] := 0. // The memory address of A[9] is 0x5d792ce2dce4.
-
-A[10] := 1. // The memory address of A[10] is 0x5d792ce2dce8.
-
-A[11] := 2. // The memory address of A[11] is 0x5d792ce2dcec.
-
-A[12] := 0. // The memory address of A[12] is 0x5d792ce2dcf0.
-
-A[13] := 2. // The memory address of A[13] is 0x5d792ce2dcf4.
-
-A[14] := 2. // The memory address of A[14] is 0x5d792ce2dcf8.
-
-A[15] := 2. // The memory address of A[15] is 0x5d792ce2dcfc.
-
-A[16] := 1. // The memory address of A[16] is 0x5d792ce2dd00.
-
-A[17] := 2. // The memory address of A[17] is 0x5d792ce2dd04.
-
-A[18] := 1. // The memory address of A[18] is 0x5d792ce2dd08.
-
-A[19] := 2. // The memory address of A[19] is 0x5d792ce2dd0c.
-
-A[20] := 0. // The memory address of A[20] is 0x5d792ce2dd10.
-
-A[21] := 0. // The memory address of A[21] is 0x5d792ce2dd14.
-
-A[22] := 1. // The memory address of A[22] is 0x5d792ce2dd18.
-
-A[23] := 0. // The memory address of A[23] is 0x5d792ce2dd1c.
-
-A[24] := 2. // The memory address of A[24] is 0x5d792ce2dd20.
-
-A[25] := 1. // The memory address of A[25] is 0x5d792ce2dd24.
-
-A[26] := 0. // The memory address of A[26] is 0x5d792ce2dd28.
-
-A[27] := 2. // The memory address of A[27] is 0x5d792ce2dd2c.
-
-A[28] := 2. // The memory address of A[28] is 0x5d792ce2dd30.
-
-A[29] := 0. // The memory address of A[29] is 0x5d792ce2dd34.
+A[9] := 6. // The memory address of A[9] is 0x5e47fae2dce4.
 
 --------------------------------
 
 Enter a nonnegative integer value, x, which is no larger than 1000 to search for in the array named A: 
 
-The value which was entered for x is 4.
+The value which was entered for x is 10.
 
 --------------------------------
 
@@ -93,9 +53,13 @@ SEARCH ALGORITHMS:
 
 Enter either 0, 1, 2, 3, 4, or 5 to store in the variable named c and which represents one of the above search algorithm choices to implement (to return the first instance of x in A and to determine how long that takes in milliseconds): 
 
-The value which was entered for c is 3.
+The value which was entered for c is 10.
+
+WARNING: c was reset to 0 because the user input value for c was out of range.
 
 --------------------------------
+
+Using LINEAR_SEARCH to search for the value 10 in the array of 10 randomly-ordered int-type values named A...
 
 --------------------------------
 End Of Program

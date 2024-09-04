@@ -30,13 +30,19 @@ int jump_search(int * A, int N, int x); // choice 5
 int main()
 {
     // Define seven int type variables such that each of their initial values is set to 0.
-    int N = 0, T = 0, x = 0, c = 0, t = 0, i = 0, l = 0;
+    int N = 0, T = 0, x = 0, c = 0, i = 0, l = 0, r = 0;
 
     // Declare one pointer-to-int variable named A.
     int * A;
 
     // Define a (static) array of C-strings (character arrays) for storing exactly six search algorithm names.
     const char * search_algorithm_names[] = {"LINEAR_SEARCH", "BINARY_SEARCH", "TERNARY_SEARCH", "FIBONACCI_SEARCH", "EXPONENTIAL_SEARCH", "JUMP_SEARCH"};
+
+    // Declare two chrono time point variables to use for calculating the runtime of a search algorithm function.
+    std::chrono::time_point<std::chrono::high_resolution_clock> start_point, end_point;
+
+    // Declare one long long type variable for storing the number of milliseconds between start_point and end_point.
+    long long duration;
 
     // Declare a file output stream object.
     std::ofstream file;
@@ -236,11 +242,22 @@ int main()
     // Print a horizontal divider line to the output file stream.
     file << "\n\n--------------------------------";
 
-    // Print "The value which was entered for c is {c}." to the command line terminal.
-    //std::cout << "\n\nUsing {selected_search_algorithm} to search for the value {x} in the array named A...";
+    // Print "Using {search_algorithm_names[c]} to search for the value {x} in the array of {N} randomly-ordered int-type values named A..." to the command line terminal.
+    std::cout << "\n\nUsing " << search_algorithm_names[c] << " to search for the value " << x << " in the array of " << N << " randomly-ordered int-type values named A...";
 
-    // Print "The value which was entered for c is {c}." to the output file stream.
-    //file << "\n\nThe value which was entered for c is " << c << ".";
+    // Print "Using {search_algorithm_names[c]} to search for the value {x} in the array of {N} randomly-ordered int-type values named A..." to the output file stream.
+    file << "\n\nUsing " << search_algorithm_names[c] << " to search for the value " << x << " in the array of " << N << " randomly-ordered int-type values named A...";
+
+    // Get the search function execution start time.
+    start_point = std::chrono::high_resolution_clock::now();
+
+    //...
+
+    // Get the search function execution finish time.
+    end_point = std::chrono::high_resolution_clock::now();
+
+    // Calculate the search function execution time in milliseconds.
+    duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_point - start_point).count();
 
     // De-allocate memory which was used to instantiate the dynamically-allocated array named A.
     delete [] A;
