@@ -29,11 +29,14 @@ int jump_search(int * A, int N, int x); // choice 5
 /* program entry point */
 int main()
 {
-    // Define five int type variables such that each of their initial values is set to 0.
-    int N = 0, T = 0, x = 0, c = 0, t = 0;
+    // Define seven int type variables such that each of their initial values is set to 0.
+    int N = 0, T = 0, x = 0, c = 0, t = 0, i = 0, l = 0;
 
     // Declare one pointer-to-int variable named A.
     int * A;
+
+    // Define a (static) array of C-strings (character arrays) for storing exactly six search algorithm names.
+    const char * search_algorithm_names[] = {"LINEAR_SEARCH", "BINARY_SEARCH", "TERNARY_SEARCH", "FIBONACCI_SEARCH", "EXPONENTIAL_SEARCH", "JUMP_SEARCH"};
 
     // Declare a file output stream object.
     std::ofstream file;
@@ -189,24 +192,17 @@ int main()
     // Print a horizontal divider line to the output file stream.
     file << "\n\n--------------------------------";
 
+    // Calculate the number of elements in the array of C-strings using sizeof (and store the result in l).
+    l = sizeof(search_algorithm_names) / sizeof(search_algorithm_names[0]);
+
     // Prompt the program user to input a value to store in the main function variable named c.
     std::cout << "\n\nSEARCH ALGORITHMS:\n";
-    std::cout << "\n0: LINEAR_SEARCH";
-    std::cout << "\n1: BINARY_SEARCH";
-    std::cout << "\n2: TERNARY_SEARCH";
-    std::cout << "\n3: FIBONACCI_SEARCH";
-    std::cout << "\n4: EXPONENTIAL_SEARCH";
-    std::cout << "\n5: JUMP_SEARCH";
+    for (i = 0; i < l; i++) std::cout << "\n" << i << ": " << search_algorithm_names[i];
     std::cout << "\n\nEnter either 0, 1, 2, 3, 4, or 5 to store in the variable named c and which represents one of the above search algorithm choices to implement (to return the first instance of x in A and to determine how long that takes in milliseconds): ";
 
     // Print the above command line prompt to the output text file.
     file << "\n\nSEARCH ALGORITHMS:\n";
-    file << "\n0: LINEAR_SEARCH";
-    file << "\n1: BINARY_SEARCH";
-    file << "\n2: TERNARY_SEARCH";
-    file << "\n3: FIBONACCI_SEARCH";
-    file << "\n4: EXPONENTIAL_SEARCH";
-    file << "\n5: JUMP_SEARCH";
+    for (i = 0; i < l; i++) file << "\n" << i << ": " << search_algorithm_names[i];
     file << "\n\nEnter either 0, 1, 2, 3, 4, or 5 to store in the variable named c and which represents one of the above search algorithm choices to implement (to return the first instance of x in A and to determine how long that takes in milliseconds): ";
 
     /**
@@ -227,12 +223,24 @@ int main()
      * and output a message stating this fact to the command line terminal
      * and to the output file stream.
      */
-    if ((c < 0) || (c > 5))
+    if ((c < 0) || (c > l))
     {
         c = 0;
         std::cout << "\n\nWARNING: c was reset to 0 because the user input value for c was out of range.";
         file << "\n\nWARNING: c was reset to 0 because the user input value for c was out of range.";
     }
+
+    // Print a horizontal divider line to the command line terminal.
+    std::cout << "\n\n--------------------------------";
+
+    // Print a horizontal divider line to the output file stream.
+    file << "\n\n--------------------------------";
+
+    // Print "The value which was entered for c is {c}." to the command line terminal.
+    //std::cout << "\n\nUsing {selected_search_algorithm} to search for the value {x} in the array named A...";
+
+    // Print "The value which was entered for c is {c}." to the output file stream.
+    //file << "\n\nThe value which was entered for c is " << c << ".";
 
     // De-allocate memory which was used to instantiate the dynamically-allocated array named A.
     delete [] A;
