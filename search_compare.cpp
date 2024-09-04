@@ -1,7 +1,7 @@
 /**
  * file: search_compare.cpp
  * type: C++ (source file)
- * date: 02_SEPTEMBER_2023
+ * date: 04_SEPTEMBER_2023
  * author: karbytes
  * license: PUBLIC_DOMAIN
  */
@@ -12,19 +12,25 @@
 #include <cmath> // library for square root function (std::sqrt) and absolute value function (std::abs)
 #include <cstdlib> // library for generating a random number (std::rand)
 #include <ctime> // library for function which returns the number of seconds elapsed since the Unix Epoch (std::time(0))
+#include <chrono> // library for calculating search algorithm runtimes
 #define MAXIMUM_N 1000 // constant which represents maximum N value
 #define MAXIMUM_T 1000 // constant which represents maximum T value
 
 /* function prototypes */
 int * generate_randomized_array(int N, int T);
 void print_array(int * A, int N, std::ostream & output);
-//int linear_search(int A[], int N, int x);
+int linear_search(int * A, int N, int x); // choice 0
+int binary_search(int * A, int N, int x); // choice 1
+int ternary_search(int * A, int left, int right, int x); // choice 2
+int fibonacciSearch(int * A, int N, int x); // choice 3
+int exponential_search(int * A, int N, int x); // choice 4
+int jump_search(int * A, int N, int x); // choice 5
 
 /* program entry point */
 int main()
 {
-    // Define four int type variables such that each of their initial values is set to 0.
-    int N = 0, T = 0, x = 0, c = 0;
+    // Define five int type variables such that each of their initial values is set to 0.
+    int N = 0, T = 0, x = 0, c = 0, t = 0;
 
     // Declare one pointer-to-int variable named A.
     int * A;
@@ -164,6 +170,70 @@ int main()
     // Print "The value which was entered for x is {x}." to the output file stream.
     file << "\n\nThe value which was entered for x is " << x << ".";
 
+    /**
+     * If the x value which was input by the program user is "out of range", 
+     * store the default value one in the main function variable named x
+     * and output a message stating this fact to the command line terminal
+     * and to the output file stream.
+     */
+    if ((x < 0) || (x > MAXIMUM_T))
+    {
+        x = 1;
+        std::cout << "\n\nWARNING: x was reset to 1 because the user input value for x was out of range.";
+        file << "\n\nWARNING: x was reset to 1 because the user input value for x was out of range.";
+    }
+
+    // Print a horizontal divider line to the command line terminal.
+    std::cout << "\n\n--------------------------------";
+
+    // Print a horizontal divider line to the output file stream.
+    file << "\n\n--------------------------------";
+
+    // Prompt the program user to input a value to store in the main function variable named c.
+    std::cout << "\n\nSEARCH ALGORITHMS:\n";
+    std::cout << "\n0: LINEAR_SEARCH";
+    std::cout << "\n1: BINARY_SEARCH";
+    std::cout << "\n2: TERNARY_SEARCH";
+    std::cout << "\n3: FIBONACCI_SEARCH";
+    std::cout << "\n4: EXPONENTIAL_SEARCH";
+    std::cout << "\n5: JUMP_SEARCH";
+    std::cout << "\n\nEnter either 0, 1, 2, 3, 4, or 5 to store in the variable named c and which represents one of the above search algorithm choices to implement (to return the first instance of x in A and to determine how long that takes in milliseconds): ";
+
+    // Print the above command line prompt to the output text file.
+    file << "\n\nSEARCH ALGORITHMS:\n";
+    file << "\n0: LINEAR_SEARCH";
+    file << "\n1: BINARY_SEARCH";
+    file << "\n2: TERNARY_SEARCH";
+    file << "\n3: FIBONACCI_SEARCH";
+    file << "\n4: EXPONENTIAL_SEARCH";
+    file << "\n5: JUMP_SEARCH";
+    file << "\n\nEnter either 0, 1, 2, 3, 4, or 5 to store in the variable named c and which represents one of the above search algorithm choices to implement (to return the first instance of x in A and to determine how long that takes in milliseconds): ";
+
+    /**
+     * Scan the command line terminal for the most recent keyboard input value.
+     * Store that value in the main function variable named c.
+     */
+    std::cin >> c;
+
+    // Print "The value which was entered for c is {c}." to the command line terminal.
+    std::cout << "\n\nThe value which was entered for c is " << c << ".";
+
+    // Print "The value which was entered for c is {c}." to the output file stream.
+    file << "\n\nThe value which was entered for c is " << c << ".";
+
+    /**
+     * If the c value which was input by the program user is "out of range", 
+     * store the default value zero in the main function variable named c
+     * and output a message stating this fact to the command line terminal
+     * and to the output file stream.
+     */
+    if ((c < 0) || (c > 5))
+    {
+        c = 0;
+        std::cout << "\n\nWARNING: c was reset to 0 because the user input value for c was out of range.";
+        file << "\n\nWARNING: c was reset to 0 because the user input value for c was out of range.";
+    }
+
     // De-allocate memory which was used to instantiate the dynamically-allocated array named A.
     delete [] A;
 
@@ -238,4 +308,46 @@ void print_array(int * A, int N, std::ostream & output)
 {
     output << "\n\nARRAY A: ";
     for (int i = 0; i < N; i++) output << "\n\nA[" << i << "] := " << A[i] << ". // The memory address of A[" << i << "] is " << &A[i] << ".";
+}
+
+//...
+int linear_search(int * A, int N, int x)
+{
+    //...
+    return 0;
+}
+
+//...
+int binary_search(int * A, int N, int x)
+{
+    //...
+    return 0;
+}
+
+//...
+int ternary_search(int * A, int left, int right, int x)
+{
+    //...
+    return 0;
+}
+
+//...
+int fibonacciSearch(int * A, int N, int x)
+{
+    //...
+    return 0;
+}
+
+//...
+int exponential_search(int * A, int N, int x)
+{
+    //...
+    return 0;
+}
+
+//...
+int jump_search(int * A, int N, int x)
+{
+    //...
+    return 0;
 }

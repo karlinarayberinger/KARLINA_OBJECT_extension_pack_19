@@ -4,201 +4,56 @@ Start Of Program
 
 Enter a natural number, N, which is no larger than 1000 (to represent the total number of elements to store in the array named A): 
 
-The value which was entered for N is 90.
+The value which was entered for N is 9.
 
 Enter a nonnegative integer, T, which is no larger than 1000 (to represent the total number of states each element of A can represent exactly one of per instance): 
 
-The value which was entered for T is 666.
+The value which was entered for T is 3.
 
 --------------------------------
 
 ARRAY A: 
 
-A[0] := 527. // The memory address of A[0] is 0x585f3eb7ecc0.
+A[0] := 2. // The memory address of A[0] is 0x5caee6566cc0.
 
-A[1] := 162. // The memory address of A[1] is 0x585f3eb7ecc4.
+A[1] := 0. // The memory address of A[1] is 0x5caee6566cc4.
 
-A[2] := 400. // The memory address of A[2] is 0x585f3eb7ecc8.
+A[2] := 1. // The memory address of A[2] is 0x5caee6566cc8.
 
-A[3] := 643. // The memory address of A[3] is 0x585f3eb7eccc.
+A[3] := 2. // The memory address of A[3] is 0x5caee6566ccc.
 
-A[4] := 189. // The memory address of A[4] is 0x585f3eb7ecd0.
+A[4] := 0. // The memory address of A[4] is 0x5caee6566cd0.
 
-A[5] := 246. // The memory address of A[5] is 0x585f3eb7ecd4.
+A[5] := 2. // The memory address of A[5] is 0x5caee6566cd4.
 
-A[6] := 457. // The memory address of A[6] is 0x585f3eb7ecd8.
+A[6] := 1. // The memory address of A[6] is 0x5caee6566cd8.
 
-A[7] := 628. // The memory address of A[7] is 0x585f3eb7ecdc.
+A[7] := 0. // The memory address of A[7] is 0x5caee6566cdc.
 
-A[8] := 337. // The memory address of A[8] is 0x585f3eb7ece0.
-
-A[9] := 650. // The memory address of A[9] is 0x585f3eb7ece4.
-
-A[10] := 22. // The memory address of A[10] is 0x585f3eb7ece8.
-
-A[11] := 635. // The memory address of A[11] is 0x585f3eb7ecec.
-
-A[12] := 28. // The memory address of A[12] is 0x585f3eb7ecf0.
-
-A[13] := 635. // The memory address of A[13] is 0x585f3eb7ecf4.
-
-A[14] := 100. // The memory address of A[14] is 0x585f3eb7ecf8.
-
-A[15] := 562. // The memory address of A[15] is 0x585f3eb7ecfc.
-
-A[16] := 109. // The memory address of A[16] is 0x585f3eb7ed00.
-
-A[17] := 194. // The memory address of A[17] is 0x585f3eb7ed04.
-
-A[18] := 266. // The memory address of A[18] is 0x585f3eb7ed08.
-
-A[19] := 204. // The memory address of A[19] is 0x585f3eb7ed0c.
-
-A[20] := 354. // The memory address of A[20] is 0x585f3eb7ed10.
-
-A[21] := 306. // The memory address of A[21] is 0x585f3eb7ed14.
-
-A[22] := 137. // The memory address of A[22] is 0x585f3eb7ed18.
-
-A[23] := 548. // The memory address of A[23] is 0x585f3eb7ed1c.
-
-A[24] := 342. // The memory address of A[24] is 0x585f3eb7ed20.
-
-A[25] := 85. // The memory address of A[25] is 0x585f3eb7ed24.
-
-A[26] := 49. // The memory address of A[26] is 0x585f3eb7ed28.
-
-A[27] := 292. // The memory address of A[27] is 0x585f3eb7ed2c.
-
-A[28] := 526. // The memory address of A[28] is 0x585f3eb7ed30.
-
-A[29] := 130. // The memory address of A[29] is 0x585f3eb7ed34.
-
-A[30] := 491. // The memory address of A[30] is 0x585f3eb7ed38.
-
-A[31] := 439. // The memory address of A[31] is 0x585f3eb7ed3c.
-
-A[32] := 292. // The memory address of A[32] is 0x585f3eb7ed40.
-
-A[33] := 277. // The memory address of A[33] is 0x585f3eb7ed44.
-
-A[34] := 416. // The memory address of A[34] is 0x585f3eb7ed48.
-
-A[35] := 482. // The memory address of A[35] is 0x585f3eb7ed4c.
-
-A[36] := 523. // The memory address of A[36] is 0x585f3eb7ed50.
-
-A[37] := 207. // The memory address of A[37] is 0x585f3eb7ed54.
-
-A[38] := 496. // The memory address of A[38] is 0x585f3eb7ed58.
-
-A[39] := 246. // The memory address of A[39] is 0x585f3eb7ed5c.
-
-A[40] := 244. // The memory address of A[40] is 0x585f3eb7ed60.
-
-A[41] := 519. // The memory address of A[41] is 0x585f3eb7ed64.
-
-A[42] := 215. // The memory address of A[42] is 0x585f3eb7ed68.
-
-A[43] := 324. // The memory address of A[43] is 0x585f3eb7ed6c.
-
-A[44] := 540. // The memory address of A[44] is 0x585f3eb7ed70.
-
-A[45] := 315. // The memory address of A[45] is 0x585f3eb7ed74.
-
-A[46] := 220. // The memory address of A[46] is 0x585f3eb7ed78.
-
-A[47] := 649. // The memory address of A[47] is 0x585f3eb7ed7c.
-
-A[48] := 561. // The memory address of A[48] is 0x585f3eb7ed80.
-
-A[49] := 538. // The memory address of A[49] is 0x585f3eb7ed84.
-
-A[50] := 239. // The memory address of A[50] is 0x585f3eb7ed88.
-
-A[51] := 250. // The memory address of A[51] is 0x585f3eb7ed8c.
-
-A[52] := 231. // The memory address of A[52] is 0x585f3eb7ed90.
-
-A[53] := 428. // The memory address of A[53] is 0x585f3eb7ed94.
-
-A[54] := 184. // The memory address of A[54] is 0x585f3eb7ed98.
-
-A[55] := 573. // The memory address of A[55] is 0x585f3eb7ed9c.
-
-A[56] := 513. // The memory address of A[56] is 0x585f3eb7eda0.
-
-A[57] := 285. // The memory address of A[57] is 0x585f3eb7eda4.
-
-A[58] := 199. // The memory address of A[58] is 0x585f3eb7eda8.
-
-A[59] := 425. // The memory address of A[59] is 0x585f3eb7edac.
-
-A[60] := 416. // The memory address of A[60] is 0x585f3eb7edb0.
-
-A[61] := 76. // The memory address of A[61] is 0x585f3eb7edb4.
-
-A[62] := 198. // The memory address of A[62] is 0x585f3eb7edb8.
-
-A[63] := 94. // The memory address of A[63] is 0x585f3eb7edbc.
-
-A[64] := 353. // The memory address of A[64] is 0x585f3eb7edc0.
-
-A[65] := 614. // The memory address of A[65] is 0x585f3eb7edc4.
-
-A[66] := 628. // The memory address of A[66] is 0x585f3eb7edc8.
-
-A[67] := 210. // The memory address of A[67] is 0x585f3eb7edcc.
-
-A[68] := 208. // The memory address of A[68] is 0x585f3eb7edd0.
-
-A[69] := 511. // The memory address of A[69] is 0x585f3eb7edd4.
-
-A[70] := 456. // The memory address of A[70] is 0x585f3eb7edd8.
-
-A[71] := 504. // The memory address of A[71] is 0x585f3eb7eddc.
-
-A[72] := 364. // The memory address of A[72] is 0x585f3eb7ede0.
-
-A[73] := 57. // The memory address of A[73] is 0x585f3eb7ede4.
-
-A[74] := 162. // The memory address of A[74] is 0x585f3eb7ede8.
-
-A[75] := 238. // The memory address of A[75] is 0x585f3eb7edec.
-
-A[76] := 425. // The memory address of A[76] is 0x585f3eb7edf0.
-
-A[77] := 435. // The memory address of A[77] is 0x585f3eb7edf4.
-
-A[78] := 273. // The memory address of A[78] is 0x585f3eb7edf8.
-
-A[79] := 372. // The memory address of A[79] is 0x585f3eb7edfc.
-
-A[80] := 307. // The memory address of A[80] is 0x585f3eb7ee00.
-
-A[81] := 512. // The memory address of A[81] is 0x585f3eb7ee04.
-
-A[82] := 8. // The memory address of A[82] is 0x585f3eb7ee08.
-
-A[83] := 590. // The memory address of A[83] is 0x585f3eb7ee0c.
-
-A[84] := 274. // The memory address of A[84] is 0x585f3eb7ee10.
-
-A[85] := 193. // The memory address of A[85] is 0x585f3eb7ee14.
-
-A[86] := 498. // The memory address of A[86] is 0x585f3eb7ee18.
-
-A[87] := 121. // The memory address of A[87] is 0x585f3eb7ee1c.
-
-A[88] := 478. // The memory address of A[88] is 0x585f3eb7ee20.
-
-A[89] := 83. // The memory address of A[89] is 0x585f3eb7ee24.
+A[8] := 2. // The memory address of A[8] is 0x5caee6566ce0.
 
 --------------------------------
 
 Enter a nonnegative integer value, x, which is no larger than 1000 to search for in the array named A: 
 
-The value which was entered for x is 45.
+The value which was entered for x is 5.
+
+--------------------------------
+
+SEARCH ALGORITHMS:
+
+0: LINEAR_SEARCH
+1: BINARY_SEARCH
+2: TERNARY_SEARCH
+3: FIBONACCI_SEARCH
+4: EXPONENTIAL_SEARCH
+5: JUMP_SEARCH
+
+Enter either 0, 1, 2, 3, 4, or 5 to store in the variable named c and which represents one of the above search algorithm choices to implement (to return the first instance of x in A and to determine how long that takes in milliseconds): 
+
+The value which was entered for c is 7.
+
+WARNING: c was reset to 0 because the user input value for c was out of range.
 
 --------------------------------
 End Of Program
