@@ -22,7 +22,7 @@ void print_array(int * A, int N, std::ostream & output);
 int linear_search(int * A, int N, int x); // choice 0
 int binary_search(int * A, int N, int x); // choice 1
 int ternary_search(int * A, int left, int right, int x); // choice 2
-int fibonacciSearch(int * A, int N, int x); // choice 3
+int fibonacci_search(int * A, int N, int x); // choice 3
 int exponential_search(int * A, int N, int x); // choice 4
 int jump_search(int * A, int N, int x); // choice 5
 
@@ -251,13 +251,60 @@ int main()
     // Get the search function execution start time.
     start_point = std::chrono::high_resolution_clock::now();
 
-    //...
+    // Implement the user-selected search algorithm and store the search result in the variable named r.
+    switch (c) 
+    {
+        case 5:
+            r = jump_search(A, N, x);
+            break;
+        case 4:
+            r = exponential_search(A, N, x);
+            break;
+        case 3:
+            r = fibonacci_search(A, N, x);
+            break;
+        case 2:
+            r = ternary_search(A, 0, N - 1, x);
+            break;
+        case 1:
+            r = binary_search(A, N, x);
+            break;
+        default:
+            r = linear_search(A, N, x);
+            break;
+    }
 
     // Get the search function execution finish time.
     end_point = std::chrono::high_resolution_clock::now();
 
     // Calculate the search function execution time in milliseconds.
     duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_point - start_point).count();
+
+    /**
+     * If x was not found to be an element of the array named A, 
+     * then print a "Search Finished: The value {x} was not found in the array named A." 
+     * to the command line terminal and to the output file stream.
+     * 
+     * Otherwise (i.e. if x was found to be an element of the array named A),
+     * print "Search Finished: The value {x} was fount at array index {r} in the array named A."
+     * to the command line terminal and to the output file stream.
+     */
+    if (r == -1) 
+    {
+        std::cout << "\n\nSearch Finished: The value " << x << " was not found in the array named A.";
+        file << "\n\nSearch Finished: The value " << x << " was not found in the array named A.";
+    }
+    else
+    {
+        std::cout << "\n\nSearch Finished: The value " << x << " was fount at array index " << r << " in the array named A.";
+        file << "\n\nSearch Finished: The value " << x << " was fount at array index " << r << " in the array named A.";    
+    }
+
+    // Print the function execution runtime (in milliseconds) to the command line terminal.
+    std::cout << "\n\nThe " << search_algorithm_names[c] << " function runtime was " << duration << " milliseconds.";
+
+    // Print the function execution runtime (in milliseconds) to the output file stream.
+    file << "\n\nThe " << search_algorithm_names[c] << " function runtime was " << duration << " milliseconds.";
 
     // De-allocate memory which was used to instantiate the dynamically-allocated array named A.
     delete [] A;
@@ -357,7 +404,7 @@ int ternary_search(int * A, int left, int right, int x)
 }
 
 //...
-int fibonacciSearch(int * A, int N, int x)
+int fibonacci_search(int * A, int N, int x)
 {
     //...
     return 0;

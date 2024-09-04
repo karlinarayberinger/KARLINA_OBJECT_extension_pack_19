@@ -8,37 +8,37 @@ The value which was entered for N is 10.
 
 Enter a nonnegative integer, T, which is no larger than 1000 (to represent the total number of states each element of A can represent exactly one of per instance): 
 
-The value which was entered for T is 10.
+The value which was entered for T is 4.
 
 --------------------------------
 
 ARRAY A: 
 
-A[0] := 5. // The memory address of A[0] is 0x5e47fae2dcc0.
+A[0] := 3. // The memory address of A[0] is 0x5c2190240cc0.
 
-A[1] := 8. // The memory address of A[1] is 0x5e47fae2dcc4.
+A[1] := 1. // The memory address of A[1] is 0x5c2190240cc4.
 
-A[2] := 8. // The memory address of A[2] is 0x5e47fae2dcc8.
+A[2] := 0. // The memory address of A[2] is 0x5c2190240cc8.
 
-A[3] := 4. // The memory address of A[3] is 0x5e47fae2dccc.
+A[3] := 3. // The memory address of A[3] is 0x5c2190240ccc.
 
-A[4] := 7. // The memory address of A[4] is 0x5e47fae2dcd0.
+A[4] := 3. // The memory address of A[4] is 0x5c2190240cd0.
 
-A[5] := 4. // The memory address of A[5] is 0x5e47fae2dcd4.
+A[5] := 0. // The memory address of A[5] is 0x5c2190240cd4.
 
-A[6] := 7. // The memory address of A[6] is 0x5e47fae2dcd8.
+A[6] := 3. // The memory address of A[6] is 0x5c2190240cd8.
 
-A[7] := 4. // The memory address of A[7] is 0x5e47fae2dcdc.
+A[7] := 0. // The memory address of A[7] is 0x5c2190240cdc.
 
-A[8] := 1. // The memory address of A[8] is 0x5e47fae2dce0.
+A[8] := 1. // The memory address of A[8] is 0x5c2190240ce0.
 
-A[9] := 6. // The memory address of A[9] is 0x5e47fae2dce4.
+A[9] := 3. // The memory address of A[9] is 0x5c2190240ce4.
 
 --------------------------------
 
 Enter a nonnegative integer value, x, which is no larger than 1000 to search for in the array named A: 
 
-The value which was entered for x is 10.
+The value which was entered for x is 3.
 
 --------------------------------
 
@@ -53,13 +53,15 @@ SEARCH ALGORITHMS:
 
 Enter either 0, 1, 2, 3, 4, or 5 to store in the variable named c and which represents one of the above search algorithm choices to implement (to return the first instance of x in A and to determine how long that takes in milliseconds): 
 
-The value which was entered for c is 10.
-
-WARNING: c was reset to 0 because the user input value for c was out of range.
+The value which was entered for c is 2.
 
 --------------------------------
 
-Using LINEAR_SEARCH to search for the value 10 in the array of 10 randomly-ordered int-type values named A...
+Using TERNARY_SEARCH to search for the value 3 in the array of 10 randomly-ordered int-type values named A...
+
+Search Finished: The value 3 was fount at array index 0 in the array named A.
+
+The TERNARY_SEARCH function runtime was 0 milliseconds.
 
 --------------------------------
 End Of Program
