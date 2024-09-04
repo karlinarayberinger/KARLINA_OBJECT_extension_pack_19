@@ -297,7 +297,7 @@ int main()
     else
     {
         std::cout << "\n\nSearch Finished: The value " << x << " was fount at array index " << r << " in the array named A.";
-        file << "\n\nSearch Finished: The value " << x << " was fount at array index " << r << " in the array named A.";    
+        file << "\n\nSearch Finished: The value " << x << " was found at array index " << r << " in the array named A.";    
     }
 
     // Print the function execution runtime (in milliseconds) to the command line terminal.
@@ -382,18 +382,80 @@ void print_array(int * A, int N, std::ostream & output)
     for (int i = 0; i < N; i++) output << "\n\nA[" << i << "] := " << A[i] << ". // The memory address of A[" << i << "] is " << &A[i] << ".";
 }
 
-//...
+/**
+ * Use the LINEAR_SEARCH algorithm to find the first instance of a given integer value, x, in an array of integers named A.
+ * 
+ * If x is determined to be the value of an element in A, 
+ * then return the index number of the array element which stores that value named x.
+ * 
+ * Otherwise (i.e. if x is not found in that array), return negative one.
+ * 
+ * Assume that A is a pointer-to-int variable which stores the memory address of A[0].
+ * 
+ * Assume that N is the total number of elements in the single-dimensional int-type array named A.
+ * 
+ * Assume that x is an int-type value.
+ */
 int linear_search(int * A, int N, int x)
 {
-    //...
-    return 0;
+    // Iterate over each element in the array named A starting at A[0] and ending at A[N - 1] and traversing the array from left to right.
+    for (int i = 0; i < N; i++) 
+    {
+        // Determine whether the current element, A[i], matches the target value, x.
+        if (A[i] == x) 
+        {
+            // Return the index of A[i] if a match is found.
+            return i;  
+        }
+    }
+    // Return -1 if no matches are found.
+    return -1;  
 }
 
-//...
+/**
+ * Use the BINARY_SEARCH algorithm to find the first instance of a given integer value, x, in an array of integers named A.
+ * 
+ * If x is determined to be the value of an element in A, 
+ * then return the index number of the array element which stores that value named x.
+ * 
+ * Otherwise (i.e. if x is not found in that array), return negative one.
+ * 
+ * Assume that A is a pointer-to-int variable which stores the memory address of A[0].
+ * 
+ * Assume that N is the total number of elements in the single-dimensional int-type array named A.
+ * 
+ * Assume that x is an int-type value.
+ */
 int binary_search(int * A, int N, int x)
 {
-    //...
-    return 0;
+    int left = 0;
+    int right = N - 1;
+    while (left <= right) 
+    {
+        /**
+         * Calculate the middle index of the array named A (or the current sub-array of A).
+         * (Note that, if the value represented by the right-hand side of the following expression 
+         * contains non-zero digits to the right of the radix, those digits to the right of the radix are each set to zero).
+         */
+        int mid = left + (right - left) / 2; 
+
+        // Determine whether the middle element of the (sub)array is the target value, x.
+        if (A[mid] == x) 
+        {
+            // Return the index of A[i] if a match is found.
+            return mid; 
+        }
+        // If the target value , x, is larger than the middle element of the (sub)array, then search through the right half of the (sub)array.
+        else if (A[mid] < x) {
+            left = mid + 1;
+        }
+        // If the target value, x, is smaller than the middle element of the (sub)array, then search through the left half of the (sub)array.
+        else {
+            right = mid - 1;
+        }
+    }
+    // Return -1 if the target value is not found in A.
+    return -1; 
 }
 
 //...
