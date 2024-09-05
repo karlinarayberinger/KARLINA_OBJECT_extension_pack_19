@@ -254,8 +254,18 @@ int main()
         file << "\n\nWARNING: c was reset to 0 because the user input value for c was out of range.";
     }
 
-    // If BINARY_SEARCH, TERNARY_SEARCH, FIBONACCI_SEARCH, EXPONENTIAL_SEARCH, or JUMP_SEARCH was selected, then arrange the elements of A in ascending order before calculating search algorithm runtime.
-    if ((c == 1) || (c == 2) || (c == 3) || (c == 4) || (c == 5)) bubble_sort(A, N);
+    /**
+     * If BINARY_SEARCH, TERNARY_SEARCH, FIBONACCI_SEARCH, EXPONENTIAL_SEARCH, or JUMP_SEARCH was selected, 
+     * then arrange the elements of A in ascending order before calculating search algorithm runtime.
+     * 
+     * Also, re-print the array after it is sorted.
+     */
+    if ((c == 1) || (c == 2) || (c == 3) || (c == 4) || (c == 5)) 
+    {
+        bubble_sort(A, N);
+        print_array(A, N, std::cout); // Print the contents of the array to the command line terminal.
+        print_array(A, N, file); // Print the contents of the array to the output file stream.
+    }
 
     // Print a horizontal divider line to the command line terminal.
     std::cout << "\n\n--------------------------------";
@@ -528,37 +538,29 @@ int linear_search(int * A, int N, int x)
  * 
  * Summary: 
  */
-int binary_search(int * A, int left, int right, int x)
+int binary_search(int * A, int left, int right, int x) 
 {
-
+    int result = -1;
     while (left <= right) 
     {
-        /**
-         * Calculate the middle index of the array named A (or the current sub-array of A).
-         * (Note that, if the value represented by the right-hand side of the following expression 
-         * contains non-zero digits to the right of the radix, those digits to the right of the radix are each set to zero).
-         */
-        int mid = left + (right - left) / 2; 
+        int mid = left + (right - left) / 2;
 
-        // Determine whether the middle element of the (sub)array is the target value, x.
         if (A[mid] == x) 
         {
-            // Return the index of A[i] if a match is found.
-            return mid; 
+            result = mid;  // Store the index, but keep searching the left side.
+            right = mid - 1;
         }
-        // If the target value , x, is larger than the middle element of the (sub)array, then search through the right half of the (sub)array.
-        else if (A[mid] < x) {
+        else if (A[mid] < x) 
+        {
             left = mid + 1;
         }
-        // If the target value, x, is smaller than the middle element of the (sub)array, then search through the left half of the (sub)array.
-        else {
+        else 
+        {
             right = mid - 1;
         }
     }
-    // Return -1 if the target value is not found in A.
-    return -1; 
+    return result;  // Return the leftmost occurrence of x or -1 if not found.
 }
-
 
 /**
  * Use the TERNARY_SEARCH algorithm to find the first instance of a given integer value, x, in an array of integers named A.
