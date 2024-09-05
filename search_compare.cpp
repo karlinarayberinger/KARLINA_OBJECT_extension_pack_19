@@ -47,8 +47,8 @@ int main()
      * and is typically a measure of time elapsed since the harware system running this code last booted up.
      * 
      * The high_resolution_clock does not (usually) reset over time, but depending on the particular hardware system, 
-     * the high_resolution_clock value could overflow if a very long period passes since system boot.
-     * (though, according to ChatGPT-40) such a time period would usually be several years).
+     * the high_resolution_clock value could overflow if a "very long" time period passes since system boot.
+     * ((though, according to ChatGPT-40) such a time period would usually be several years)).
      */
     std::chrono::high_resolution_clock::time_point start_point, end_point;
 
