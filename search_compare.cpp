@@ -48,6 +48,12 @@ int main()
     // Declare a file output stream object.
     std::ofstream file;
 
+    // Set the number of digits of floating-point numbers which are printed to the command line terminal to 100 digits.
+    std::cout.precision(100);
+
+    // Set the number of digits of floating-point numbers which are printed to the file output stream to 100 digits.
+    file.precision(100);
+
     /**
      * If search_compare_output.txt does not already exist in the same directory as search_compare.cpp, 
      * create a new file named search_compare_output.txt.
