@@ -14,8 +14,8 @@
 #include <ctime> // library for function which returns the number of seconds elapsed since the Unix Epoch (std::time(0))
 #include <chrono> // library for calculating search algorithm runtimes
 #include <iomanip>  // library for formatting floating-point numbers ((std::fixed) and (std::setprecision))
-#define MAXIMUM_N 1000 // constant which represents maximum N value
-#define MAXIMUM_T 1000 // constant which represents maximum T value
+#define MAXIMUM_N 100000 // constant which represents maximum N value
+#define MAXIMUM_T 100000 // constant which represents maximum T value
 
 /* function prototypes */
 int * generate_randomized_array(int N, int T);
@@ -316,7 +316,7 @@ int main()
     }
     else
     {
-        std::cout << "\n\nSearch Finished: The value " << x << " was fount at array index " << r << " in the array named A.";
+        std::cout << "\n\nSearch Finished: The value " << x << " was found at array index " << r << " in the array named A.";
         file << "\n\nSearch Finished: The value " << x << " was found at array index " << r << " in the array named A.";    
     }
 
@@ -604,11 +604,24 @@ int ternary_search(int * A, int left, int right, int x)
  * 
  * Otherwise (i.e. if x is not found in that array), return negative one.
  * 
+ * NOTE THAT THIS FUNCTION ASSUMES THAT THE ELEMENTS OF A ARE ARRANGED IN ASCENDING ORDER!
+ * 
  * Assume that A is a pointer-to-int variable which stores the memory address of A[0].
  * 
  * Assume that N is the total number of elements in the single-dimensional int-type array named A.
  * 
  * Assume that x is an int-type value.
+ * 
+ * ------
+ * 
+ * Note that the FIBONACCI_SEARCH algorithm has a time complexity of O(log base φ of n) (i.e. logarithmic time in Big-O Notation).
+ * 
+ * What that means is that, as the total number of elements in the array increases,
+ * the worst-case scenario (i.e. least time-efficient) execution time of that algorithm increases at
+ * a rate which is logarithmically proportional to the array length increase
+ * (which means that the execution time, O, increases at a slower rate than does the array length, N).
+ * 
+ * Note that, in this context, phi (i.e. φ) represents the Golden Ratio.
  */
 int fibonacci_search(int * A, int N, int x)
 {
@@ -617,7 +630,7 @@ int fibonacci_search(int * A, int N, int x)
     int fibMMm1 = 1;  // (m-1)'th Fibonacci number
     int fibM = fibMMm2 + fibMMm1;  // m'th Fibonacci number
 
-    // fibM is the smallest Fibonacci number greater than or equal to N
+    // fibM is the smallest Fibonacci number greater than or equal to N.
     while (fibM < N) 
     {
         fibMMm2 = fibMMm1;
@@ -625,38 +638,36 @@ int fibonacci_search(int * A, int N, int x)
         fibM = fibMMm2 + fibMMm1;
     }
 
-    // Marks the eliminated range from front
+    // The offset denotes the eliminated range from the front of the array.
     int offset = -1;
 
-    // While there are elements to be inspected
-    while (fibM > 1) {
-        // Check if fibMMm2 is a valid location
+    // While there are elements to be inspected...
+    while (fibM > 1) 
+    {
+        // Determine whether fibMMm2 is a valid location
         int i = std::min(offset + fibMMm2, N - 1);
 
-        // If x is greater than the value at index fibMMm2, cut the subarray from offset to i
-        if (A[i] < x) {
+        // If x is larger than the value at A[fibMMm2], then eliminate searching through the subarray from A[offset] to A[i].
+        if (A[i] < x) 
+        {
             fibM = fibMMm1;
             fibMMm1 = fibMMm2;
             fibMMm2 = fibM - fibMMm1;
             offset = i;
         }
-        // If x is less than the value at index fibMMm2, cut the subarray after i+1
-        else if (A[i] > x) {
+        // If x is smaller than the value at A[fibMMm2], then eliminate searching through the subarray to the right of A[i+1].
+        else if (A[i] > x) 
+        {
             fibM = fibMMm2;
             fibMMm1 = fibMMm1 - fibMMm2;
             fibMMm2 = fibM - fibMMm1;
         }
-        // Element found, return index
-        else {
-            return i;
-        }
+        // If x is equal to the value at A[fibMMm2], then return the index of the current array element.
+        else return i;
     }
 
-    // Comparing the last element with x
-    if (fibMMm1 && A[offset + 1] == x) 
-    {
-        return offset + 1;
-    }
+    // If the last element in the array (or subarray) is equal to the target value, x, then return the index of that last array element.
+    if (fibMMm1 && A[offset + 1] == x) return offset + 1;
 
     // Return -1 if the target value, x, is not found in A.
     return -1;
