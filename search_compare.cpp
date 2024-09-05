@@ -9,11 +9,12 @@
 /* preprocessing directives */
 #include <iostream> // library for defining objects which handle command line input (std::cin) and command line output (std::cout)
 #include <fstream> // library for defining objects which handle file input (std::ifstream) and file output (std::ostream)
-#include <cmath> // library for square root function (std::sqrt) and absolute value function (std::abs)
+#include <cmath> // library for square root function (std::sqrt) 
 #include <cstdlib> // library for generating a random number (std::rand)
 #include <ctime> // library for function which returns the number of seconds elapsed since the Unix Epoch (std::time(0))
 #include <chrono> // library for calculating search algorithm runtimes
 #include <iomanip>  // library for formatting floating-point numbers ((std::fixed) and (std::setprecision))
+#include <algorithm> // library for function which finds the minimum value in a pair of values (std::min)
 #define MAXIMUM_N 100000 // constant which represents maximum N value
 #define MAXIMUM_T 100000 // constant which represents maximum T value
 
@@ -22,7 +23,7 @@ int * generate_randomized_array(int N, int T);
 void print_array(int * A, int N, std::ostream & output);
 void bubble_sort(int * A, int S); // copied from: https://karbytesforlifeblog.wordpress.com/sort_compare/
 int linear_search(int * A, int N, int x); // choice 0
-int binary_search(int * A, int N, int x); // choice 1
+int binary_search(int * A, int left, int right, int x); // choice 1
 int ternary_search(int * A, int left, int right, int x); // choice 2
 int fibonacci_search(int * A, int N, int x); // choice 3
 int exponential_search(int * A, int N, int x); // choice 4
@@ -253,8 +254,8 @@ int main()
         file << "\n\nWARNING: c was reset to 0 because the user input value for c was out of range.";
     }
 
-    // If BINARY_SEARCH, TERNARY_SEARCH, of FIBONACCI_SEARCH was selected, then arrange the elements of A in ascending order before calculating search algorithm runtime.
-    if ((c == 1) || (c == 2) || (c == 3)) bubble_sort(A, N);
+    // If BINARY_SEARCH, TERNARY_SEARCH, FIBONACCI_SEARCH, EXPONENTIAL_SEARCH, or JUMP_SEARCH was selected, then arrange the elements of A in ascending order before calculating search algorithm runtime.
+    if ((c == 1) || (c == 2) || (c == 3) || (c == 4) || (c == 5)) bubble_sort(A, N);
 
     // Print a horizontal divider line to the command line terminal.
     std::cout << "\n\n--------------------------------";
@@ -287,7 +288,7 @@ int main()
             r = ternary_search(A, 0, N - 1, x);
             break;
         case 1:
-            r = binary_search(A, N, x);
+            r = binary_search(A, 0, N - 1, x);
             break;
         default:
             r = linear_search(A, N, x);
@@ -461,6 +462,12 @@ void bubble_sort(int * A, int S)
  * 
  * ------
  * 
+ * ChatGPT-4o Summary: 
+ * 
+ * Linear search is the simplest searching algorithm that checks each element of the data structure sequentially until the desired element is found or the structure is exhausted.
+ * 
+ * ------
+ * 
  * Note that the LINEAR_SEARCH algorithm has a time complexity of O(N) (i.e. linear time in Big-O Notation).
  * 
  * What that means is that, as the total number of elements in the array increases,
@@ -494,11 +501,19 @@ int linear_search(int * A, int N, int x)
  * 
  * NOTE THAT THIS FUNCTION ASSUMES THAT THE ELEMENTS OF A ARE ARRANGED IN ASCENDING ORDER!
  * 
- * Assume that A is a pointer-to-int variable which stores the memory address of A[0].
+ * Assume that A is a pointer-to-int variable which stores the memory address of A[0] (i.e. the left-most element of A).
  * 
- * Assume that N is the total number of elements in the single-dimensional int-type array named A.
+ * Assume that left is the value zero.
+ * 
+ * Assume that right is a nonnegative integer representing the index of the right-most element of A.
  * 
  * Assume that x is an int-type value.
+ * 
+ * ------
+ * 
+ * ChatGPT-4o Summary: 
+ * 
+ * Binary search is a highly efficient algorithm that works on sorted arrays. It repeatedly divides the search interval in half and compares the middle element with the target value.
  * 
  * ------
  * 
@@ -508,11 +523,13 @@ int linear_search(int * A, int N, int x)
  * the worst-case scenario (i.e. least time-efficient) execution time of that algorithm increases at
  * a rate which is logarithmically proportional to the array length increase
  * (which means that the execution time, O, increases at a slower rate than does the array length, N).
+ * 
+ * ------
+ * 
+ * Summary: 
  */
-int binary_search(int * A, int N, int x)
+int binary_search(int * A, int left, int right, int x)
 {
-    int left = 0;
-    int right = N - 1;
 
     while (left <= right) 
     {
@@ -560,6 +577,12 @@ int binary_search(int * A, int N, int x)
  * Assume that right is a nonnegative integer representing the index of the right-most element of A.
  * 
  * Assume that x is an int-type value.
+ * 
+ * ------
+ * 
+ * ChatGPT-4o Summary: 
+ * 
+ * Ternary search is similar to binary search but divides the array into three parts and checks two middle points instead of one. It's typically used in unimodal functions (functions that have a single peak or trough).
  * 
  * ------
  * 
@@ -612,6 +635,12 @@ int ternary_search(int * A, int left, int right, int x)
  * 
  * Assume that x is an int-type value.
  * 
+ * ------
+ * 
+ * ChatGPT-4o Summary: 
+ * 
+ * Fibonacci search is similar to binary search but uses Fibonacci numbers to divide the array into sub-arrays. This method minimizes the number of comparisons. 
+ *
  * ------
  * 
  * Note that the FIBONACCI_SEARCH algorithm has a time complexity of O(log base φ of n) (i.e. logarithmic time in Big-O Notation).
@@ -673,16 +702,116 @@ int fibonacci_search(int * A, int N, int x)
     return -1;
 }
 
-//...
+/**
+ * Use the EXPONENTIAL_SEARCH algorithm to find the first instance of a given integer value, x, in an array of integers named A.
+ * 
+ * If x is determined to be the value of an element in A, 
+ * then return the index number of the array element which stores that value named x.
+ * 
+ * Otherwise (i.e. if x is not found in that array), return negative one.
+ * 
+ * NOTE THAT THIS FUNCTION ASSUMES THAT THE ELEMENTS OF A ARE ARRANGED IN ASCENDING ORDER!
+ * 
+ * Note also that this function uses the previously defined function for BINARY_SEARCH as a "helper function".
+ * 
+ * Assume that A is a pointer-to-int variable which stores the memory address of A[0].
+ * 
+ * Assume that N is the total number of elements in the single-dimensional int-type array named A.
+ * 
+ * Assume that x is an int-type value.
+ * 
+ * ------
+ * 
+ * ChatGPT-4o Summary: 
+ * 
+ * Exponential search finds the range in which the element is located and then performs a binary search within that range. It starts with a sub-array size of 1 and doubles it each time.
+ *
+ * ------
+ * 
+ * Note that the EXPONENTIAL_SEARCH algorithm has a time complexity of O(log base 2 of N) (i.e. logarithmic time in Big-O Notation).
+ * 
+ * What that means is that, as the total number of elements in the array increases,
+ * the worst-case scenario (i.e. least time-efficient) execution time of that algorithm increases at
+ * a rate which is logarithmically proportional to the array length increase
+ * (which means that the execution time, O, increases at a slower rate than does the array length, N).
+ */
 int exponential_search(int * A, int N, int x)
 {
-    //...
-    return 0;
+    // If the target value is found at the first element of the array, then return the index of that element.
+    if (A[0] == x) return 0;
+
+    // Find the range for the binary search by repeated doubling of the array index value.
+    int i = 1;
+    while (i < N && A[i] <= x) i = i * 2;
+
+    // Perform a binary search on the found range.
+    return binary_search(A, i / 2, std::min(i, N - 1), x);
 }
 
-//...
+/**
+ * Use the JUMP_SEARCH algorithm to find the first instance of a given integer value, x, in an array of integers named A.
+ * 
+ * If x is determined to be the value of an element in A, 
+ * then return the index number of the array element which stores that value named x.
+ * 
+ * Otherwise (i.e. if x is not found in that array), return negative one.
+ * 
+ * NOTE THAT THIS FUNCTION ASSUMES THAT THE ELEMENTS OF A ARE ARRANGED IN ASCENDING ORDER!
+ * 
+ * Assume that A is a pointer-to-int variable which stores the memory address of A[0].
+ * 
+ * Assume that N is the total number of elements in the single-dimensional int-type array named A.
+ * 
+ * Assume that x is an int-type value.
+ * 
+ * ------
+ * 
+ * ChatGPT-4o Summary: 
+ * 
+ * Jump search works on sorted arrays by jumping ahead by fixed steps and then performing a linear search within the identified block.
+ *
+ * ------
+ * 
+ * Note that the JUMP_SEARCH algorithm has a time complexity of O(sqrt(n)) (i.e. square root time in Big-O Notation).
+ * 
+ * What that means is that, as the total number of elements in the array increases,
+ * the worst-case scenario (i.e. least time-efficient) execution time of that algorithm increases at
+ * a rate which is proportional to the square root of the array length increase
+ * (which means that the execution time, O, increases at a slower rate than does the array length, N).
+ */
 int jump_search(int * A, int N, int x)
 {
-    //...
-    return 0;
+    // Find the block size to be jumped.
+    int step = std::sqrt(N);
+
+    // Find the block where the target element value is present (if it is present).
+    int prev = 0;
+    while (A[std::min(step, N) - 1] < x) 
+    {
+        prev = step;
+        step += std::sqrt(N);
+        if (prev >= N) 
+        {
+            return -1; // Element not found.
+        }
+    }
+
+    // Linear search within the identified block.
+    while (A[prev] < x) 
+    {
+        prev++;
+        // If the next block or end of the array is reached, it is determined that the target element is not present.
+        if (prev == std::min(step, N)) 
+        {
+            return -1; // Element not found.
+        }
+    }
+
+    // Return the index of the array element which has the value x.
+    if (A[prev] == x) {
+        return prev;
+    }
+
+    // Return -1 if the target value, x, is not found in A.
+    return -1; 
 }
