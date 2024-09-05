@@ -354,7 +354,7 @@ int main()
  * This function returns a pointer-to-int value. Specifically, this function returns
  * the memory address of the first element of a dynamic array.
  * 
- * (A dynamic array is one whose size is not determined until program runtime (which means 
+ * (A dynamic array is an array whose size is not determined until program runtime (which means 
  * that the amount of contiguous memory cells needed to allocate to that array is unknown 
  * to the computer at program compile time (which is not the case for a static array 
  * (i.e. fixed-size array)))).
@@ -563,7 +563,7 @@ int binary_search(int * A, int N, int x)
  * 
  * ------
  * 
- * Note that the TERNARY_SEARCH algorithm has a time complexity of (log base 3 of N) (i.e. logarithmic time in Big-O Notation).
+ * Note that the TERNARY_SEARCH algorithm has a time complexity of O(log base 3 of N) (i.e. logarithmic time in Big-O Notation).
  * 
  * What that means is that, as the total number of elements in the array increases,
  * the worst-case scenario (i.e. least time-efficient) execution time of that algorithm increases at
