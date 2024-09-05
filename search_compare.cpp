@@ -1,7 +1,7 @@
 /**
  * file: search_compare.cpp
  * type: C++ (source file)
- * date: 04_SEPTEMBER_2023
+ * date: 05_SEPTEMBER_2023
  * author: karbytes
  * license: PUBLIC_DOMAIN
  */
@@ -222,12 +222,12 @@ int main()
     // Prompt the program user to input a value to store in the main function variable named c.
     std::cout << "\n\nSEARCH ALGORITHMS:\n";
     for (i = 0; i < l; i++) std::cout << "\n" << i << ": " << search_algorithm_names[i];
-    std::cout << "\n\nEnter either 0, 1, 2, 3, 4, or 5 to store in the variable named c and which represents one of the above search algorithm choices to implement (to return the first instance of x in A and to determine how long that takes in milliseconds): ";
+    std::cout << "\n\nEnter either 0, 1, 2, 3, 4, or 5 to store in the variable named c and which represents one of the above search algorithm choices to implement (to return the first instance of x in A and to determine how long that takes in seconds): ";
 
     // Print the above command line prompt to the output text file.
     file << "\n\nSEARCH ALGORITHMS:\n";
     for (i = 0; i < l; i++) file << "\n" << i << ": " << search_algorithm_names[i];
-    file << "\n\nEnter either 0, 1, 2, 3, 4, or 5 to store in the variable named c and which represents one of the above search algorithm choices to implement (to return the first instance of x in A and to determine how long that takes in milliseconds): ";
+    file << "\n\nEnter either 0, 1, 2, 3, 4, or 5 to store in the variable named c and which represents one of the above search algorithm choices to implement (to return the first instance of x in A and to determine how long that takes in seconds): ";
 
     /**
      * Scan the command line terminal for the most recent keyboard input value.
