@@ -253,8 +253,8 @@ int main()
         file << "\n\nWARNING: c was reset to 0 because the user input value for c was out of range.";
     }
 
-    // If the TERNARY_SEARCH was selected, then arrange the elements of A in ascending order before calculating search algorithm runtime.
-    if (c == 2) bubble_sort(A, N);
+    // If BINARY_SEARCH, TERNARY_SEARCH, of FIBONACCI_SEARCH was selected, then arrange the elements of A in ascending order before calculating search algorithm runtime.
+    if ((c == 1) || (c == 2) || (c == 3)) bubble_sort(A, N);
 
     // Print a horizontal divider line to the command line terminal.
     std::cout << "\n\n--------------------------------";
@@ -450,6 +450,15 @@ void bubble_sort(int * A, int S)
  * Assume that N is the total number of elements in the single-dimensional int-type array named A.
  * 
  * Assume that x is an int-type value.
+ * 
+ * ------
+ * 
+ * Note that the LINEAR_SEARCH algorithm has a time complexity of O(N) (i.e. linear time in Big-O Notation).
+ * 
+ * What that means is that, as the total number of elements in the array increases,
+ * the worst-case scenario (i.e. least time-efficient) execution time of that algorithm increases at
+ * a rate which is directly proportional to the array length increase
+ * (which means that the execution time, O, increases at the same rate as does the array length, N).
  */
 int linear_search(int * A, int N, int x)
 {
@@ -475,11 +484,22 @@ int linear_search(int * A, int N, int x)
  * 
  * Otherwise (i.e. if x is not found in that array), return negative one.
  * 
+ * NOTE THAT THIS FUNCTION ASSUMES THAT THE ELEMENTS OF A ARE ARRANGED IN ASCENDING ORDER!
+ * 
  * Assume that A is a pointer-to-int variable which stores the memory address of A[0].
  * 
  * Assume that N is the total number of elements in the single-dimensional int-type array named A.
  * 
  * Assume that x is an int-type value.
+ * 
+ * ------
+ * 
+ * Note that the BINARY_SEARCH algorithm has a time complexity of O(log(N)) (i.e. logarithmic time in Big-O Notation).
+ * 
+ * What that means is that, as the total number of elements in the array increases,
+ * the worst-case scenario (i.e. least time-efficient) execution time of that algorithm increases at
+ * a rate which is logarithmically proportional to the array length increase
+ * (which means that the execution time, O, increases at a slower rate than does the array length, N).
  */
 int binary_search(int * A, int N, int x)
 {
@@ -527,7 +547,7 @@ int binary_search(int * A, int N, int x)
  * 
  * Assume that A is a pointer-to-int variable which stores the memory address of A[0] (i.e. the left-most element of A).
  * 
- * Assume that left is the value zero (i.e. 0).
+ * Assume that left is the value zero.
  * 
  * Assume that right is a nonnegative integer representing the index of the right-most element of A.
  * 
@@ -559,11 +579,70 @@ int ternary_search(int * A, int left, int right, int x)
     return -1;
 }
 
-//...
+/**
+ * Use the FIBONACCI_SEARCH algorithm to find the first instance of a given integer value, x, in an array of integers named A.
+ * 
+ * If x is determined to be the value of an element in A, 
+ * then return the index number of the array element which stores that value named x.
+ * 
+ * Otherwise (i.e. if x is not found in that array), return negative one.
+ * 
+ * Assume that A is a pointer-to-int variable which stores the memory address of A[0].
+ * 
+ * Assume that N is the total number of elements in the single-dimensional int-type array named A.
+ * 
+ * Assume that x is an int-type value.
+ */
 int fibonacci_search(int * A, int N, int x)
 {
-    //...
-    return 0;
+    // Initialize the first two Fibonacci numbers.
+    int fibMMm2 = 0;  // (m-2)'th Fibonacci number
+    int fibMMm1 = 1;  // (m-1)'th Fibonacci number
+    int fibM = fibMMm2 + fibMMm1;  // m'th Fibonacci number
+
+    // fibM is the smallest Fibonacci number greater than or equal to N
+    while (fibM < N) 
+    {
+        fibMMm2 = fibMMm1;
+        fibMMm1 = fibM;
+        fibM = fibMMm2 + fibMMm1;
+    }
+
+    // Marks the eliminated range from front
+    int offset = -1;
+
+    // While there are elements to be inspected
+    while (fibM > 1) {
+        // Check if fibMMm2 is a valid location
+        int i = std::min(offset + fibMMm2, N - 1);
+
+        // If x is greater than the value at index fibMMm2, cut the subarray from offset to i
+        if (A[i] < x) {
+            fibM = fibMMm1;
+            fibMMm1 = fibMMm2;
+            fibMMm2 = fibM - fibMMm1;
+            offset = i;
+        }
+        // If x is less than the value at index fibMMm2, cut the subarray after i+1
+        else if (A[i] > x) {
+            fibM = fibMMm2;
+            fibMMm1 = fibMMm1 - fibMMm2;
+            fibMMm2 = fibM - fibMMm1;
+        }
+        // Element found, return index
+        else {
+            return i;
+        }
+    }
+
+    // Comparing the last element with x
+    if (fibMMm1 && A[offset + 1] == x) 
+    {
+        return offset + 1;
+    }
+
+    // Return -1 if the target value, x, is not found in A.
+    return -1;
 }
 
 //...
