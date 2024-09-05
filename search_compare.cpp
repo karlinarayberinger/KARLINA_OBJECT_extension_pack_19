@@ -494,7 +494,7 @@ int linear_search(int * A, int N, int x)
  * 
  * ------
  * 
- * Note that the BINARY_SEARCH algorithm has a time complexity of O(log(N)) (i.e. logarithmic time in Big-O Notation).
+ * Note that the BINARY_SEARCH algorithm has a time complexity of O(log base 2 of N) (i.e. logarithmic time in Big-O Notation).
  * 
  * What that means is that, as the total number of elements in the array increases,
  * the worst-case scenario (i.e. least time-efficient) execution time of that algorithm increases at
@@ -552,6 +552,15 @@ int binary_search(int * A, int N, int x)
  * Assume that right is a nonnegative integer representing the index of the right-most element of A.
  * 
  * Assume that x is an int-type value.
+ * 
+ * ------
+ * 
+ * Note that the TERNARY_SEARCH algorithm has a time complexity of (log base 3 of N) (i.e. logarithmic time in Big-O Notation).
+ * 
+ * What that means is that, as the total number of elements in the array increases,
+ * the worst-case scenario (i.e. least time-efficient) execution time of that algorithm increases at
+ * a rate which is logarithmically proportional to the array length increase
+ * (which means that the execution time, O, increases at a slower rate than does the array length, N).
  */
 int ternary_search(int * A, int left, int right, int x)
 {
