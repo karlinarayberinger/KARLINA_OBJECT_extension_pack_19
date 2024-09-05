@@ -39,20 +39,29 @@ int main()
     // Define a (static) array of C-strings (character arrays) for storing exactly six search algorithm names.
     const char * search_algorithm_names[] = {"LINEAR_SEARCH", "BINARY_SEARCH", "TERNARY_SEARCH", "FIBONACCI_SEARCH", "EXPONENTIAL_SEARCH", "JUMP_SEARCH"};
 
-    // Declare two chrono time point variables to use for calculating the runtime of a search algorithm function.
-    std::chrono::time_point<std::chrono::high_resolution_clock> start_point, end_point;
+    /**
+     * // Declare two chrono time point variables to use for calculating the runtime of a search algorithm function.
+     * 
+     * Note that the high_resolution_clock is typically monotonic, meaning it (almost) always increases and never goes backward 
+     * and is typically a measure of time elapsed since the harware system running this code last booted up.
+     * 
+     * The high_resolution_clock does not (usually) reset over time, but depending on the particular hardware system, 
+     * the high_resolution_clock value could overflow if a very long period passes since system boot.
+     * (though, according to ChatGPT-40) such a time period would usually be several years).
+     */
+    std::chrono::high_resolution_clock::time_point start_point, end_point;
 
-    // Declare one long long type variable for storing the number of milliseconds between start_point and end_point.
-    long long duration;
+    // Declare one chrono duration floating-point number type variable for storing the number of seconds between start_point and end_point.
+    std::chrono::duration<double> duration;
 
     // Declare a file output stream object.
     std::ofstream file;
 
-    // Set the number of digits of floating-point numbers which are printed to the command line terminal to 100 digits.
-    std::cout.precision(100);
+    // Set the number of digits of floating-point numbers which are printed to the command line terminal to 10 digits.
+    std::cout.precision(10);
 
-    // Set the number of digits of floating-point numbers which are printed to the file output stream to 100 digits.
-    file.precision(100);
+    // Set the number of digits of floating-point numbers which are printed to the file output stream to 10 digits.
+    file.precision(10);
 
     /**
      * If search_compare_output.txt does not already exist in the same directory as search_compare.cpp, 
@@ -258,7 +267,7 @@ int main()
     // Print "Using {search_algorithm_names[c]} to search for the value {x} in the array of {N} randomly-ordered int-type values named A..." to the output file stream.
     file << "\n\nUsing " << search_algorithm_names[c] << " to search for the value " << x << " in the array of " << N << " randomly-ordered int-type values named A...";
 
-    // Get the search function execution start time.
+    // Get the current time (which is obtained from the system clock of the hardware running this code) to store in the variable named end_point.
     start_point = std::chrono::high_resolution_clock::now();
 
     // Implement the user-selected search algorithm and store the search result in the variable named r.
@@ -284,11 +293,11 @@ int main()
             break;
     }
 
-    // Get the search function execution finish time.
+    // Get the current time (which is obtained from the system clock of the hardware running this code) to store in the variable named end_point.
     end_point = std::chrono::high_resolution_clock::now();
 
-    // Calculate the search function execution time in milliseconds.
-    duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_point - start_point).count();
+    // Calculate the search function execution time by calculating the (nonnegative number) difference between the value stored in end_point and the value stored in start_point.
+    duration = end_point - start_point;
 
     /**
      * If x was not found to be an element of the array named A, 
@@ -310,11 +319,11 @@ int main()
         file << "\n\nSearch Finished: The value " << x << " was found at array index " << r << " in the array named A.";    
     }
 
-    // Print the function execution runtime (in milliseconds) to the command line terminal.
-    std::cout << "\n\nThe " << search_algorithm_names[c] << " function runtime was " << duration << " milliseconds.";
+    // Print the function execution runtime (in seconds) to the command line terminal.
+    std::cout << "\n\nThe " << search_algorithm_names[c] << " function runtime was " << duration.count() << " seconds.";
 
-    // Print the function execution runtime (in milliseconds) to the output file stream.
-    file << "\n\nThe " << search_algorithm_names[c] << " function runtime was " << duration << " milliseconds.";
+    // Print the function execution runtime (in seconds) to the output file stream.
+    file << "\n\nThe " << search_algorithm_names[c] << " function runtime was " << duration.count() << " seconds.";
 
     // De-allocate memory which was used to instantiate the dynamically-allocated array named A.
     delete [] A;
