@@ -19,6 +19,7 @@
 /* function prototypes */
 int * generate_randomized_array(int N, int T);
 void print_array(int * A, int N, std::ostream & output);
+void bubble_sort(int * A, int S); // copied from: https://karbytesforlifeblog.wordpress.com/sort_compare/
 int linear_search(int * A, int N, int x); // choice 0
 int binary_search(int * A, int N, int x); // choice 1
 int ternary_search(int * A, int left, int right, int x); // choice 2
@@ -236,6 +237,9 @@ int main()
         file << "\n\nWARNING: c was reset to 0 because the user input value for c was out of range.";
     }
 
+    // If the TERNARY_SEARCH was selected, then arrange the elements of A in ascending order before calculating search algorithm runtime.
+    if (c == 2) bubble_sort(A, N);
+
     // Print a horizontal divider line to the command line terminal.
     std::cout << "\n\n--------------------------------";
 
@@ -383,6 +387,41 @@ void print_array(int * A, int N, std::ostream & output)
 }
 
 /**
+ * Use the Bubble Sort algorithm to arrange the elements of an int type array, 
+ * A, in ascending order.
+ * 
+ * Assume that the value which is passed into this function as A is the memory 
+ * address of the first element of a one-dimensional array of int type values.
+ * 
+ * Assume that the value which is passed into this function as S is the total 
+ * number of elements which comprise the array represented by A.
+ * 
+ * This function returns no value (but it does update the array 
+ * referred to as A if the elements of A are not already sorted in 
+ * ascending order). 
+ */
+void bubble_sort(int * A, int S)
+{
+    int i = 0, placeholder = 0; 
+    bool array_is_sorted = false, adjacent_elements_were_swapped = false;
+    while (!array_is_sorted)
+    {
+        adjacent_elements_were_swapped = false;
+        for (i = 1; i < S; i += 1)
+        {
+            if (A[i] < A[i - 1])
+            {
+                placeholder = A[i];
+                A[i] = A[i - 1];
+                A[i - 1] = placeholder;
+                adjacent_elements_were_swapped = true;
+            }
+        }
+        if (!adjacent_elements_were_swapped) array_is_sorted = true;
+    }
+}
+
+/**
  * Use the LINEAR_SEARCH algorithm to find the first instance of a given integer value, x, in an array of integers named A.
  * 
  * If x is determined to be the value of an element in A, 
@@ -430,6 +469,7 @@ int binary_search(int * A, int N, int x)
 {
     int left = 0;
     int right = N - 1;
+
     while (left <= right) 
     {
         /**
@@ -458,11 +498,49 @@ int binary_search(int * A, int N, int x)
     return -1; 
 }
 
-//...
+
+/**
+ * Use the TERNARY_SEARCH algorithm to find the first instance of a given integer value, x, in an array of integers named A.
+ * 
+ * If x is determined to be the value of an element in A, 
+ * then return the index number of the array element which stores that value named x.
+ * 
+ * Otherwise (i.e. if x is not found in that array), return negative one.
+ * 
+ * NOTE THAT THIS FUNCTION ASSUMES THAT THE ELEMENTS OF A ARE ARRANGED IN ASCENDING ORDER!
+ * 
+ * Assume that A is a pointer-to-int variable which stores the memory address of A[0] (i.e. the left-most element of A).
+ * 
+ * Assume that left is the value zero (i.e. 0).
+ * 
+ * Assume that right is a nonnegative integer representing the index of the right-most element of A.
+ * 
+ * Assume that x is an int-type value.
+ */
 int ternary_search(int * A, int left, int right, int x)
 {
-    //...
-    return 0;
+    if (right >= left) 
+    {
+        // Calculate the two mid points in A (or in the current subarray of A).
+        int mid1 = left + (right - left) / 3;
+        int mid2 = right - (right - left) / 3;
+
+        // Check if x is present at any of those mid points. If so, return the index of the first mid point where x is found.
+        if (A[mid1] == x) return mid1;
+        if (A[mid2] == x) return mid2;
+
+        // If x is present in the left one-third, return the index of the element of A where x is found.
+        if (x < A[mid1]) return ternary_search(A, left, mid1 - 1, x);
+
+        // If x is present in the right one-third, return the index of the element of A where x is found.
+        else if (x > A[mid2]) return ternary_search(A, mid2 + 1, right, x);
+    
+        // If x is present in the middle one-third, return the index of the element of A where x is found.
+        else return ternary_search(A, mid1 + 1, mid2 - 1, x); 
+    }
+
+    // Return -1 if the target value, x, is not found in A.
+    return -1;
 }
 
 //...
