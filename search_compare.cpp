@@ -13,6 +13,7 @@
 #include <cstdlib> // library for generating a random number (std::rand)
 #include <ctime> // library for function which returns the number of seconds elapsed since the Unix Epoch (std::time(0))
 #include <chrono> // library for calculating search algorithm runtimes
+#include <iomanip>  // library for formatting floating-point numbers ((std::fixed) and (std::setprecision))
 #define MAXIMUM_N 1000 // constant which represents maximum N value
 #define MAXIMUM_T 1000 // constant which represents maximum T value
 
@@ -57,11 +58,11 @@ int main()
     // Declare a file output stream object.
     std::ofstream file;
 
-    // Set the number of digits of floating-point numbers which are printed to the command line terminal to 10 digits.
-    std::cout.precision(10);
+    // Set the command line terminal output to fixed notation (rather than scientific notation) and set the precision of floating-point numerical values to 100 decimal places.
+    std::cout << std::fixed << std::setprecision(100);
 
-    // Set the number of digits of floating-point numbers which are printed to the file output stream to 10 digits.
-    file.precision(10);
+    // Set the output file stream output to fixed notation (rather than scientific notation) and set the precision of floating-point numerical values to 100 decimal places.
+    file << std::fixed << std::setprecision(100);
 
     /**
      * If search_compare_output.txt does not already exist in the same directory as search_compare.cpp, 
