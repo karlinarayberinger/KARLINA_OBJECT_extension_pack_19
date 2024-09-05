@@ -347,9 +347,17 @@ int main()
 }
 
 /**
- * This function returns an array consisting of exclusively N int-type elements 
+ * This function instantiates an array consisting of exclusively N int-type elements 
  * which each have a value which is no larger than T and such that those elements 
- * are arranged in a randomized order.
+ * are arranged in a randomized order. 
+ * 
+ * This function returns a pointer-to-int value. Specifically, this function returns
+ * the memory address of the first element of a dynamic array.
+ * 
+ * (A dynamic array is one whose size is not determined until program runtime (which means 
+ * that the amount of contiguous memory cells needed to allocate to that array is unknown 
+ * to the computer at program compile time (which is not the case for a static array 
+ * (i.e. fixed-size array)))).
  * 
  * N is assumed to be a natural number no larger than MAXIMUM_N.
  * 
