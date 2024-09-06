@@ -1,0 +1,12 @@
+/**
+ * file: karbytes_05_september_2024.txt
+ * type: plain-text
+ * date: 05_SEPTEMBER_2024
+ * author: karbytes
+ * license: PUBLIC_DOMAIN
+ */
+
+Some people think subjective existence is “just a movie” while some other people think that subjective existence is “actually a video-game”.
+
+I find it tempting to say that, while it is demonstratively possible to watch a movie inside of a video game, it is logically impossible to play a video game while merely watching “just a movie” in an entirely passive manner.
+
